@@ -1,0 +1,111 @@
+---
+const masters = [
+  { nm: 'Олена', img: 'quote.jpg' },
+  { nm: 'Ірина', img: 'model.jpg' },
+  { nm: 'Андрій', img: 'p1.jpg' },
+  { nm: 'Софія', img: 'p2.jpg' },
+];
+const times = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+const HOUR = 42;
+const bookings = [
+  { col:0, h:0, span:1, t:'Стрижка', w:'Олена М.', tone:'v' },
+  { col:1, h:1, span:1, t:'Манікюр', w:'Ірина П.', tone:'a' },
+  { col:3, h:2, span:1, t:'Фарбування', w:'Софія К.', tone:'g' },
+  { col:2, h:3, span:1, t:'Чоловіча стрижка', w:'Андрій Д.', tone:'b' },
+  { col:0, h:4, span:1, t:'Укладка', w:'Марія І.', tone:'v2' },
+  { col:1, h:6, span:1, t:'Педикюр', w:'Катерина С.', tone:'a' },
+  { col:3, h:7, span:1, t:'Брови', w:'Наталія Т.', tone:'g' },
+];
+const phoneRows = [
+  { t:'09:00', s:'Стрижка', w:'Олена М.', tone:'v' },
+  { t:'10:30', s:'Манікюр', w:'Ірина П.', tone:'a' },
+  { t:'12:00', s:'Чоловіча стрижка', w:'Андрій Д.', tone:'b' },
+  { t:'13:30', s:'Фарбування', w:'Софія К.', tone:'g' },
+  { t:'15:00', s:'Укладка', w:'Марія І.', tone:'v2' },
+  { t:'16:30', s:'Педикюр', w:'Катерина С.', tone:'a' },
+];
+const stats = [
+  { l:'Записів', v:'24', d:'+6 до вчора', ic:'cal' },
+  { l:'Дохід', v:'₴18 400', d:'+21%', ic:'money' },
+  { l:'Нових клієнтів', v:'7', d:'+3', ic:'users' },
+  { l:'Завантаженість', v:'82%', d:'+12%', ic:'target' },
+];
+const avs = ['quote.jpg','model.jpg','p1.jpg','p2.jpg'];
+---
+
+<section class="sec wrap reveal scsec">
+  <div class="sc-top">
+    <div class="sc-head">
+      <div class="kicker" style="color:var(--violet)">Ваш кабінет</div>
+      <h2 class="sh">Усе під контролем —<br>на компʼютері <span class="ac">й у телефоні</span></h2>
+      <p class="sub2">Керуйте записами, клієнтами та майстрами звідки зручно. Веб-кабінет і мобільний застосунок синхронізуються в реальному часі.</p>
+    </div>
+    <div class="sc-social">
+      <div class="sc-avs">
+        {avs.map(a => <span class="sc-av" style={`background-image:url(/img/${a})`}></span>)}
+        <span class="sc-av sc-avp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 6v12M6 12h12"/></svg></span>
+      </div>
+      <svg class="sc-ar sc-ar1" viewBox="0 0 130 86" fill="none" aria-hidden="true"><path d="M6,80 C44,76 86,70 112,26" stroke="#2A2230" stroke-width="2" stroke-linecap="round"/><path d="M112,26 l-16,5 M112,26 l-3,16" stroke="#2A2230" stroke-width="2" stroke-linecap="round"/></svg>
+      <p class="hand sc-note1">Уже 1 200+ бізнесів<br>керують процесами в Zapys24</p>
+    </div>
+  </div>
+
+  <div class="sc-stage">
+    <div class="sc-photo"></div>
+
+    <div class="sc-dash">
+      <div class="dbar">
+        <span class="dlogo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.2 2.3 3 3.4 5.5 3.6C17.2 8.1 18.3 9.9 20 11c-2.3 1.2-3.4 3-3.6 5.5C13.9 16.2 12.1 17.3 11 19c-1.2-2.3-3-3.4-5.5-3.6C5.8 12.9 4.7 11.1 3 10c2.3-1.2 3.4-3 3.6-5.5C9.1 4.2 10.9 3.1 12 2z"/></svg></span>
+        <span class="di on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg></span>
+        <span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0111 0M16 6.5a3 3 0 010 5.6M18.5 20a5.5 5.5 0 00-3-4.9"/></svg></span>
+        <span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg></span>
+        <span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V11M10 20V5M16 20v-6M22 20H2"/></svg></span>
+        <span class="di"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span>
+      </div>
+      <div class="dbody">
+        <div class="dhd"><b>Сьогодні, 14 травня</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="dch"><span class="dgut"></span>{masters.map(m => (<span class="dcolh"><span class="dcolav" style={`background-image:url(/img/${m.img})`}></span>{m.nm}</span>))}</div>
+        <div class="dcal">
+          <div class="dgut2">{times.map(t => <span>{t}</span>)}</div>
+          <div class="dboard">
+            {masters.map((m, ci) => (
+              <div class="dcol">
+                {bookings.filter(b => b.col === ci).map(b => (
+                  <div class={`dblk t-${b.tone}`} style={`top:${b.h*HOUR}px;height:${b.span*HOUR-6}px`}><b>{b.t}</b><i>{b.w}</i></div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sc-stats">
+      <div class="sc-stats-h">Показники сьогодні</div>
+      {stats.map(s => (
+        <div class="sc-stat">
+          <span class={`sc-stat-ic ic-${s.ic}`}>
+            {s.ic === 'cal' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4M9 14l2 2 4-4"/></svg>}
+            {s.ic === 'money' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg>}
+            {s.ic === 'users' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0111 0M16 6.5a3 3 0 010 5.6M18.5 20a5.5 5.5 0 00-3-4.9"/></svg>}
+            {s.ic === 'target' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>}
+          </span>
+          <div class="sc-stat-tx"><span class="l">{s.l}</span><b>{s.v}<em>{s.d}</em></b></div>
+        </div>
+      ))}
+    </div>
+
+    <div class="sc-phone">
+      <div class="sc-ph-top"><b>Сьогодні</b><svg class="ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg><svg class="cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg></div>
+      <div class="sc-ph-list">
+        {phoneRows.map(r => (
+          <div class="sc-ph-row"><span class="sc-ph-t">{r.t}</span><span class={`sc-ph-bar t-${r.tone}`}></span><span class="sc-ph-mid"><b>{r.s}</b><i>{r.w}</i></span><svg class="sc-ph-ch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div>
+        ))}
+      </div>
+      <div class="sc-ph-tab"><i class="on"></i><i></i><span class="sc-ph-plus">+</span><i></i><i></i></div>
+    </div>
+
+    <svg class="sc-ar sc-ar2" viewBox="0 0 140 116" fill="none" aria-hidden="true"><path d="M14,110 C18,64 36,34 118,20" stroke="#2A2230" stroke-width="2" stroke-linecap="round"/><path d="M118,20 l-17,-1 M118,20 l-9,14" stroke="#2A2230" stroke-width="2" stroke-linecap="round"/></svg>
+    <p class="hand sc-note2">Гнучке вікно запису<br>для ваших клієнтів —<br>менше дзвінків, більше часу<br>на те, що важливо</p>
+  </div>
+</section>

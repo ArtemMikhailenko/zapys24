@@ -1,0 +1,84 @@
+---
+const faqs = [
+  { q: 'Чи можна перенести базу клієнтів?', a: 'Так. Перенесемо вашу базу з Excel, Google-таблиць чи іншої системи безкоштовно — зазвичай за 1 день. Імпорт і перевірку даних беремо на себе.' },
+  { q: 'Потрібен власний сайт?', a: 'Ні. Сторінка онлайн-запису створюється автоматично — діліться посиланням або вбудуйте кнопку в Instagram чи на свій сайт.' },
+  { q: 'Ви берете комісію із записів?', a: 'Жодних відсотків із записів. Ви платите фіксовану підписку, а вся виручка лишається вашою — без прихованих платежів.' },
+  { q: 'Наскільки безпечні дані?', a: 'Дані шифруються та зберігаються на серверах у ЄС. Щоденні бекапи, а доступ — лише у вас і вашої команди. Експорт — будь-коли.' },
+  { q: 'Чи є мобільний застосунок?', a: 'Так, Zapys24 Pro для iOS та Android: розклад, клієнти й сповіщення завжди під рукою у майстрів і адміністратора.' },
+  { q: 'А якщо не підійде?', a: '14 днів безкоштовно, без прив’язки картки. Не сподобається — просто не продовжуєте, а дані віддамо.' },
+];
+// circle r=42% of the (square) stage, centre 50/50; angles -90,-30,30,90,150,210
+const pos = [
+  { l:'50%',   t:'8%',  up:false },
+  { l:'86.4%', t:'29%', up:false },
+  { l:'86.4%', t:'71%', up:true  },
+  { l:'50%',   t:'92%', up:true  },
+  { l:'13.6%', t:'71%', up:true  },
+  { l:'13.6%', t:'29%', up:false },
+];
+const dots = [
+  { l:'92%', t:'50%' }, { l:'71%', t:'86.4%' }, { l:'29%', t:'86.4%' },
+  { l:'8%', t:'50%' }, { l:'29%', t:'13.6%' }, { l:'71%', t:'13.6%' },
+];
+---
+
+<section class="sec wrap reveal faqsec" id="faq">
+  <div class="faq-head">
+    <div class="kicker">FAQ</div>
+    <h2 class="sh">Відповіді<br>на питання,<br><span class="ac">які важливі</span></h2>
+    <p class="sub2">Коротко про головне.<br>Без зайвої води.</p>
+    <div class="faq-deco" aria-hidden="true"><span class="faq-deco-ball"></span><span class="faq-deco-ball2"></span></div>
+  </div>
+
+  <div class="faq-stage">
+    <svg class="faq-rings" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <circle class="ring" cx="50" cy="50" r="42"></circle>
+      <circle class="ring" cx="50" cy="50" r="27"></circle>
+    </svg>
+    {dots.map(d => <span class="faq-dot" style={`left:${d.l};top:${d.t}`}></span>)}
+    <div class="faq-orb"><span>FAQ</span></div>
+    {faqs.map((f, i) => (
+      <div class={`faqp${pos[i].up ? ' up' : ''}`} data-i={i} style={`left:${pos[i].l};top:${pos[i].t}`}>
+        <button class="faqp-head" aria-expanded="false">
+          <span class="faqp-q">{f.q}</span>
+          <span class="faqp-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 6v12M6 12h12"></path></svg></span>
+        </button>
+        <div class="faqp-ans"><p>{f.a}</p></div>
+      </div>
+    ))}
+  </div>
+
+  <div class="faq-foot">
+    <div class="faq-ask">
+      <p class="hand faq-ask-q">Не знайшли відповідь?</p>
+      <a class="hand faq-ask-link" href="#">Напишіть нам</a>
+      <svg class="faq-ask-ar" viewBox="0 0 70 40" fill="none" aria-hidden="true"><path d="M4,10 C20,30 44,32 64,24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path><path d="M64,24 l-13,-2 M64,24 l-3,13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+    </div>
+    <a class="faq-chat" href="#"><span class="faq-chat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a7.5 7.5 0 01-10.9 6.7L4 20l1.8-5A7.5 7.5 0 1121 11.5z"></path></svg></span>Чат з підтримкою</a>
+    <div class="faq-nav">
+      <button class="faq-prev" aria-label="Попереднє питання"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
+      <button class="faq-next" aria-label="Наступне питання"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const pills = Array.from(document.querySelectorAll('.faqp'));
+  let openI = -1;
+  function apply() {
+    pills.forEach((p) => {
+      const on = +p.dataset.i === openI;
+      p.classList.toggle('open', on);
+      const h = p.querySelector('.faqp-head');
+      if (h) h.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+  }
+  pills.forEach((p) => {
+    const h = p.querySelector('.faqp-head');
+    if (h) h.addEventListener('click', () => { openI = openI === +p.dataset.i ? -1 : +p.dataset.i; apply(); });
+  });
+  const prev = document.querySelector('.faq-prev');
+  const next = document.querySelector('.faq-next');
+  if (prev) prev.addEventListener('click', () => { openI = (openI <= 0 ? pills.length : openI) - 1; apply(); });
+  if (next) next.addEventListener('click', () => { openI = (openI + 1) % pills.length; apply(); });
+</script>

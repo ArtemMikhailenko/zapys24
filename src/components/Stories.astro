@@ -1,0 +1,29 @@
+---
+const stories = [
+  { q: '«За перший місяць неявки впали вдвічі, а записи з Instagram перестали губитися. Тепер не уявляю роботу без цього.»', nm: 'Олена Кравець', rl: 'студія манікюру, Львів', img: 'quote.jpg', res: '+38% доходу', tone: 'g' },
+  { q: '«Клієнти бронюють самі — телефон більше не розривається весь день.»', nm: 'Андрій М.', rl: 'барбершоп, Київ', img: 'p1.jpg', res: '−40% дзвінків', tone: 'v' },
+  { q: '«Абонементи й розклад тренерів нарешті в одному місці, а не в трьох чатах.»', nm: 'Марина Л.', rl: 'фітнес-студія, Одеса', img: 'p2.jpg', res: '+25% продовжень', tone: 'g' },
+  { q: '«Бачу завантаження боксів на тиждень уперед і не тримаю все в голові.»', nm: 'Олег Д.', rl: 'автосервіс, Дніпро', img: 'p3.jpg', res: '+30% записів', tone: 'v' },
+  { q: '«Тренування, оренда денників і ветогляди — нарешті в одному календарі.»', nm: 'Ірина С.', rl: 'кінна стайня, Київщина', img: 'model.jpg', res: '+20% завантаження', tone: 'g' },
+];
+const loop = [...stories, ...stories];
+---
+
+<section class="sec wrap reveal secsurf storywall" id="stories">
+  <div class="kicker">Історії</div>
+  <h2 class="sh">Бізнеси, що перестали <span class="ac">втрачати</span> клієнтів</h2>
+  <div class="sw-track-wrap">
+    <div class="sw-track">
+      {loop.map((s, i) => (
+        <article class="sw-card" aria-hidden={i >= stories.length ? 'true' : null}>
+          <span class={`sw-res sw-${s.tone}`}>{s.res}</span>
+          <p class="sw-q">{s.q}</p>
+          <div class="sw-foot">
+            <span class="sw-av" style={`background-image:url(/img/${s.img})`}></span>
+            <span class="sw-id"><b>{s.nm}</b><i>{s.rl}</i></span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

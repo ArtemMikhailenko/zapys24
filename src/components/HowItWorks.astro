@@ -1,0 +1,88 @@
+---
+const services = [
+  { n: 'Стрижка', p: '300₴' },
+  { n: 'Манікюр', p: '250₴' },
+  { n: 'Фарбування', p: '800₴' },
+];
+const masters = [
+  { n: 'Олена', r: 'Перукар', img: 'quote.jpg' },
+  { n: 'Марія', r: 'Манікюр', img: 'model.jpg' },
+  { n: 'Андрій', r: 'Барбер', img: 'p1.jpg' },
+];
+const ic = {
+  upload: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/><path d="M12 18v-5M9.5 15l2.5-2.5 2.5 2.5"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l1.6 4.7L18 9.3l-4.4 1.6L12 16l-1.6-5.1L6 9.3l4.4-1.6z"/></svg>',
+  grip: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 6v12M6 12h12"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+  cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></svg>',
+  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20a6.5 6.5 0 0113 0"/></svg>',
+  link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l2-2a5 5 0 00-7-7l-1.2 1.1M14 11a5 5 0 00-7.5-.5l-2 2a5 5 0 007 7l1.2-1.1"/></svg>',
+  copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15V5a2 2 0 012-2h10"/></svg>',
+  bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>',
+  person: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20a6.5 6.5 0 0113 0"/></svg>',
+};
+---
+
+<section class="sec wrap reveal hiwsec">
+  <div class="hiw-head">
+    <div class="kicker">Як це працює</div>
+    <h2 class="sh">Перший запис — за <span class="ac">3 кроки</span></h2>
+    <p class="sub2">Без складного налаштування — від старту до першого онлайн-запису за кілька хвилин.</p>
+  </div>
+
+  <div class="hiw-grid">
+    <svg class="hiw-wire" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="hwire" d="M29,46 C33,30 35,29 38.5,33"></path>
+      <path class="hwire" d="M61.5,33 C65,29 67,30 71,46"></path>
+    </svg>
+    <span class="hiw-dot" style="left:44%;top:21%"></span>
+    <span class="hiw-dot" style="left:56%;top:21%"></span>
+    <span class="hiw-dot" style="left:50%;top:60%"></span>
+    <span class="hconn hconn-1" set:html={ic.person}></span>
+    <span class="hconn hconn-2" set:html={ic.check}></span>
+
+    <article class="hcard">
+      <header class="hcard-h"><span class="hnum">1</span><div class="hcard-t"><b>Створіть кабінет</b><p>Назва бізнесу, контакти — і можна починати.</p></div></header>
+      <div class="hmock">
+        <div class="hmock-top"><span class="hmt-ic" set:html={ic.upload}></span>Новий кабінет<span class="hmt-spark" set:html={ic.spark}></span></div>
+        <div class="hfield"><label>Назва бізнесу</label><div class="hinput">Beauty Studio</div></div>
+        <div class="hfield"><label>Телефон</label><div class="hinput">+380 50 123 45 67</div></div>
+        <div class="hfield"><label>Адреса</label><div class="hinput">Київ, вул. Саксаганського, 20</div></div>
+        <a class="hbtn" href="#">Створити кабінет</a>
+      </div>
+    </article>
+
+    <article class="hcard">
+      <header class="hcard-h"><span class="hnum">2</span><div class="hcard-t"><b>Додайте послуги й майстрів</b><p>Налаштуйте ціни, тривалість і графік роботи.</p></div></header>
+      <div class="hmock">
+        <div class="hmock-lbl">Послуги</div>
+        <div class="hsvc">
+          {services.map(s => (<span class="hsvc-p"><i class="grip" set:html={ic.grip}></i>{s.n}<b>{s.p}</b></span>))}
+          <span class="hsvc-add"><i set:html={ic.plus}></i>Додати послугу</span>
+        </div>
+        <div class="hmock-lbl hmock-lbl2">Майстри</div>
+        <div class="hmasters">
+          {masters.map(m => (<div class="hmaster"><span class="hm-av" style={`background-image:url(/img/${m.img})`}></span><b>{m.n}</b><i>{m.r}</i></div>))}
+          <span class="hmaster-add" set:html={ic.plus}></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="hcard">
+      <header class="hcard-h"><span class="hnum">3</span><div class="hcard-t"><b>Отримайте перший запис</b><p>Поділіться посиланням — клієнт бронює сам, а запис одразу з’являється в системі.</p></div></header>
+      <div class="hmock hmock-green">
+        <div class="hbk-h"><span class="hbk-check" set:html={ic.check}></span><div><b>Новий запис!</b><i>Сьогодні, 14:30</i></div></div>
+        <div class="hbk-client"><span class="hbk-av" style="background-image:url(/img/quote.jpg)"></span><div><b>Анна Коваль</b><i>Стрижка</i></div></div>
+        <div class="hbk-meta"><span><i set:html={ic.cal}></i>14 червня, 14:30</span><span><i set:html={ic.user}></i>Олена</span></div>
+        <a class="hbtn hbtn-out" href="#">Перейти до розкладу</a>
+      </div>
+    </article>
+  </div>
+
+  <div class="hchip hchip-link"><span class="hchip-ic" set:html={ic.link}></span>Поділитися посиланням</div>
+  <div class="hchip hchip-done"><span class="hchip-ic green" set:html={ic.check}></span><div class="hchip-tx"><b>Кабінет створено</b><i>Усе готово до налаштування</i></div></div>
+  <div class="hchip hchip-url"><span class="hchip-ic" set:html={ic.link}></span>your.zapys24.com/beauty<span class="hchip-copy" set:html={ic.copy}></span></div>
+  <div class="hchip hchip-notif"><span class="hchip-ic violet" set:html={ic.bell}></span><div class="hchip-tx"><span class="hn-top"><b>Zapys24</b><i>зараз</i></span><p>Новий запис: Анна Коваль<br>14 червня, 14:30</p></div></div>
+  <!-- <svg class="hiw-arrow" viewBox="0 0 80 54" fill="none" aria-hidden="true"><path d="M4,20 C24,6 50,8 72,30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path><path d="M72,30 l-15,-3 M72,30 l-3,15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></svg> -->
+</section>

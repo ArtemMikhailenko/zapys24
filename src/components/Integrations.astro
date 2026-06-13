@@ -1,0 +1,43 @@
+---
+const nodes = [
+  { i: 0, nm: 'Instagram', img: 'instagram.svg', bg: 'linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)', x: '18%', y: '20%', d: '.05s' },
+  { i: 1, nm: 'Google', img: 'google.svg', bg: '#4285F4', x: '11%', y: '50%', d: '.12s' },
+  { i: 2, nm: 'Monobank', img: 'monobank.svg', bg: '#1A1A1A', x: '18%', y: '80%', d: '.19s' },
+  { i: 3, nm: 'SMS', img: 'sms.svg', bg: '#37A05A', x: '82%', y: '20%', d: '.08s' },
+  { i: 4, nm: 'Viber', img: 'viber.svg', bg: '#7360F2', x: '89%', y: '50%', d: '.15s' },
+  { i: 5, nm: 'Telegram', img: 'telegram.svg', bg: '#26A5E4', x: '82%', y: '80%', d: '.22s' },
+];
+const wires = [
+  'M180,92 Q330,150 500,230',
+  'M110,230 Q300,222 500,230',
+  'M180,368 Q330,310 500,230',
+  'M820,92 Q670,150 500,230',
+  'M890,230 Q700,222 500,230',
+  'M820,368 Q670,310 500,230',
+];
+---
+
+<section class="sec wrap reveal intsec">
+  <div class="int-wave"></div>
+  <div class="kicker">Інтеграції</div>
+  <h2 class="sh" style="margin-top:14px">Працює з тим, чим ви вже <span class="ac">користуєтесь</span></h2>
+  <div class="inthub">
+    <svg class="int-orbit" viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <ellipse class="orb" cx="500" cy="230" rx="300" ry="150"></ellipse>
+      <ellipse class="orb" cx="500" cy="230" rx="196" ry="104"></ellipse>
+      {wires.map((d, i) => <path id={`path${i}`} class="intwire" d={d}></path>)}
+      {wires.map((d, i) => (
+        <g class="pkt"><circle r="9" class="pkth"></circle><circle r="4" class="pktd"></circle><animateMotion dur="2.6s" begin={`${i * 0.4}s`} repeatCount="indefinite"><mpath href={`#path${i}`}></mpath></animateMotion></g>
+      ))}
+    </svg>
+    <div class="hubpulse"></div>
+    <div class="inthubc" role="img" aria-label="Zapys24"></div>
+    <div class="hubcap">zapys24 · <b id="intcount">1 247</b> записів сьогодні</div>
+    {nodes.map(n => (
+      <div class="intnode" data-i={n.i} style={`left:${n.x};top:${n.y};--d:${n.d}`}>
+        <span class="ic" style={`background:${n.bg}`}><img src={`/img/logos/${n.img}`} alt={n.nm} /></span>
+        <span class="nt">{n.nm}</span>
+      </div>
+    ))}
+  </div>
+</section>
