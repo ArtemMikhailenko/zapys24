@@ -548,7 +548,7 @@ h2.sh .ac{color:var(--violet)}
 /* before / after (static) */
 .baw{position:relative;margin-top:34px}
 .ba-inner{position:relative;min-height:520px;margin-right:0}
-.ba-photo{position:absolute;left:0;top:6px;bottom:6px;width:49%;border-radius:var(--r-xl);background-size:cover;background-position:center;box-shadow:0 38px 78px -34px rgba(42,14,55,.42);z-index:1}
+.ba-photo{position:absolute;left:0;top:6px;bottom:6px;width:49%;border-radius:var(--r-xl);border:11px solid rgba(255,255,255,.85);background-size:cover;background-position:center;box-shadow:0 38px 78px -34px rgba(42,14,55,.42),0 0 0 1px rgba(124,58,237,.07);z-index:1}
 .bap-b{position:absolute;top:6px;right:74px;bottom:6px;width:50%;background:linear-gradient(165deg,#F4EFFD,#E8E1FA);border-radius:var(--r-xl);box-shadow:0 38px 78px -34px rgba(42,14,55,.42);padding:28px 34px 24px;display:flex;flex-direction:column;z-index:2}
 .ba-chips{position:absolute;right:-56px;top:0;height:100%;width:160px;display:flex;flex-direction:column;justify-content:center;gap:15px;z-index:5}
 .ba-chip{position:relative;overflow:hidden;display:flex;align-items:center;gap:11px;background:linear-gradient(152deg,rgba(255,255,255,.42),rgba(255,255,255,.12));backdrop-filter:blur(26px) saturate(190%);-webkit-backdrop-filter:blur(26px) saturate(190%);border:1px solid rgba(255,255,255,.5);border-radius:var(--r-md);padding:12px 14px;box-shadow:0 26px 52px -26px rgba(42,14,55,.4),inset 0 1px 1px rgba(255,255,255,.78)}
@@ -719,13 +719,13 @@ h2.sh .ac{color:var(--violet)}
 
 /* ===== FAQ — glass-orb orbital (v2) ===== */
 .faqsec{position:relative;min-height:772px;padding-bottom:30px}
-.faqsec::before{content:"";position:absolute;top:-44px;bottom:-44px;left:50%;transform:translateX(-50%);width:100vw;background:linear-gradient(180deg,#fff,rgba(255,255,255,.8) 18%,rgba(255,255,255,.78) 82%,#fff),url(/img/beauty.jpg) center/cover;filter:blur(7px);z-index:0;pointer-events:none}
+.faqsec::before{content:"";position:absolute;top:-44px;bottom:-44px;left:50%;transform:translateX(-50%);width:100vw;background:#fff;z-index:0}
 .faqsec>*{position:relative;z-index:1}
 .faq-head{position:absolute;left:0;top:54px;width:400px;z-index:4}
 .faq-head .kicker{color:var(--violet)}
 .faq-head h2.sh{margin-top:16px;font-size:46px;line-height:1.04;letter-spacing:-.02em}
 .faq-head .sub2{margin-top:24px;max-width:300px;font-size:16px}
-.faq-deco{display:none}
+.faq-deco{position:absolute;left:-44px;top:310px;width:300px;height:230px;pointer-events:none}
 .faq-deco-ball{position:absolute;left:118px;top:24px;width:122px;height:122px;border-radius:50%;background:radial-gradient(circle at 36% 30%,rgba(255,255,255,.92),#CBA9F6 38%,#9A6BF0 64%,#6D28D9 100%);box-shadow:inset -14px -18px 38px rgba(74,26,150,.5),inset 12px 14px 30px rgba(255,255,255,.6),0 32px 52px -16px rgba(124,58,237,.5)}
 .faq-deco-ball2{position:absolute;left:58px;top:150px;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 36% 30%,rgba(255,255,255,.95),rgba(220,210,250,.5) 55%,rgba(160,130,235,.4));box-shadow:inset -6px -8px 18px rgba(124,58,237,.3),inset 6px 6px 16px rgba(255,255,255,.8),0 18px 30px -12px rgba(124,58,237,.4)}
 
