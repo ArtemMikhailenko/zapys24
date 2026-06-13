@@ -764,7 +764,9 @@ h2.sh .ac{color:var(--violet)}
 .faq-prev svg,.faq-next svg{width:22px;height:22px}
 
 /* ===== HOW IT WORKS — 3 steps ===== */
-.hiwsec{position:relative;max-width:1360px;padding-bottom:158px}
+.hiwsec{position:relative;isolation:isolate;max-width:1360px;padding-bottom:158px}
+/* realism: barely-there blurred salon interior behind the steps (glass cards float over it) */
+.hiwsec::before{content:"";position:absolute;top:120px;bottom:80px;left:50%;transform:translateX(-50%);width:100vw;background:linear-gradient(180deg,#fff,rgba(255,255,255,.72) 22%,rgba(255,255,255,.7) 78%,#fff),url(/img/hw1.jpg) center/cover;filter:blur(6px);z-index:-1;pointer-events:none}
 .hiw-head{text-align:center;max-width:none;margin:0 auto}
 .hiw-head .kicker{color:var(--violet)}
 .hiw-head h2.sh{margin:14px auto 0;max-width:none;text-align:center;font-size:clamp(28px,4vw,46px);white-space:nowrap}
