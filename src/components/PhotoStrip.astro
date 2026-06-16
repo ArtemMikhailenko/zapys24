@@ -1,0 +1,16 @@
+---
+// decorative editorial collage — small photos at angles, bleeding off the screen edges
+const shots = [
+  { img: 'owner.jpg', l: '-3%', t: '42px', w: 300, h: 188, r: -5, z: 2 },
+  { img: 'model.jpg', l: '17%', t: '6px',  w: 198, h: 250, r: 5,  z: 4 },
+  { img: 'horse.jpg', l: '39%', t: '54px', w: 292, h: 192, r: -3, z: 3 },
+  { img: 'auto.jpg',  l: '65%', t: '16px', w: 214, h: 238, r: 4,  z: 4 },
+  { img: 'spa.jpg',   l: '84%', t: '46px', w: 300, h: 190, r: -5, z: 2 },
+];
+---
+
+<section class="collage-sec" aria-hidden="true">
+  {shots.map(s => (
+    <div class="collage-img" style={`left:${s.l};top:${s.t};width:${s.w}px;height:${s.h}px;transform:rotate(${s.r}deg);z-index:${s.z};background-image:url(/img/${s.img})`}></div>
+  ))}
+</section>

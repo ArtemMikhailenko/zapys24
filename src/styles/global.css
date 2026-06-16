@@ -842,6 +842,10 @@ h2.sh .ac{color:var(--violet)}
 .hn-top{display:flex;align-items:baseline;gap:8px}
 .hn-top b{font-size:13px;font-weight:700}.hn-top i{font-size:11px;font-style:normal;color:var(--muted)}
 
+/* ===== decorative photo collage (bleeds off screen edges) ===== */
+.collage-sec{position:relative;left:50%;transform:translateX(-50%);width:100vw;height:300px;margin:30px 0 50px;overflow:hidden;pointer-events:none;z-index:1}
+.collage-img{position:absolute;border-radius:var(--r-md);background-size:cover;background-position:center;border:6px solid #fff;box-shadow:0 30px 62px -28px rgba(42,14,55,.5),0 0 0 1px rgba(124,58,237,.06);filter:saturate(1.04)}
+
 /* faq */
 .faq{margin-top:28px;max-width:840px}
 .faq details{border-bottom:1px solid rgba(25,16,23,.1)}
@@ -945,6 +949,7 @@ h2.sh .ac{color:var(--violet)}
   .faqp.up .faqp-ans{bottom:auto;top:auto}
   .faq-foot{position:static;flex-wrap:wrap;gap:16px;margin-top:24px}.faq-ask{margin-left:0}.faq-chat{margin-left:0}.faq-nav{margin-left:auto}
   .hiwsec{padding-bottom:20px}
+  .collage-sec{display:none}
   .hiw-head h2.sh{white-space:normal;font-size:30px}
   .hiw-grid{grid-template-columns:1fr;gap:18px}
   .hcard:nth-of-type(1),.hcard:nth-of-type(3){margin-top:0}
