@@ -1,57 +1,44 @@
-<section class="sec wrap reveal res">
-  <div class="res-grid">
-    <div class="res-text">
-      <div class="kicker">Результат</div>
-      <h2 class="sh">Цифри вже<br>в <span class="ac">перший місяць</span></h2>
-      <p class="res-sub">Наші клієнти швидко відчувають ефект: більше записів, менше рутини та задоволені клієнти з перших тижнів роботи.</p>
-      <div class="res-soc">
-        <div class="res-avs">
-          <span style="background-image:url(/img/quote.jpg)"></span>
-          <span style="background-image:url(/img/p1.jpg)"></span>
-          <span style="background-image:url(/img/model.jpg)"></span>
-          <span style="background-image:url(/img/p2.jpg)"></span>
-          <span style="background-image:url(/img/p3.jpg)"></span>
-          <span class="res-avp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 6v12M6 12h12"/></svg></span>
-        </div>
-        <div class="res-socn">1 200+ бізнесів вже з нами</div>
-      </div>
-      <div class="res-dark">
-        <div class="rd-top"><div class="rd-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M16 7h5v5"/></svg></div><div class="rd-lab">Завантаженість<br>майстра</div></div>
-        <div class="rd-v">92%</div>
-        <div class="rd-sub"><i></i>на рутинних послугах</div>
+---
+const arrow = '<svg viewBox="0 0 120 82" fill="none" aria-hidden="true"><path d="M6 18 C48 6 96 14 108 58" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/><path d="M108 58 l-17 -3 M108 58 l-2 -17" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/></svg>';
+const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const vals = [
+  { ic: S('<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M16 3l0 4"/><path d="M8 3l0 4"/><path d="M4 11l16 0"/><path d="M8 15h2v2h-2l0 -2"/>'),
+    t: 'Онлайн-запис 24/7', d: 'клієнти бронюють самі, без дзвінків і переписок', c: 'v' },
+  { ic: S('<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
+    t: 'Авто-нагадування', d: 'менше неявок і забутих візитів', c: 'a' },
+  { ic: S('<path d="M12 3l8 4.5v9l-8 4.5l-8 -4.5v-9l8 -4.5"/><path d="M12 12l8 -4.5"/><path d="M12 12l0 9"/><path d="M12 12l-8 -4.5"/>'),
+    t: 'Усе в одному місці', d: 'календар, клієнти, послуги та оплати', c: 'g' },
+];
+---
+
+<section class="rz reveal">
+  <div class="rz-in">
+    <div class="rz-text">
+      <div class="kicker">Чому Zapys24</div>
+      <h2 class="rz-h">Zapys24 бере<br><span class="ac">рутину на себе</span></h2>
+      <p class="rz-lead">Онлайн-запис, нагадування та облік працюють автоматично — а ви займаєтесь тим, що любите, і не гаєте час на рутину.</p>
+
+      <div class="rz-vals">
+        {vals.map(v => (
+          <div class="rz-val">
+            <span class={`rz-val-ic n-${v.c}`} set:html={v.ic}></span>
+            <div class="rz-val-tx"><b>{v.t}</b><i>{v.d}</i></div>
+          </div>
+        ))}
       </div>
     </div>
-    <div class="res-photo">
-      <div class="res-pic"><img src="/img/res.jpg" alt="Власниця бізнесу"></div>
-      <!-- <div class="rp-card rp-trend">
-        <span class="rpc-l">Записів цього місяця</span>
-        <div class="rpc-trow"><b>+41%</b><span class="rpc-up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg></span></div>
-        <svg class="rpc-spark" viewBox="0 0 200 40" preserveAspectRatio="none">
-          <defs><linearGradient id="rsg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C3AED" stop-opacity=".16"/><stop offset="1" stop-color="#7C3AED" stop-opacity="0"/></linearGradient></defs>
-          <path d="M2,32 C26,31 36,29 58,28 C82,27 92,23 114,21 C138,19 152,13 174,11 C182,10 189,8 196,6 L196,40 L2,40 Z" fill="url(#rsg)"/>
-          <path d="M2,32 C26,31 36,29 58,28 C82,27 92,23 114,21 C138,19 152,13 174,11 C182,10 189,8 196,6" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-          <circle cx="196" cy="6" r="3.2" fill="#7C3AED" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke"/>
-        </svg>
-      </div> -->
-      <div class="rp-card rp-time">
-        <span class="rpc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></svg></span>
-        <div><span class="rpc-l">Економія часу</span><b>12 <small>год/тиждень</small></b></div>
-      </div>
-      <div class="rp-card rp-new">
-        <div class="rp-newavs">
-          <span style="background-image:url(/img/p3.jpg)"></span>
-          <span style="background-image:url(/img/model.jpg)"></span>
-          <span style="background-image:url(/img/p1.jpg)"></span>
-          <span style="background-image:url(/img/quote.jpg)"></span>
-          <span class="res-avp rp-avp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 6v12M6 12h12"/></svg></span>
-        </div>
-        <span class="rpc-l">Нових клієнтів</span>
-        <b>+127</b>
-      </div>
-      <div class="rp-glass">
-        <span class="rpg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
-        <span>Більше записів. Менше рутини.<br>Щасливі клієнти.</span>
-      </div>
+  </div>
+
+  <div class="rz-note">
+    <p class="hand">усе працює<br>на автоматі ✨</p>
+    <span class="rz-note-ar" set:html={arrow}></span>
+  </div>
+
+  <div class="rz-photo">
+    <img src="/img/res.webp" alt="Власниця бізнесу">
+    <div class="rz-glass">
+      <span class="rz-glass-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+      <span>Більше записів.<br>Менше рутини.</span>
     </div>
   </div>
 </section>

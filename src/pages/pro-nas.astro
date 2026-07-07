@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const miles = [
+  { y:'2023', t:'Народилась ідея' },
+  { y:'2024', t:'Запуск Zapys24' },
+  { y:'2025', t:'Застосунок Zapys24 Pro' },
+  { y:'2026', t:'Нові галузі' },
+];
+const caps = [
+  { ic:S('<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M16 3l0 4"/><path d="M8 3l0 4"/><path d="M4 11l16 0"/>'), t:'Онлайн-запис 24/7', c:'v' },
+  { ic:S('<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'), t:'Авто-нагадування', c:'a' },
+  { ic:S('<path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>'), t:'CRM клієнтів', c:'g' },
+  { ic:S('<path d="M4 19l16 0"/><path d="M4 15l4 -6l4 2l4 -5l4 4"/>'), t:'Аналітика та звіти', c:'b' },
+  { ic:S('<path d="M3 8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -8"/><path d="M3 10l18 0"/><path d="M7 15l2 0"/>'), t:'Онлайн-оплати', c:'o' },
+  { ic:S('<path d="M12 3l8 4.5v9l-8 4.5l-8 -4.5v-9l8 -4.5"/><path d="M12 12l8 -4.5"/><path d="M12 12l0 9"/><path d="M12 12l-8 -4.5"/>'), t:'Послуги та склад', c:'v' },
+];
+const inds = [
+  { ic:S('<path d="M3 7a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.6 8.6l10.4 10.4"/><path d="M8.6 15.4l10.4 -10.4"/>'), t:'Краса' },
+  { ic:S('<path d="M7 10l-.85 8.507a1.357 1.357 0 0 0 1.35 1.493h.146a2 2 0 0 0 1.857 -1.257l.994 -2.486a2 2 0 0 1 1.857 -1.257h1.292a2 2 0 0 1 1.857 1.257l.994 2.486a2 2 0 0 0 1.857 1.257h.146a1.37 1.37 0 0 0 1.364 -1.494l-.864 -9.506h-8c0 -3 -3 -5 -6 -5l-3 6l2 2l3 -2"/><path d="M22 14v-2a3 3 0 0 0 -3 -3"/>'), t:'Кінний спорт' },
+  { ic:S('<path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"/>'), t:'Автосервіс', soon:true },
+  { ic:S('<path d="M2 12h1"/><path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2"/><path d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1"/><path d="M9 12h6"/><path d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1"/><path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2"/><path d="M22 12h-1"/>'), t:'Фітнес', soon:true },
+  { ic:S('<path d="M6 4h-1a2 2 0 0 0 -2 2v3.5a5.5 5.5 0 0 0 11 0v-3.5a2 2 0 0 0 -2 -2h-1"/><path d="M8 15a6 6 0 1 0 12 0v-3"/><path d="M11 3v2"/><path d="M6 3v2"/><path d="M18 10a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>'), t:'Медицина', soon:true },
+];
+const values = [
+  { ic:S('<path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"/>'), t:'Перший запис за 3 кроки', d:'Складне має бути простим. Налаштування за хвилини, а не тижні — без інструкцій на 50 сторінок.', c:'v' },
+  { ic:S('<path d="M12 3a12 12 0 0 0 8 3a12 12 0 0 1 -8 15a12 12 0 0 1 -8 -15a12 12 0 0 0 8 -3"/><path d="M9 12l2 2l4 -4"/>'), t:'Чесність', d:'Без прихованих умов і роздутих обіцянок. Кажемо як є — навіть про те, чого поки не вміємо.', c:'g' },
+  { ic:S('<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.566"/>'), t:'Поруч', d:'У підтримці — живі люди, а не боти. Допоможемо перенести дані й запуститися без стресу.', c:'a' },
+  { ic:S('<path d="M5 5a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-7 -3l-7 3l0 -16"/>'), t:'Українською', d:'Зроблено в Україні, для українського бізнесу. Інтерфейс і підтримка рідною мовою.', c:'b' },
+];
+---
+
+<Layout title="Про нас — Zapys24">
+  <Nav />
+
+  <!-- HERO -->
+  <section class="ab2-hero reveal">
+    <div class="ab2-mesh" aria-hidden="true"></div>
+    <div class="wrap ab2-hero-in">
+      <h1 class="dis ab2-h1">Робимо запис <span class="ac">простим</span><br>для сервісного бізнесу</h1>
+      <div class="ab2-mile">
+        <span class="ab2-mile-chip">Milestones</span>
+        <div class="ab2-mile-line">
+          {miles.map(m => (
+            <div class="ab2-mile-pt">
+              <span class="ab2-mile-dot"></span>
+              <b>{m.y}</b>
+              <span>{m.t}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="kr-sec wrap reveal">
+    <div class="ab2-mission">
+      <div class="ab2-mission-tx">
+        <div class="kicker kx-kick">Наша місія</div>
+        <h2 class="sh">Прості інструменти,<br>доступні <span class="ac">кожному</span></h2>
+        <p>Дати кожному сервісному бізнесу — від салону краси до кінного клубу — інструменти, які раніше були лише у великих мереж. Онлайн-запис, CRM, нагадування та аналітика в одному місці.</p>
+        <p>Ми починали з б'юті-сфери, а сьогодні Zapys24 підходить будь-якому бізнесу, де є записи та клієнти. І це лише початок.</p>
+      </div>
+      <div class="ab2-mission-ph" style="background-image:url(/img/owner.webp)">
+        <div class="ab2-mcard ab2-mcard-1"><i class="ab2-dot"></i>Завантаженість: 85%</div>
+        <div class="ab2-mcard ab2-mcard-2"><span class="ab2-mcard-av" style="background-image:url(/img/quote.webp)"></span><div><b>Успішний запис</b><span>на 14:00 · стрижка</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="kr-sec wrap reveal">
+    <div class="ab2-caps">
+      <div class="ab2-caps-l">
+        <div class="kicker kx-kick">Що всередині</div>
+        <h2 class="sh">Усе, що потрібно —<br>в одній <span class="ac">платформі</span></h2>
+        <p class="ab2-caps-p">Ми зібрали інструменти, які раніше були розкидані по десятку сервісів, в один зручний застосунок — щоб ви керували бізнесом з одного екрана.</p>
+        <p class="hand ab2-note">без десятка<br>зайвих сервісів ✨</p>
+      </div>
+      <div class="ab2-caps-grid">
+        {caps.map(c => (
+          <div class="ab2-cap">
+            <span class={`ab2-cap-ic n-${c.c}`} set:html={c.ic}></span>
+            <b>{c.t}</b>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="kr-sec wrap reveal">
+    <div class="ab2-who-head">
+      <div>
+        <div class="kicker kx-kick">Цінності</div>
+        <h2 class="sh">У що ми <span class="ac">віримо</span></h2>
+      </div>
+      <p class="hand ab2-note2">не гасла —<br>а те, як працюємо</p>
+    </div>
+    <div class="ab-vals" style="margin-top:38px">
+      {values.map(v => (
+        <div class="ab-val">
+          <span class={`ab-val-ic n-${v.c}`} set:html={v.ic}></span>
+          <b>{v.t}</b>
+          <p>{v.d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FOR WHOM -->
+  <section class="kr-sec wrap reveal">
+    <div class="ab2-who-head">
+      <div>
+        <div class="kicker kx-kick">Для кого</div>
+        <h2 class="sh">Для будь-якого<br>сервісного <span class="ac">бізнесу</span></h2>
+      </div>
+      <p class="hand ab2-note2">починали з б'юті —<br>тепер значно ширше</p>
+    </div>
+    <div class="ab2-inds">
+      {inds.map(it => (
+        <div class="ab2-ind">
+          <span class="ab2-ind-ic" set:html={it.ic}></span>
+          <b>{it.t}{it.soon && <span class="ab2-ind-soon">скоро</span>}</b>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- UKRAINE BAND -->
+  <section class="ab2-ua-sec">
+    <div class="ab2-ua-org">
+      <div class="ab2-ua-in2">
+        <span class="ab2-ua-heart">💛💙</span>
+        <h2 class="dis">Зроблено в Україні</h2>
+        <p>Ми будуємо продукт для українського бізнесу й підтримуємо його рідною мовою. Дякуємо, що ви з нами.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="reveal final-sec">
+    <div class="final">
+      <div class="final-in">
+        <h2 class="dis">Приєднуйтесь до Zapys24</h2>
+        <p>Спробуйте безкоштовно — і побачте, наскільки простішою може бути щоденна робота.</p>
+        <div class="fcta"><a class="fbtn" href="#">Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow}></span></a></div>
+        <div class="fnote">14 днів безкоштовно · Без картки</div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

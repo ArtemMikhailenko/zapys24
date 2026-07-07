@@ -1,17 +1,95 @@
-<section class="hsec" id="hsec">
-  <div class="hsticky">
-    <div class="hhead">
+---
+const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const ic = {
+  scissors: S('<path d="M3 7a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.6 8.6l10.4 10.4"/><path d="M8.6 15.4l10.4 -10.4"/>'),
+  horse: S('<path d="M7 10l-.85 8.507a1.357 1.357 0 0 0 1.35 1.493h.146a2 2 0 0 0 1.857 -1.257l.994 -2.486a2 2 0 0 1 1.857 -1.257h1.292a2 2 0 0 1 1.857 1.257l.994 2.486a2 2 0 0 0 1.857 1.257h.146a1.37 1.37 0 0 0 1.364 -1.494l-.864 -9.506h-8c0 -3 -3 -5 -6 -5l-3 6l2 2l3 -2"/><path d="M22 14v-2a3 3 0 0 0 -3 -3"/>'),
+  car: S('<path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M5 17h-2v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"/>'),
+  dumbbell: S('<path d="M2 12h1"/><path d="M6 8h-2a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h2"/><path d="M6 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1"/><path d="M9 12h6"/><path d="M15 7v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-10a1 1 0 0 0 -1 -1h-1a1 1 0 0 0 -1 1"/><path d="M18 8h2a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-2"/><path d="M22 12h-1"/>'),
+  cross: S('<path d="M6 4h-1a2 2 0 0 0 -2 2v3.5a5.5 5.5 0 0 0 11 0v-3.5a2 2 0 0 0 -2 -2h-1"/><path d="M8 15a6 6 0 1 0 12 0v-3"/><path d="M11 3v2"/><path d="M6 3v2"/><path d="M18 10a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/>'),
+};
+const inds = [
+  { key:'beauty',     label:'Краса',        sub:'салони · барбери · nails',   ic:ic.scissors, imgs:['beauty.webp','barber.png','manikur.png','salon.png'],  title:'Для салонів краси та барбершопів', desc:'Онлайн-запис, графік майстрів, нагадування клієнтам і облік послуг — усе в одному місці.', staff:'майстри', page:'/krasa' },
+  { key:'equestrian', label:'Кінний спорт', sub:'стайні · клуби · тренери',   ic:ic.horse,    imgs:['horse-center.png','horse1.png','horse2.png','horse3.png'],  title:'Для стаєнь і кінних клубів',       desc:'Записи на тренування, картки коней, ветжурнал і розклад тренерів — усе в одному місці.', staff:'тренери', page:'/koni' },
+  { key:'auto',       label:'Автосервіс',   sub:'СТО · мийки · шиномонтаж',   ic:ic.car,      imgs:['auto.webp','faq2.webp','owner.webp','faq3.webp'],   title:'Для СТО, мийок і шиномонтажу',     desc:'Онлайн-запис, історія авто, нагадування про ТО й облік боксів — усе в одному місці.', staff:'майстри', soon:true },
+  { key:'fitness',    label:'Фітнес',       sub:'зали · студії · тренери',    ic:ic.dumbbell, imgs:['fitness.webp','faq1.webp','faq3.webp','model.webp'], title:'Для залів, студій і тренерів',     desc:'Запис на заняття, абонементи, групові тренування й аналітика — усе в одному місці.', staff:'тренери', soon:true },
+  { key:'medical',    label:'Медицина',     sub:'клініки · лікарі · кабінети', ic:ic.cross,   imgs:['spa.webp','faq2.webp','faq1.webp','owner.webp'],    title:'Для клінік і медкабінетів',        desc:'Онлайн-запис, картки пацієнтів, історія візитів і нагадування — усе в одному місці.', staff:'лікарі', soon:true },
+];
+---
+
+<section class="ind2 reveal" id="hsec">
+  <button class="ind2-arrow ind2-prev" id="ind2Prev" type="button" aria-label="Попередня"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
+  <button class="ind2-arrow ind2-next" id="ind2Next" type="button" aria-label="Наступна"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+
+  <div class="ind2-grid">
+    <div class="ind2-left">
       <div class="kicker" style="color:var(--n-eq)">Одна платформа</div>
-      <h2 class="sh" style="margin-top:14px">Працює там, де <span class="ac">живе</span> ваш бізнес</h2>
+      <h2 class="sh">Працює там,<br>де <span class="ac">живе</span> ваш біз<span class="ac">нес</span></h2>
+      <p class="ind2-sub">Zapys24 підходить для різних сфер і допомагає керувати записами легко.</p>
+      <div class="ind2-tabs" id="ind2Tabs">
+        {inds.map((it, i) => (
+          <button class={`ind2-tab${i === 0 ? ' on' : ''}`} data-k={it.key} type="button">
+            <span class="ind2-tic" set:html={it.ic}></span>
+            <span class="ind2-ttx"><b>{it.label}{it.soon && <span class="ind2-soon">скоро</span>}</b><span>{it.sub}</span></span>
+            <svg class="ind2-tch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        ))}
+      </div>
+      <div class="ind2-hand">
+        <p class="hand">Не знайшли відповідь?<br><a href="#hsec">Напишіть нам</a></p>
+        <svg viewBox="0 0 120 70" fill="none" aria-hidden="true"><path d="M4 14 C40 8 74 16 96 46" stroke="var(--violet)" stroke-width="2" stroke-linecap="round"/><path d="M96 46 l-15 -2 M96 46 l-4 -15" stroke="var(--violet)" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
     </div>
-    <div class="htrack" id="htrack">
-      <div class="itile"><div class="imgwrap"><img src="/img/beauty.jpg" alt=""></div><div class="lab"><div class="n"><span class="dot" style="background:var(--n-beauty)"></span>Краса</div><div class="s">салони · барбери · nails</div></div></div>
-      <div class="itile"><div class="imgwrap"><img src="/img/horse.jpg" alt=""></div><div class="lab"><div class="n"><span class="dot" style="background:var(--n-eq)"></span>Кінний спорт</div><div class="s">стайні · клуби · ветжурнал</div></div></div>
-      <div class="itile"><div class="imgwrap"><img src="/img/auto.jpg" alt=""></div><div class="lab"><div class="n"><span class="dot" style="background:var(--n-auto)"></span>Автосервіс</div><div class="s">СТО · мийки · бокси</div></div></div>
-      <div class="itile"><div class="imgwrap"><img src="/img/fitness.jpg" alt=""></div><div class="lab"><div class="n"><span class="dot" style="background:var(--n-fit)"></span>Фітнес</div><div class="s">зали · студії · тренери</div></div></div>
-      <div class="itile"><div class="imgwrap"><img src="/img/spa.jpg" alt=""></div><div class="lab"><div class="n"><span class="dot" style="background:var(--n-med)"></span>Медицина</div><div class="s">клініки · кабінети</div></div></div>
-      <div class="islide-cta"><div class="big">+ освіта, послуги й більше</div><a class="btn btn-cream" href="#">Обрати свою →</a></div>
+
+    <div class="ind2-stage">
+      <span class="ind2-dots ind2-dots-a"></span>
+      <span class="ind2-dots ind2-dots-b"></span>
+      {inds.map((it, i) => (
+        <div class={`ind2-panel${i === 0 ? ' on' : ''}${it.soon ? ' ind2-panel-soon' : ''}`} data-ind={it.key}>
+          {it.soon ? (
+            <div class="ind2-locked">
+              <span class="ind2-lock-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></span>
+              <b>Незабаром</b>
+              <span>Ця галузь у розробці — скоро запустимо</span>
+            </div>
+          ) : (
+            <Fragment>
+              <div class="ind2-ph p-main" style={`background-image:url(/img/${it.imgs[0]})`}></div>
+              <div class="ind2-ph p-tr" style={`background-image:url(/img/${it.imgs[1]})`}></div>
+              <div class="ind2-ph p-bl" style={`background-image:url(/img/${it.imgs[2]})`}></div>
+              <div class="ind2-ph p-br" style={`background-image:url(/img/${it.imgs[3]})`}></div>
+              <div class="ind2-stat s1"><span class="i2s-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"></rect><path d="M3 9h18M8 2.5v4M16 2.5v4"></path></svg></span><div class="i2s-tx"><b>18 записів</b><small>сьогодні</small></div></div>
+              <div class="ind2-stat s2"><span class="i2s-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"></circle><path d="M3.5 20a5.5 5.5 0 0 1 11 0M16 6.5a3 3 0 0 1 0 5.6M18.5 20a5.5 5.5 0 0 0-3-4.9"></path></svg></span><div class="i2s-tx"><b>3 {it.staff}</b><small>онлайн</small></div><i class="i2s-dot"></i></div>
+              <div class="ind2-stat s3"><span class="i2s-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg></span><div class="i2s-tx"><b>нагадування</b><small>клієнтам надіслано</small></div></div>
+            </Fragment>
+          )}
+          <div class="ind2-info">
+            <span class="ind2-pill">{it.label}{it.soon && <span class="ind2-pill-soon">скоро</span>}</span>
+            <b>{it.title}</b>
+            <p>{it.desc}</p>
+            {it.soon
+              ? <span class="ind2-btn ind2-btn-soon">Незабаром</span>
+              : <a class="ind2-btn" href={it.page || '#'}>Дізнатися більше<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>}
+          </div>
+        </div>
+      ))}
     </div>
-    <div class="hhint">↓ гортай — галузі їдуть ліворуч</div>
   </div>
 </section>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll('#ind2Tabs .ind2-tab'));
+  const panels = Array.from(document.querySelectorAll('.ind2-panel'));
+  const keys = tabs.map((t) => t.dataset.k);
+  let cur = 0;
+  function setInd(i) {
+    cur = (i + keys.length) % keys.length;
+    const k = keys[cur];
+    tabs.forEach((x, j) => x.classList.toggle('on', j === cur));
+    panels.forEach((p) => p.classList.toggle('on', p.dataset.ind === k));
+  }
+  tabs.forEach((t, j) => t.addEventListener('click', () => setInd(j)));
+  const prev = document.getElementById('ind2Prev');
+  const next = document.getElementById('ind2Next');
+  prev && prev.addEventListener('click', () => setInd(cur - 1));
+  next && next.addEventListener('click', () => setInd(cur + 1));
+</script>

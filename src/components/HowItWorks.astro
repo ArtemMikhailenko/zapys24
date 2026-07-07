@@ -5,9 +5,9 @@ const services = [
   { n: 'Фарбування', p: '800₴' },
 ];
 const masters = [
-  { n: 'Олена', r: 'Перукар', img: 'quote.jpg' },
-  { n: 'Марія', r: 'Манікюр', img: 'model.jpg' },
-  { n: 'Андрій', r: 'Барбер', img: 'p1.jpg' },
+  { n: 'Олена', r: 'Перукар', img: 'quote.webp' },
+  { n: 'Марія', r: 'Манікюр', img: 'model.webp' },
+  { n: 'Андрій', r: 'Барбер', img: 'p1.webp' },
 ];
 const ic = {
   upload: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/><path d="M12 18v-5M9.5 15l2.5-2.5 2.5 2.5"/></svg>',
@@ -29,6 +29,7 @@ const ic = {
     <div class="kicker">Як це працює</div>
     <h2 class="sh">Перший запис — за <span class="ac">3 кроки</span></h2>
     <p class="sub2">Без складного налаштування — від старту до першого онлайн-запису за кілька хвилин.</p>
+    <div class="znote hiw-note"><p class="hand">готово за<br>5 хвилин</p><span class="zar"><svg viewBox="0 0 118 82" fill="none" aria-hidden="true"><path d="M108 14 C64 6 22 22 15 60" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/><path d="M15 60 l3 -17 M15 60 l16 -6" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/></svg></span></div>
   </div>
 
   <div class="hiw-grid">
@@ -73,7 +74,7 @@ const ic = {
       <header class="hcard-h"><span class="hnum">3</span><div class="hcard-t"><b>Отримайте перший запис</b><p>Поділіться посиланням — клієнт бронює сам, а запис одразу з’являється в системі.</p></div></header>
       <div class="hmock hmock-green">
         <div class="hbk-h"><span class="hbk-check" set:html={ic.check}></span><div><b>Новий запис!</b><i>Сьогодні, 14:30</i></div></div>
-        <div class="hbk-client"><span class="hbk-av" style="background-image:url(/img/quote.jpg)"></span><div><b>Анна Коваль</b><i>Стрижка</i></div></div>
+        <div class="hbk-client"><span class="hbk-av" style="background-image:url(/img/quote.webp)"></span><div><b>Анна Коваль</b><i>Стрижка</i></div></div>
         <div class="hbk-meta"><span><i set:html={ic.cal}></i>14 червня, 14:30</span><span><i set:html={ic.user}></i>Олена</span></div>
         <a class="hbtn hbtn-out" href="#">Перейти до розкладу</a>
       </div>
@@ -83,6 +84,6 @@ const ic = {
   <div class="hchip hchip-link"><span class="hchip-ic" set:html={ic.link}></span>Поділитися посиланням</div>
   <div class="hchip hchip-done"><span class="hchip-ic green" set:html={ic.check}></span><div class="hchip-tx"><b>Кабінет створено</b><i>Усе готово до налаштування</i></div></div>
   <div class="hchip hchip-url"><span class="hchip-ic" set:html={ic.link}></span>your.zapys24.com/beauty<span class="hchip-copy" set:html={ic.copy}></span></div>
-  <div class="hchip hchip-notif"><span class="hchip-ic violet" set:html={ic.bell}></span><div class="hchip-tx"><span class="hn-top"><b>Zapys24</b><i>зараз</i></span><p>Новий запис: Анна Коваль<br>14 червня, 14:30</p></div></div>
+  <div class="hchip hchip-notif"><span class="hchip-ic violet" set:html={ic.bell}></span><div class="hchip-tx"><span class="hn-top"><b>Zapys24</b><i>зараз</i></span><p>Новий запис: Анна Коваль</p></div></div>
   <!-- <svg class="hiw-arrow" viewBox="0 0 80 54" fill="none" aria-hidden="true"><path d="M4,20 C24,6 50,8 72,30" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path><path d="M72,30 l-15,-3 M72,30 l-3,15" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path></svg> -->
 </section>

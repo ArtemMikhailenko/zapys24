@@ -1,0 +1,232 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const IC = {
+  clock: S('<path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 12l3 2"/><path d="M12 7v5"/>'),
+  shield:S('<path d="M12 3a12 12 0 0 0 8 3a12 12 0 0 1 -8 15a12 12 0 0 1 -8 -15a12 12 0 0 0 8 -3"/><path d="M9 12l2 2l4 -4"/>'),
+  cart:  S('<path d="M4 4h2l2.5 12.5a2 2 0 0 0 2 1.5h7a2 2 0 0 0 2 -1.5l1.5 -7h-14.5"/><path d="M10 21a1 1 0 1 0 0 -.01"/><path d="M17 21a1 1 0 1 0 0 -.01"/>'),
+  head:  S('<path d="M4 14v-3a8 8 0 1 1 16 0v3"/><path d="M18 19a2 2 0 0 1 -2 2h-2"/><path d="M4 15a2 2 0 0 1 2 -2h1a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-1a2 2 0 0 1 -2 -2z"/><path d="M20 15a2 2 0 0 0 -2 -2h-1a1 1 0 0 0 -1 1v4a1 1 0 0 0 1 1h1a2 2 0 0 0 2 -2z"/>'),
+  hands: S('<path d="M12 20l-8 -4v-6l8 4z"/><path d="M12 14l8 -4"/><path d="M4 10l8 -4l8 4"/><path d="M12 6l0 -2"/>'),
+  news:  S('<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-9a1 1 0 0 0 -1 1v12a2 2 0 0 0 2 2h9"/><path d="M8 8h4"/><path d="M8 12h4"/><path d="M8 16h4"/>'),
+  mail:  S('<path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10"/><path d="M3 7l9 6l9 -6"/>'),
+  star:  S('<path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"/>'),
+  users: S('<path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>'),
+  heart: S('<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.566"/>'),
+  pin:   S('<path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"/>'),
+};
+const fb = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 22v-8h3l1-4h-4V8c0-1.1.3-2 2-2h2V2.2C18.6 2.1 17.4 2 16 2c-3 0-5 1.8-5 5.2V10H8v4h3v8h2z"/></svg>';
+
+const topics = [
+  { ic:IC.cart, t:'Продажі',     d:'Хочу підключити Zapys24 або дізнатися більше про можливості', c:'v' },
+  { ic:IC.head, t:'Підтримка',   d:'У мене є питання або потрібна допомога з сервісом', c:'g' },
+  { ic:IC.hands,t:'Партнерство', d:'Пропозиції щодо партнерства та співпраці', c:'o' },
+  { ic:IC.news, t:'Преса',       d:'Запити від ЗМІ та публічні запити', c:'b' },
+];
+const channels = [
+  { nm:'Email',    s:'Відповідаємо швидко',   st:'≈ 15 хв',  ico:IC.mail,       bg:'linear-gradient(150deg,#7C3AED,#A96BF0)' },
+  { nm:'Telegram', s:'Найшвидший спосіб',     st:'миттєво',  img:'telegram.svg',bg:'linear-gradient(150deg,#2AABEE,#1E96D4)' },
+  { nm:'Instagram',s:'Пишіть у Direct',       st:'≈ 30 хв',  img:'instagram.svg',bg:'linear-gradient(150deg,#F58529,#DD2A7B,#8134AF)' },
+  { nm:'Facebook', s:'Месенджер',             st:'≈ 30 хв',  raw:fb,            bg:'linear-gradient(150deg,#1877F2,#0C5FD6)' },
+  { nm:'Viber',    s:'Зручний чат',           st:'миттєво',  img:'viber.svg',   bg:'linear-gradient(150deg,#7360F2,#5B49D6)' },
+];
+const team = [
+  { nm:'Ірина',  role:'Служба підтримки',   tag:'Відповідає за 5 хв', img:'quote.webp' },
+  { nm:'Олексій',role:'Відділ продажів',     tag:'Підбере тариф',      img:'p1.webp' },
+  { nm:'Марія',  role:'Онбординг',           tag:'Допоможе почати',    img:'model.webp' },
+  { nm:'Дмитро', role:'Технічна підтримка',  tag:'Розв’яже питання',   img:'faq3.webp' },
+];
+const cities = ['Київ','Львів','Дніпро','Одеса','Харків'];
+const stats = [
+  { ic:IC.star,   v:'98%',   l:'оцінка підтримки від наших клієнтів' },
+  { ic:IC.clock,  v:'7 хв',  l:'середній час відповіді' },
+  { ic:IC.shield, v:'24/7',  l:'підтримка, коли вона потрібна' },
+  { ic:IC.users,  v:'1200+', l:'бізнесів вже з нами' },
+  { ic:IC.heart,  v:'99.9%', l:'стабільність сервісу' },
+];
+const faqs = [
+  { q:'Як швидко ви відповідаєте?', a:'У середньому за 7 хвилин у робочі години. У месенджерах — ще швидше.' },
+  { q:'Як залишити запит на підтримку?', a:'Натисніть «Написати нам», заповніть коротку форму — і ми зв’яжемося з вами.' },
+  { q:'Які ваші робочі години?', a:'Підтримка на зв’язку 24/7. Відділ продажів — Пн–Пт, 9:00–18:00.' },
+  { q:'Чи допомагаєте з перенесенням даних?', a:'Так, ми безкоштовно допоможемо перенести клієнтів, записи та історію.' },
+  { q:'Чи є у вас офлайн-офіс?', a:'Так, наш офіс у Києві, вул. Велика Васильківська, 72. Зустрічі — за домовленістю.' },
+  { q:'Де можна слідкувати за новинами?', a:'В Instagram, Telegram та нашому блозі — там анонси оновлень і поради.' },
+];
+---
+
+<Layout title="Контакти — Zapys24">
+  <Nav />
+
+  <!-- HERO -->
+  <section class="kx-hero reveal">
+    <div class="kx-hero-photo" style="background-image:url(/img/contact-hero.webp)"></div>
+    <div class="wrap kx-hero-in">
+      <div class="kx-hero-l">
+        <h1 class="dis kx-h1">Ми завжди<br>на <span class="ac">зв'язку</span></h1>
+        <p class="kx-lead">Наша команда підтримки та продажів готова допомогти вам у будь-який момент. Оберіть зручний спосіб зв'язку або залиште повідомлення.</p>
+        <div class="kx-hero-cta">
+          <a class="fbtn" href="/napysaty">Написати нам<span class="fbtn-ar" set:html={arrow}></span></a>
+          <div class="kx-chip"><span class="kx-chip-ic" set:html={IC.clock}></span><div>Середній час відповіді<b>7 хвилин</b></div></div>
+        </div>
+        <p class="hand kx-hnote">пишуть живі люди —<br>ніяких ботів ✨</p>
+      </div>
+      <div class="kx-hero-r">
+        <div class="kx-chat-badge">Підтримка онлайн<span class="kx-dot"></span><b>24/7</b></div>
+        <div class="kx-chat">
+          <div class="kx-chat-head"><span class="kx-chat-av" style="background-image:url(/img/quote.webp)"></span><div><b>Ірина</b><i>Служба підтримки</i></div></div>
+          <div class="kx-chat-msg">Доброго дня! 👋<time>10:30</time></div>
+          <div class="kx-chat-msg">Чим можемо допомогти?</div>
+        </div>
+        <div class="kx-typing"><span></span><span></span><span></span>Друкує..</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOPICS -->
+  <section class="kr-sec wrap reveal">
+    <div class="kicker kx-kick">Чим допомогти</div>
+    <h2 class="sh kx-ctr-h">Оберіть, що вас <span class="ac">цікавить</span></h2>
+    <div class="kx-topics">
+      <a class="kx-topic-feat" href="/napysaty">
+        <span class="kx-tf-ic" set:html={topics[0].ic}></span>
+        <b class="kx-tf-t">{topics[0].t}</b>
+        <p class="kx-tf-d">{topics[0].d} та тарифи.</p>
+        <span class="kx-tf-cta">Написати нам<span class="fbtn-ar" set:html={arrow}></span></span>
+      </a>
+      <div class="kx-topic-rows">
+        {topics.slice(1).map(t => (
+          <a class="kx-trow" href="/napysaty">
+            <span class={`kx-trow-ic n-${t.c}`} set:html={t.ic}></span>
+            <div class="kx-trow-tx"><b>{t.t}</b><p>{t.d}</p></div>
+            <span class="kx-trow-ar" set:html={arrow}></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section class="kr-sec wrap reveal">
+    <div class="kicker kx-kick">Канали зв'язку</div>
+    <h2 class="sh kx-ctr-h">Пишіть там, де вам <span class="ac">зручно</span></h2>
+    <div class="kx-channels">
+      {channels.map(c => (
+        <a class="kx-chan" href="#">
+          <span class="kx-chan-logo" style={`background:${c.bg}`}>{c.img ? <img src={`/img/logos/${c.img}`} alt={c.nm} /> : <span class="kx-chan-svg" set:html={c.raw || c.ico}></span>}</span>
+          <div class="kx-chan-tx"><b>{c.nm}</b><span>{c.s}</span></div>
+          <div class="kx-chan-st"><i></i>{c.st}</div>
+          <span class="kx-chan-ar" set:html={arrow}></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="kr-sec wrap reveal">
+    <div class="kx-team-head">
+      <div>
+        <div class="kicker kx-kick">Команда</div>
+        <h2 class="sh kx-ctr-h">Реальні люди, а не <span class="ac">боти</span></h2>
+      </div>
+      <p class="hand kx-team-note">завжди раді<br>допомогти :)</p>
+    </div>
+    <div class="kx-team">
+      {team.map(m => (
+        <div class="kx-tm">
+          <span class="kx-tm-ph" style={`background-image:url(/img/${m.img})`}><i class="kx-tm-on"></i></span>
+          <b>{m.nm}</b>
+          <span class="kx-tm-role">{m.role}</span>
+          <span class="kx-tm-tag">{m.tag}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- UKRAINE -->
+  <section class="kx-ua reveal">
+    <div class="wrap">
+      <div class="kicker kx-kick">Локації</div>
+      <h2 class="sh kx-ctr-h">Ми поруч у всій <span class="ac">Україні</span></h2>
+      <p class="kx-ctr-sub">Наша команда розподілена по різних містах, щоб бути ближчими до вас.</p>
+      <div class="kx-cities">
+        {cities.map(c => (<div class="kx-city"><span class="kx-city-ic" set:html={IC.pin}></span>{c}</div>))}
+        <div class="kx-city kx-city-more">+ інші міста</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="kr-sec wrap reveal">
+    <div class="kicker kx-kick">Наші обіцянки</div>
+    <h2 class="sh kx-ctr-h">На що ви завжди можете <span class="ac">розраховувати</span></h2>
+    <div class="kx-nums">
+      <div class="kx-num kx-num-big">
+        <b>24/7</b>
+        <span>підтримка завжди на звʼязку</span>
+        <div class="kx-num-live"><i></i>онлайн зараз</div>
+      </div>
+      <div class="kx-num"><b>7 хв</b><span>середній час відповіді</span></div>
+      <div class="kx-num"><b>5 каналів</b><span>звʼязку на ваш вибір</span></div>
+      <div class="kx-num"><b>14 днів</b><span>безкоштовно, без картки</span></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="kr-sec wrap reveal">
+    <div class="kicker kx-kick">FAQ</div>
+    <h2 class="sh kx-ctr-h">Часті <span class="ac">питання</span></h2>
+    <div class="kx-faq">
+      {faqs.map((f,i) => (
+        <details class="kc-faq-item" open={i===0}>
+          <summary>{f.q}<span class="kx-faq-chev">⌄</span></summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="reveal final-sec">
+    <div class="final">
+      <div class="final-in">
+        <h2 class="dis">Готові почати?</h2>
+        <p>Приєднуйтесь до 1200+ компаній, які вже довіряють свій бізнес Zapys24.</p>
+        <div class="fcta"><a class="fbtn" href="#">Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow}></span></a></div>
+        <div class="fnote">14 днів безкоштовно · Без картки</div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script is:inline>
+    (function(){
+      function tween(el){
+        var m = el.textContent.trim().match(/^(\d+(?:[.,]\d+)?)(.*)$/s);
+        if(!m) return;
+        var target = parseFloat(m[1].replace(',','.')), suffix = m[2];
+        var dec = (m[1].split(/[.,]/)[1]||'').length, start = null, dur = 1500;
+        function step(ts){
+          if(!start) start = ts;
+          var p = Math.min((ts-start)/dur,1), e = 1-Math.pow(1-p,3), v = target*e;
+          el.textContent = (dec ? v.toFixed(dec) : Math.round(v)) + suffix;
+          if(p<1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(en){
+          if(!en.isIntersecting) return;
+          var t = en.target;
+          if(t.classList.contains('kx-num-bar')){ var b=t.querySelector('i'); if(b) b.style.width=b.getAttribute('data-w'); }
+          else tween(t);
+          io.unobserve(t);
+        });
+      },{threshold:.4});
+      document.querySelectorAll('.kx-num b, .kx-num-bar').forEach(function(el){ io.observe(el); });
+    })();
+  </script>
+</Layout>
