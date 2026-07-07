@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import Showcase from '../components/Showcase.astro';
 
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
 const play  = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
@@ -25,25 +24,23 @@ const IC = {
 };
 
 const NI = {
-  scissors: S('<path d="M3 7a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.6 8.6l10.4 10.4"/><path d="M8.6 15.4l10.4 -10.4"/>'),
-  comb:     S('<path d="M4 5.5h16"/><path d="M6 5.5v6"/><path d="M9 5.5v4"/><path d="M12 5.5v6"/><path d="M15 5.5v4"/><path d="M18 5.5v6"/><path d="M4 15h16v2a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/>'),
-  hand:     S('<path d="M8 13v-7.5a1.5 1.5 0 0 1 3 0v6.5"/><path d="M11 5.5a1.5 1.5 0 0 1 3 0v6.5"/><path d="M14 6.5a1.5 1.5 0 0 1 3 0v6.5"/><path d="M17 8.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -5 -3l-2.7 -4a1.5 1.5 0 0 1 2.5 -1.6l1.7 2.1"/>'),
-  eye:      S('<path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/>'),
-  spark:    S('<path d="M12 3l1.6 5.4l5.4 1.6l-5.4 1.6l-1.6 5.4l-1.6 -5.4l-5.4 -1.6l5.4 -1.6z"/><path d="M18 15l.7 2.3l2.3 .7l-2.3 .7l-.7 2.3l-.7 -2.3l-2.3 -.7l2.3 -.7z"/>'),
-  brush:    S('<path d="M3 21v-4a4 4 0 1 1 4 4h-4"/><path d="M21 3a16 16 0 0 0 -12.8 10.2"/><path d="M21 3a16 16 0 0 1 -10.2 12.8"/><path d="M10.6 9a9 9 0 0 1 4.4 4.4"/>'),
-  spa:      S('<path d="M12 10a2 2 0 1 0 0 4a2 2 0 0 0 0 -4"/><path d="M12 10c0 -3 -1.5 -5 -4 -6c0 3 1 5 4 6"/><path d="M12 10c0 -3 1.5 -5 4 -6c0 3 -1 5 -4 6"/><path d="M12 14c0 3 -1.5 5 -4 6c0 -3 1 -5 4 -6"/><path d="M12 14c0 3 1.5 5 4 6c0 -3 -1 -5 -4 -6"/>'),
+  horse:  S('<path d="M5 21v-7c0 -3.5 2 -7 6 -7c1.5 0 2.5 .5 3 1l1 -1c1.5 -1.5 4 -2 4 -2s-1 3 -2 4l-1 1c.5 .5 1 1.5 1 3v8"/><path d="M9 8l-1.5 -2.5l1.5 -1.5l2 2"/><path d="M9 21v-3"/><path d="M17 21v-3"/>'),
+  stable: S('<path d="M3 21v-8l9 -6l9 6v8"/><path d="M3 21h18"/><path d="M9 21v-6h6v6"/>'),
+  trophy: S('<path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1 -10 0z"/><path d="M7 4H5a2 2 0 0 0 0 4h1"/><path d="M17 4h2a2 2 0 0 1 0 4h-1"/>'),
+  ticket: S('<path d="M15 5v2"/><path d="M15 11v2"/><path d="M15 17v2"/><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2"/>'),
+  child:  S('<circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>'),
+  vet:    S('<path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M9 12l2 2l4 -4"/>'),
 };
 const niches = [
-  { nm:'Салони краси',       d:'Онлайн-запис, графік майстрів, нагадування та облік послуг — усе для салону.', img:'salon.png',   ic:NI.scissors, tags:['Запис 24/7','Майстри','Послуги'] },
-  { nm:'Барбершопи',         d:'Черга без дзвінків, постійні клієнти та зручний розклад барберів.',           img:'barber.png',  ic:NI.comb,     tags:['Черга','Клієнти'] },
-  { nm:'Манікюр та педикюр', d:'Запис на послуги, історія візитів і облік витратних матеріалів.',            img:'manikur.png', ic:NI.hand,     tags:['Матеріали','Історія'] },
-  { nm:'Брови та вії',       d:'Нагадування про корекцію та повторний запис в один дотик.',                  img:'brovy.png',      ic:NI.eye,      tags:['Нагадування','Повтор'] },
-  { nm:'Косметологія',       d:'Картки клієнтів, курси процедур та онлайн-оплата наперед.',                  img:'kosmetolog.png', ic:NI.spark,    tags:['Картки','Оплата'] },
-  { nm:'Візаж та стиль',     d:'Портфоліо, запис на образи й події та зручна передоплата.',                  img:'vizaj.png',      ic:NI.brush,    tags:['Портфоліо','Передоплата'] },
-  { nm:'Масаж та SPA',       d:'Запис на сеанси, абонементи й нагадування про наступний візит.',            img:'masaj.png',      ic:NI.spa,      tags:['Абонементи','Сеанси'] },
+  { nm:'Кінні клуби',       d:'Записи на тренування, картки коней і членів клубу — усе в одному місці.', img:'horse-center.png', ic:NI.horse,  tags:['Тренування','Члени клубу'] },
+  { nm:'Стайні та пансіон', d:'Облік денників, оренда, годівля та графік догляду за кіньми.',           img:'horse1.png',       ic:NI.stable, tags:['Денники','Догляд'] },
+  { nm:'Тренери',           d:'Розклад індивідуальних і групових занять та зручні оплати.',              img:'horse2.png',       ic:NI.trophy, tags:['Розклад','Оплати'] },
+  { nm:'Прокат коней',      d:'Онлайн-бронювання прогулянок і занять — без дзвінків.',                   img:'horse3.png',       ic:NI.ticket, tags:['Бронювання','24/7'] },
+  { nm:'Дитячі секції',     d:'Абонементи, групи та нагадування батькам про заняття.',                   img:'horse1.png',       ic:NI.child,  tags:['Абонементи','Групи'] },
+  { nm:'Ветеринарія',       d:'Вет-журнал, історія оглядів і щеплень та авто-нагадування.',              img:'horse3.png',       ic:NI.vet,    tags:['Вет-журнал','Історія'] },
 ];
-const baBefore = ['Записи в блокноті','Постійні дзвінки','Нагадування вручну','Скасування в останній момент','Плутанина та помилки'];
-const baAfter  = ['Онлайн-запис 24/7','Автоматичні нагадування','Менше скасувань','Онлайн-оплата','Більше часу на клієнтів'];
+const baBefore = ['Записи в блокноті','Постійні дзвінки','Нагадування вручну','Плутанина з денниками','Забуті вет-огляди'];
+const baAfter  = ['Онлайн-запис 24/7','Автоматичні нагадування','Картки коней і вет-журнал','Облік денників та оренди','Онлайн-оплата занять'];
 const results = [
   { v:'+35%', l:'більше записів через онлайн' },
   { v:'−40%', l:'менше неявок на прийом' },
@@ -51,11 +48,11 @@ const results = [
   { v:'24/7', l:'запис без вихідних' },
 ];
 const bkSteps = [
-  { n:'1', t:'Оберіть послугу та майстра', d:'Клієнт переглядає послуги, майстрів і зручний час.' },
-  { n:'2', t:'Виберіть дату та час',       d:'Зручний календар показує доступні вікна.' },
-  { n:'3', t:'Підтвердіть запис і отримайте нагадування', d:'Запис автоматично зберігається й підтверджується.' },
+  { n:'1', t:'Оберіть заняття та тренера', d:'Клієнт переглядає послуги, тренерів і коней.' },
+  { n:'2', t:'Виберіть дату та час',       d:'Зручний календар показує вільні вікна.' },
+  { n:'3', t:'Підтвердіть запис і отримайте нагадування', d:'Запис зберігається, а нагадування приходить автоматично.' },
 ];
-const stepIcons = [NI.scissors, IC.cal, check];
+const stepIcons = [NI.trophy, IC.cal, check];
 const spark = (arr) => {
   const w=58, h=20, mx=Math.max(...arr), mn=Math.min(...arr), rng=(mx-mn)||1;
   return arr.map((v,i)=>{
@@ -71,16 +68,17 @@ const plus = L('<path d="M5 12h14"/><path d="M12 5v14"/>');
 const trendIc = L('<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>');
 const starIc = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 17.4 6.2 20.9l1.6-6.6L2.6 9.9l6.8-.5z"></path></svg>';
 // stat cards mirror features/dashboard/pages/DashboardPage.tsx (Calendar, UserPlus, Receipt, TrendingUp)
+// mirrors real equestrian dashboard (Frontend-business-equestrian/DashboardPage.tsx): Calendar, Scissors, Users(primary), TrendingUp — no sparkline
 const dashStats = [
-  { l:'Записів сьогодні', v:'12',       d:'За тиждень: 68',       ic:L('<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>') },
-  { l:'Нові клієнти',     v:'8',        d:'За тиждень',           ic:L('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/>') },
-  { l:'Середній чек',     v:'1 230 ₴',  d:'Сьогодні',             ic:L('<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/>') },
-  { l:'Виручка сьогодні', v:'14 400 ₴', d:'За тиждень: 96 200 ₴', ic:L('<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>'), sp:[6,8,7,9,8,11,10,13,12,16] },
+  { l:'Записів сьогодні', v:'9',        d:'За тиждень: 54',          ic:L('<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>') },
+  { l:'Послуг',           v:'12',       d:'Активних послуг',         ic:L('<circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/>') },
+  { l:'Команда',          v:'5',        d:'Активних співробітників', ic:L('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'), primary:true },
+  { l:'Виручка сьогодні', v:'11 600 ₴', d:'За тиждень: 78 400 ₴',    ic:L('<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>') },
 ];
 const dayBookings = [
-  { t:'10:00', nm:'Олена К.', s:'Стрижка + укладка', st:'ok',  color:'#A78BFA' },
-  { t:'11:30', nm:'Ірина П.', s:'Манікюр гель',      st:'ok',  color:'#F9A8D4' },
-  { t:'14:00', nm:'Софія',    s:'Фарбування',        st:'new', color:'#7DD3FC' },
+  { t:'10:00', nm:'Оля К.',  s:'Тренування · кінь Грім', st:'ok',  color:'#A78BFA' },
+  { t:'12:00', nm:'Іван М.', s:'Прокат · 1 година',      st:'ok',  color:'#86EFAC' },
+  { t:'15:30', nm:'Софія',   s:'Дитяча секція · група',  st:'new', color:'#7DD3FC' },
 ];
 // sidebar icon-rail — real navSections.ts (LayoutDashboard active, Calendar, CalendarDays, Users, Tag, UserCircle, CreditCard, SlidersHorizontal)
 const rail = [
@@ -88,8 +86,8 @@ const rail = [
   { ic:L('<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>') },
   { ic:L('<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/>') },
   { ic:L('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>') },
-  { ic:L('<path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1" fill="currentColor" stroke="none"/>') },
-  { ic:L('<path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/>') },
+  { ic:L('<path d="M5 21v-7c0 -3.5 2 -7 6 -7c1.5 0 2.5 .5 3 1l1 -1c1.5 -1.5 4 -2 4 -2s-1 3 -2 4l-1 1c.5 .5 1 1.5 1 3v8"/><path d="M9 8l-1.5 -2.5l1.5 -1.5l2 2"/><path d="M9 21v-3"/><path d="M17 21v-3"/>') },
+  { ic:L('<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2H6a2 2 0 0 1 -2 -2V6a2 2 0 0 1 2 -2h2"/>') },
   { ic:L('<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>') },
   { ic:L('<line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>') },
 ];
@@ -109,29 +107,29 @@ const intgVals = [
   { ic:L('<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74 -1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499 -1.411 5.956 -2.738 7.326"/>'), t:'Авто-нагадування', d:'SMS і синхронізація з Google Календарем нагадують клієнтам про візит.' },
 ];
 const testimonials = [
-  { nm:'Анна',   rl:'салон краси',  img:'quote.webp', q:'Записи 24/7, клієнти отримують нагадування, неявок стало менше. Дуже зручно!' },
-  { nm:'Андрій', rl:'барбершоп',    img:'p1.webp',    q:'Онлайн-запис і нагадування зменшили кількість скасувань на 40%. Рекомендую.' },
-  { nm:'Марія',  rl:'косметолог',   img:'model.webp', q:'Завдяки аналітиці я бачу, що працює, а що ні. Дохід виріс — дякую команді!' },
+  { nm:'Оксана', rl:'кінний клуб', img:'quote.webp', q:'Записи на тренування 24/7, картки коней і вет-журнал в одному місці. Дуже зручно!' },
+  { nm:'Дмитро', rl:'стайня',      img:'p1.webp',    q:'Облік денників і оренди став прозорим, а нагадування зменшили неявки.' },
+  { nm:'Ірина',  rl:'тренер',      img:'model.webp', q:'Розклад занять і оплати нарешті не в блокноті — клієнти бронюють самі.' },
 ];
 const faqs = [
-  { q:'Скільки коштує Zapys24?', a:'Реєстрація безкоштовна, а базовий план можна використовувати без оплати. Платите лише за розширені можливості.' },
+  { q:'Чи є картки коней і вет-журнал?', a:'Так — на кожного коня є картка з породою, віком, історією оглядів, щеплень і тренувань.' },
+  { q:'Чи можна вести облік денників та оренди?', a:'Так, Zapys24 Pro веде облік денників, оренди, годівлі та графік догляду за кіньми.' },
+  { q:'Як клієнти записуються на тренування?', a:'Через вашу сторінку запису, Instagram чи Telegram — цілодобово, без дзвінків.' },
   { q:'Чи є безкоштовний період?', a:'Так, 14 днів повного доступу до всіх функцій — без прив’язки картки.' },
-  { q:'Чи можна перенести дані з іншої системи?', a:'Так, ми безкоштовно допоможемо перенести клієнтів, записи та історію.' },
-  { q:'Чи працює сервіс на телефоні?', a:'Так — застосунки Zapys24 (для клієнтів) і Zapys24 Pro (для бізнесу) на iOS та Android.' },
 ];
 ---
 
-<Layout title="Zapys24 для б'юті-бізнесу — онлайн-запис, CRM та аналітика для салонів">
+<Layout title="Zapys24 для кінного спорту — записи, картки коней, вет-журнал та аналітика для стаєнь">
   <Nav variant="dark" />
 
   <!-- HERO -->
   <section class="pfh kr-hero reveal">
-    <div class="pfh-photo" style="background-image:url(/img/byuti-hero.webp)"></div>
+    <div class="pfh-photo" style="background-image:url(/img/horse-center.png)"></div>
     <div class="wrap pfh-grid">
       <div class="pfh-tx">
-        <div class="kicker pfh-k">Для б'юті-бізнесу та клієнтів</div>
-        <h1 class="dis pfh-h1">Все для <span class="ac">б'юті-бізнесу</span><br>в одному місці</h1>
-        <p class="pfh-lead">Онлайн-запис, клієнти, команда, аналітика та фінанси — Zapys24 допомагає керувати салоном легко та заробляти більше.</p>
+        <div class="kicker pfh-k">Для стаєнь, клубів та вершників</div>
+        <h1 class="dis pfh-h1">Все для <span class="ac">кінного клубу</span><br>в одному місці</h1>
+        <p class="pfh-lead">Записи на тренування, картки коней, вет-журнал, денники та фінанси — Zapys24 допомагає керувати стайнею легко та заробляти більше.</p>
         <div class="pfh-cta">
           <a class="fbtn" href="#">Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow}></span></a>
           <a class="kr-demo" href="#"><span class="kr-demo-ic" set:html={play}></span>Дивитися демо</a>
@@ -148,7 +146,7 @@ const faqs = [
       <div class="pfh-media">
         <div class="pfh-card pfh-book">
           <div class="pfh-book-top"><span class="pfh-bell" set:html={IC.cal}></span><b>Новий запис</b></div>
-          <div class="pfh-book-cli"><span class="pfh-cav" style="background-image:url(/img/model.webp)"></span><div class="pfh-book-ct"><b>Олена К.</b><i>Сьогодні, 15:30</i></div></div>
+          <div class="pfh-book-cli"><span class="pfh-cav" style="background-image:url(/img/model.webp)"></span><div class="pfh-book-ct"><b>Оля К. · Грім</b><i>Сьогодні, 15:30</i></div></div>
           <button class="pfh-book-btn">Підтвердити</button>
         </div>
         <div class="pfh-card krcal">
@@ -159,17 +157,17 @@ const faqs = [
             <div class="krcal-times"><span>10:00</span><span>11:00</span><span>12:00</span><span>13:00</span></div>
             <div class="krcal-track">
               <i class="krcal-line" style="top:25%"></i><i class="krcal-line" style="top:50%"></i><i class="krcal-line" style="top:75%"></i>
-              <span class="krcal-ev v" style="left:6%;top:2%;height:26%">Манікюр<small>Олена М.</small></span>
-              <span class="krcal-ev g" style="left:52%;top:24%;height:22%">Стрижка<small>Ірина П.</small></span>
-              <span class="krcal-ev o" style="left:60%;top:60%;height:30%">Догляд<small>Катерина Л.</small></span>
+              <span class="krcal-ev v" style="left:6%;top:2%;height:26%">Тренування<small>Оля К.</small></span>
+              <span class="krcal-ev g" style="left:52%;top:24%;height:22%">Прокат<small>Іван М.</small></span>
+              <span class="krcal-ev o" style="left:60%;top:60%;height:30%">Секція<small>група</small></span>
             </div>
           </div>
           <div class="krcal-foot"><span class="on">День</span><span>Тиждень</span><span>Місяць</span></div>
         </div>
         <div class="pfh-card pfh-remind">
           <div class="pfh-remind-top"><span class="pfh-bell" set:html={IC.bell}></span><b>Нагадування</b></div>
-          <p class="pfh-remind-cli"><b>Марія П. · через 30 хв</b></p>
-          <p class="pfh-remind-time">Фарбування</p>
+          <p class="pfh-remind-cli"><b>Вет-огляд · через 30 хв</b></p>
+          <p class="pfh-remind-time">кінь Грім</p>
         </div>
         
       </div>
@@ -190,9 +188,9 @@ const faqs = [
       <div class="kr-eco-card kr-eco-card-l">
         <div class="kr-eco-head"><span class="kr-eco-ic" set:html={IC.users}></span><div><span class="kr-eco-k">Для клієнтів</span><b>Zapys24</b></div></div>
         <ul class="kr-eco-list">
-          <li><span class="fn-ck" set:html={check}></span>Онлайн-запис 24/7</li>
-          <li><span class="fn-ck" set:html={check}></span>Нагадування про візити</li>
-          <li><span class="fn-ck" set:html={check}></span>Історія записів</li>
+          <li><span class="fn-ck" set:html={check}></span>Запис на тренування 24/7</li>
+          <li><span class="fn-ck" set:html={check}></span>Нагадування про заняття</li>
+          <li><span class="fn-ck" set:html={check}></span>Історія тренувань</li>
           <li><span class="fn-ck" set:html={check}></span>Зручна оплата</li>
           <li><span class="fn-ck" set:html={check}></span>Підтримка в чаті</li>
         </ul>
@@ -218,21 +216,18 @@ const faqs = [
           <li><span class="fn-ck" set:html={check}></span>Аналітика та звіти</li>
           <li><span class="fn-ck" set:html={check}></span>Команда та права</li>
           <li><span class="fn-ck" set:html={check}></span>Фінанси та оплати</li>
-          <li><span class="fn-ck" set:html={check}></span>Послуги та матеріали</li>
+          <li><span class="fn-ck" set:html={check}></span>Коні, денники та вет-журнал</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- MANAGE ANYWHERE (reuse homepage showcase) -->
-  <Showcase />
-
-  <!-- BEAUTY NICHES (interactive expanding panels) -->
+  <!-- NICHES (interactive expanding panels) -->
   <section class="kr-sec wrap reveal">
     <div class="kr-head">
       <div>
-        <div class="kicker" style="color:var(--violet)">Б'юті-сфери</div>
-        <h2 class="sh">Zapys24 для будь-якої<br><span class="ac">б'юті-сфери</span></h2>
+        <div class="kicker" style="color:var(--violet)">Напрямки</div>
+        <h2 class="sh">Zapys24 для будь-якого<br><span class="ac">кінного напрямку</span></h2>
       </div>
       <div class="kr-note"><p class="hand" style="transform:rotate(-2deg)">наведіть —<br>і дослідіть ✨</p><span class="kr-note-ar" set:html={noteArrow}></span></div>
     </div>
@@ -288,8 +283,8 @@ const faqs = [
         <div class="kr-ba2-quote">
           <span class="kr-ba2-av" style="background-image:url(/img/quote.webp)"></span>
           <div>
-            <p>Zapys24 змінив наш підхід до роботи. Раніше ми втрачали гроші на дзвінках та записах, тепер усе працює автоматично.</p>
-            <b>Олена <i>· салон краси</i></b>
+            <p>Zapys24 змінив наш підхід до роботи. Раніше ми втрачали час на дзвінках і блокнотах, тепер усе працює автоматично.</p>
+            <b>Оксана <i>· кінний клуб</i></b>
           </div>
         </div>
       </div>
@@ -314,7 +309,7 @@ const faqs = [
             <span class="kr-flow3-ic" set:html={stepIcons[i]}></span>
             <b>{s.t}</b>
             <p>{s.d}</p>
-            {i===0 && <div class="kr-flow3-mini"><span class="f3-pill f3-on">Стрижка</span><span class="f3-pill">Манікюр</span><span class="f3-pill">Брови</span></div>}
+            {i===0 && <div class="kr-flow3-mini"><span class="f3-pill f3-on">Тренування</span><span class="f3-pill">Прокат</span><span class="f3-pill">Секція</span></div>}
             {i===1 && <div class="kr-flow3-mini"><span class="f3-pill">11:30</span><span class="f3-pill f3-on">16:00</span><span class="f3-pill">17:30</span></div>}
             {i===2 && <div class="kr-flow3-mini f3-done"><span class="f3-check" set:html={check}></span>Підтверджено · 24 квітня, 16:00</div>}
           </div>
@@ -331,7 +326,7 @@ const faqs = [
         <div class="kr-dash-l">
           <div class="kicker kr-dash-k">Аналітика</div>
           <h2 class="dis kr-dash-h">Аналітика, що допомагає<br>приймати <span class="ac2">правильні рішення</span></h2>
-          <p class="kr-dash-sub">Відстежуйте ключові показники, аналізуйте прибуток, навантаження майстрів та ефективність реклами.</p>
+          <p class="kr-dash-sub">Відстежуйте ключові показники, аналізуйте прибуток, завантаження коней і тренерів та ефективність реклами.</p>
           <a class="fbtn kr-dash-btn" href="#">Дивитись аналітику<span class="fbtn-ar" set:html={arrow}></span></a>
         </div>
         <div class="kr-dash-r">
@@ -349,12 +344,12 @@ const faqs = [
             </aside>
             <div class="kr-dash-main">
               <div class="kr-dash-bar">
-                <div><b>Вітаємо, Аня 👋</b><span>Середа, 24 квітня</span></div>
+                <div><b>Вітаємо, Олег 👋</b><span>Середа, 24 квітня</span></div>
                 <span class="kr-dash-add"><span set:html={plus}></span>Новий запис</span>
               </div>
               <div class="kr-dash-stats">
                 {dashStats.map(s => (
-                  <div class="kr-dash-st">
+                  <div class={`kr-dash-st${s.primary?' kr-dash-st-primary':''}`}>
                     <div class="kr-dash-st-top">
                       <div class="kr-dash-st-tx"><span class="kr-dash-st-l">{s.l}</span><b>{s.v}</b></div>
                       <span class="kr-dash-st-ic" set:html={s.ic}></span>
@@ -449,8 +444,8 @@ const faqs = [
     <div class="kr-cta">
       <div class="wrap kr-cta-in">
         <div class="kr-cta-tx">
-          <h2 class="dis">Готові вивести ваш б'юті-бізнес<br>на новий рівень?</h2>
-          <p>Приєднуйтесь до б'юті-майстрів, які автоматизують рутину із Zapys24.</p>
+          <h2 class="dis">Готові вивести ваш кінний клуб<br>на новий рівень?</h2>
+          <p>Приєднуйтесь до стаєнь і клубів, які автоматизують рутину із Zapys24.</p>
           <div class="kr-cta-row">
             <a class="kr-cta-btn" href="#">Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow}></span></a>
             <a class="kr-cta-demo" href="#"><span class="kr-demo-ic" set:html={play}></span>Дивитися демо</a>
@@ -458,7 +453,7 @@ const faqs = [
           <div class="kr-cta-note">14 днів безкоштовно · Без картки</div>
         </div>
         <div class="kr-cta-media">
-          <img class="kr-cta-fig" src="/img/cta-beauty.png" alt="Б'юті-майстер" />
+          <img class="kr-cta-fig" src="/img/horse2.png" alt="Кінь" />
         </div>
       </div>
     </div>
