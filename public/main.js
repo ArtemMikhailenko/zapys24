@@ -40,19 +40,24 @@ if(baw){
   baw.addEventListener('pointermove',e=>{if(drag)setP(e.clientX);});
   window.addEventListener('pointerup',()=>{drag=false;});
 }
-const hsec=document.getElementById('hsec'),htrack=document.getElementById('htrack');
-function hScroll(){
-  if(!hsec||!htrack)return;
-  if(window.innerWidth<=920){htrack.style.transform='';return;}
-  const top=hsec.getBoundingClientRect().top;
-  const dist=hsec.offsetHeight-window.innerHeight;
-  const p=Math.min(1,Math.max(0,-top/dist));
-  const max=Math.max(0,htrack.scrollWidth-window.innerWidth+34);
-  htrack.style.transform='translateX('+(-(p*max)).toFixed(1)+'px)';
+const htrack=document.getElementById('htrack');
+const hprev=document.getElementById('hprev'),hnext=document.getElementById('hnext');
+if(htrack){
+  htrack.style.transform='';
+  htrack.scrollLeft=0;
+  const hStep=()=>Math.max(260,Math.round(htrack.clientWidth*0.7));
+  const hUpd=()=>{
+    if(!hprev||!hnext)return;
+    const max=htrack.scrollWidth-htrack.clientWidth-2;
+    hprev.classList.toggle('off',htrack.scrollLeft<=2);
+    hnext.classList.toggle('off',htrack.scrollLeft>=max);
+  };
+  hprev&&hprev.addEventListener('click',()=>htrack.scrollBy({left:-hStep(),behavior:'smooth'}));
+  hnext&&hnext.addEventListener('click',()=>htrack.scrollBy({left:hStep(),behavior:'smooth'}));
+  htrack.addEventListener('scroll',hUpd,{passive:true});
+  window.addEventListener('resize',hUpd);
+  hUpd();
 }
-window.addEventListener('scroll',hScroll,{passive:true});
-window.addEventListener('resize',hScroll);
-hScroll();
 const PRICING={
   'Краса':{dot:'#C2547A',plans:[
     {n:'Старт',d:'Соло-майстер',p:'₴0',sub:'назавжди безкоштовно',cta:'Почати',f:['1 майстер','Онлайн-запис 24/7','База клієнтів','Нагадування в застосунку']},
@@ -92,3 +97,18 @@ var shSlides=document.querySelectorAll('.sh-slide'),shDots=document.querySelecto
 if(shSlides.length>1){setInterval(function(){shSlides[shi].classList.remove('on');if(shDots[shi])shDots[shi].classList.remove('on');shi=(shi+1)%shSlides.length;shSlides[shi].classList.add('on');if(shDots[shi])shDots[shi].classList.add('on');},5000);}
 const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* nav: hide on scroll down, reveal on scroll up (smooth) */
+(function(){
+  var navEl=document.querySelector('nav');
+  if(!navEl)return;
+  var lastY=window.scrollY||0,ticking=false;
+  function upd(){
+    var y=window.scrollY||0;
+    if(y>lastY+5 && y>140){navEl.classList.add('nav-hidden');}
+    else if(y<lastY-5){navEl.classList.remove('nav-hidden');}
+    if(y<60){navEl.classList.remove('nav-hidden');}
+    lastY=y;ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(upd);ticking=true;}},{passive:true});
+})();

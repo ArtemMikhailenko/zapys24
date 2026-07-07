@@ -1,0 +1,234 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import FinalCta from '../components/FinalCta.astro';
+
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>';
+const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const ICF = {
+  calendar: S('<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M16 3l0 4"/><path d="M8 3l0 4"/><path d="M4 11l16 0"/><path d="M8 15h2v2h-2l0 -2"/>'),
+  bell: S('<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
+  card: S('<path d="M3 8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -8"/><path d="M3 10l18 0"/><path d="M7 15l.01 0"/><path d="M11 15l2 0"/>'),
+  users: S('<path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>'),
+  chart: S('<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6"/><path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10"/><path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14"/><path d="M4 20h14"/>'),
+  gift: S('<path d="M3 9a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1l0 -2"/><path d="M12 8l0 13"/><path d="M19 12v7a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0 -5a4.8 8 0 0 1 4.5 5a4.8 8 0 0 1 4.5 -5a2.5 2.5 0 0 1 0 5"/>'),
+  mobile: S('<path d="M11 3h10v8h-3l-4 2v-2h-3l0 -8"/><path d="M15 16v4a1 1 0 0 1 -1 1h-8a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1h2"/><path d="M10 18v.01"/>'),
+  clock: S('<path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 12l3 2"/><path d="M12 7v5"/>'),
+  notes: S('<path d="M5 5a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2l0 -14"/><path d="M9 7l6 0"/><path d="M9 11l6 0"/><path d="M9 15l4 0"/>'),
+  bolt: S('<path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"/>'),
+};
+
+const shows = [
+  { ic:'calendar', t:'Розумний календар для зайнятого дня', d:'Інтуїтивний і гнучкий графік, який впорається з будь-яким потоком. Уся команда бачить свій розклад у реальному часі.', shot:'/img/dashboard.webp', bullets:['Планування змін за хвилини','Блокування часу, перерв і вихідних','Буфер між послугами — графік відображає реальність'], note:'без конфліктів\nу розкладі' },
+  { ic:'mobile', t:'Керуйте бізнесом просто з телефона', d:'Записи, клієнти й сповіщення завжди під рукою. Веб-кабінет і застосунок синхронізуються миттєво.', shot:'/img/phone-real.webp', phone:true, bullets:['Розклад і картки клієнтів у кишені','Сповіщення про нові записи в реальному часі','iOS та Android'], note:'усе в кишені' },
+];
+const grid = [
+  { ic:'calendar', t:'Онлайн-запис 24/7', d:'Клієнти бронюють самі — без дзвінків і переписок.' },
+  { ic:'bell', t:'Авто-нагадування', d:'SMS та пуші про візит надсилаються без вашої участі.' },
+  { ic:'card', t:'Онлайн-оплати', d:'Передоплата й розрахунок прямо в застосунку.' },
+  { ic:'users', t:'Команда й зарплати', d:'Графіки, ролі та виплати майстрам — в одному місці.' },
+  { ic:'chart', t:'Аналітика й звіти', d:'Виручка, завантаженість і повернення клієнтів.' },
+  { ic:'gift', t:'Програми лояльності', d:'Бонуси, знижки й повторні візити на автоматі.' },
+];
+---
+
+<Layout title="Платформа для бізнесу — Zapys24">
+  <Nav variant="dark" />
+
+  <section class="pfh reveal">
+    <div class="pfh-photo" style="background-image:url(/img/ad-client.webp)"></div>
+    <div class="wrap pfh-grid">
+      <div class="pfh-tx">
+        <div class="kicker pfh-k">Платформа для бізнесу</div>
+        <h1 class="dis pfh-h1">Ваш день під контролем із <span class="ac">розумним розкладом</span></h1>
+        <p class="pfh-lead">Керуйте візитами, налаштовуйте графік під себе й надсилайте автоматичні нагадування — усе в одному кабінеті для вашого бізнесу.</p>
+        <div class="pfh-cta">
+          <a class="fbtn" href="#">Почати безкоштовно<span class="fbtn-ar" set:html={arrow}></span></a>
+          <span class="pfh-csub">14 днів безкоштовно · Без картки</span>
+        </div>
+        <div class="pfh-social">
+          <div class="pfh-avs">
+            <span style="background-image:url(/img/faq1.webp)"></span>
+            <span style="background-image:url(/img/faq2.webp)"></span>
+            <span style="background-image:url(/img/faq3.webp)"></span>
+            <span style="background-image:url(/img/model.webp)"></span>
+            <span style="background-image:url(/img/quote.webp)"></span>
+          </div>
+          <p>Понад <b>1200+ бізнесів</b><br>довіряють Zapys24</p>
+        </div>
+      </div>
+      <div class="pfh-media">
+        <div class="pfh-card pfh-book">
+          <div class="pfh-book-top"><span class="pfh-bell" set:html={ICF.calendar}></span><b>Новий запис</b></div>
+          <div class="pfh-book-cli"><span class="pfh-cav" style="background-image:url(/img/model.webp)"></span><div class="pfh-book-ct"><b>Олена К.</b><i>Сьогодні, 15:30</i></div></div>
+          <button class="pfh-book-btn">Підтвердити</button>
+        </div>
+        <div class="pfh-card pfh-rev">
+          <div class="pfh-rev-top"><span>Виручка за місяць</span><em>+14%</em></div>
+          <b>₴84 200</b>
+          <div class="pfh-bars"><i style="height:40%"></i><i style="height:58%"></i><i style="height:46%"></i><i style="height:74%"></i><i style="height:62%"></i><i style="height:92%"></i></div>
+        </div>
+        <div class="pfh-card pfh-remind">
+          <div class="pfh-remind-top"><span class="pfh-bell" set:html={ICF.bell}></span><b>Нагадування</b></div>
+          <p class="pfh-remind-cli">Клієнт: <b>Марія І.</b></p>
+          <p class="pfh-remind-time">Завтра о 11:00</p>
+        </div>
+        <div class="pfh-card pfh-cli">
+          <div class="pfh-cli-top"><span class="pfh-cli-ic" set:html={ICF.users}></span>Клієнти<em>+23%</em></div>
+          <b>127</b>
+          <div class="pfh-cli-avs"><span style="background-image:url(/img/faq1.webp)"></span><span style="background-image:url(/img/faq3.webp)"></span><span style="background-image:url(/img/model.webp)"></span><span class="more">+12</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pf-tour wrap reveal">
+    <div class="pf-head">
+      <div class="kicker" style="color:var(--violet)">Можливості</div>
+      <h2 class="sh">Подивіться, як це <span class="ac">працює</span></h2>
+      <p class="pf-sub">Оберіть можливість — і побачте її в дії. Zapys24 бере рутину на себе, а ви фокусуєтесь на клієнтах.</p>
+    </div>
+
+    <div class="pf-tabs" id="pfTabs">
+      <button class="pf-tab on" data-i="0" type="button"><span class="pf-tab-ic" set:html={ICF.calendar}></span>Календар</button>
+      <button class="pf-tab" data-i="1" type="button"><span class="pf-tab-ic" set:html={ICF.mobile}></span>Онлайн-запис</button>
+      <button class="pf-tab" data-i="2" type="button"><span class="pf-tab-ic" set:html={ICF.bell}></span>Нагадування</button>
+      <button class="pf-tab" data-i="3" type="button"><span class="pf-tab-ic" set:html={ICF.chart}></span>Аналітика</button>
+    </div>
+
+    <div class="pf-stage" id="pfStage">
+      <div class="pf-panel on" data-i="0">
+        <div class="pf-panel-tx">
+          <h3>Розумний календар без хаосу</h3>
+          <p>Записи по майстрах і послугах, без конфліктів у розкладі. Уся команда бачить свій графік у реальному часі.</p>
+          <ul class="pf-plist"><li><i set:html={check}></i>Планування змін за хвилини</li><li><i set:html={check}></i>Блокування часу, перерв і вихідних</li><li><i set:html={check}></i>Буфер між послугами</li></ul>
+        </div>
+        <div class="pf-panel-vis"><div class="pf-vshot"><span class="pf-vbar"><i></i><i></i><i></i></span><img src="/img/dashboard.webp" alt="Календар Zapys24" /></div></div>
+      </div>
+
+      <div class="pf-panel" data-i="1">
+        <div class="pf-panel-tx">
+          <h3>Клієнти бронюють самі — 24/7</h3>
+          <p>Публічне посилання й віджет для запису. Ніяких дзвінків і переписок — усе автоматично потрапляє у ваш розклад.</p>
+          <ul class="pf-plist"><li><i set:html={check}></i>Запис за кілька тапів</li><li><i set:html={check}></i>Віджет для сайту та Instagram</li><li><i set:html={check}></i>Синхронізація в реальному часі</li></ul>
+        </div>
+        <div class="pf-panel-vis pf-vis-phone"><img src="/img/phone-real.webp" alt="Застосунок Zapys24" /></div>
+      </div>
+
+      <div class="pf-panel" data-i="2">
+        <div class="pf-panel-tx">
+          <h3>Нагадування на автоматі</h3>
+          <p>SMS і пуш-сповіщення нагадають клієнту про візит, підтвердять запис і подякують після — без вашої участі.</p>
+          <ul class="pf-plist"><li><i set:html={check}></i>SMS та пуш автоматично</li><li><i set:html={check}></i>Підтвердження й подяки</li><li><i set:html={check}></i>До 40% менше неявок</li></ul>
+        </div>
+        <div class="pf-panel-vis">
+          <div class="pf-notes">
+            <div class="pf-note-c"><span class="pf-note-ic v" set:html={ICF.bell}></span><div class="pf-note-tx"><b>Нагадування надіслано</b><i>Олена К. · візит завтра о 14:00</i></div><span class="pf-note-t">зараз</span></div>
+            <div class="pf-note-c"><span class="pf-note-ic g" set:html={check}></span><div class="pf-note-tx"><b>Клієнт підтвердив запис</b><i>Ірина М. · Манікюр</i></div><span class="pf-note-t">2 хв</span></div>
+            <div class="pf-note-c"><span class="pf-note-ic p" set:html={ICF.gift}></span><div class="pf-note-tx"><b>Подяка після візиту</b><i>-10% на наступний запис</i></div><span class="pf-note-t">1 год</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pf-panel" data-i="3">
+        <div class="pf-panel-tx">
+          <h3>Гроші й аналітика під контролем</h3>
+          <p>Виручка, завантаженість майстрів і повернення клієнтів — усе видно на одному екрані. Звіти формуються самі.</p>
+          <ul class="pf-plist"><li><i set:html={check}></i>Виручка й завантаженість</li><li><i set:html={check}></i>Повернення клієнтів</li><li><i set:html={check}></i>Звіти по кожному майстру</li></ul>
+        </div>
+        <div class="pf-panel-vis">
+          <div class="pf-analytics">
+            <div class="pf-an-top"><div><span>Виручка за місяць</span><b>₴84 200</b></div><span class="pf-an-up">↑ 41%</span></div>
+            <div class="pf-an-bars"><i style="height:36%"></i><i style="height:54%"></i><i style="height:44%"></i><i style="height:72%"></i><i style="height:60%"></i><i style="height:88%"></i><i style="height:76%"></i></div>
+            <div class="pf-an-foot"><span><b>24</b> записи сьогодні</span><span><b>7</b> нових клієнтів</span><span><b>82%</b> завантаженість</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const tabs = Array.from(document.querySelectorAll('#pfTabs .pf-tab'));
+      const panels = Array.from(document.querySelectorAll('#pfStage .pf-panel'));
+      if (!tabs.length) return;
+      let cur = 0, timer = null;
+      const show = (i) => {
+        cur = i;
+        tabs.forEach((t, j) => t.classList.toggle('on', j === i));
+        panels.forEach((p, j) => p.classList.toggle('on', j === i));
+      };
+      const auto = () => { timer = setInterval(() => show((cur + 1) % tabs.length), 5200); };
+      tabs.forEach((t, i) => t.addEventListener('click', () => { show(i); clearInterval(timer); auto(); }));
+      auto();
+    })();
+  </script>
+
+  <section class="pp-banner reveal">
+    <div class="pp-banner-photo" style="background-image:url(/img/hero-2.webp)"></div>
+    <div class="pp-banner-veil"></div>
+    <div class="wrap pp-banner-in">
+      <div class="pp-banner-tx">
+        <div class="kicker pp-banner-k">Онлайн-запис</div>
+        <h2 class="dis">Запис став <span class="ac2">простішим</span></h2>
+        <p>Витрачайте менше часу на керування календарем і більше — на те, що любите. Бронювання швидке, гнучке й зовсім без стресу.</p>
+        <a class="pp-banner-btn" href="#">Спробувати<span class="fbtn-ar" set:html={arrow}></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pf-sec wrap reveal">
+    <div class="pf-head">
+      <div class="kicker" style="color:var(--violet)">Повний набір</div>
+      <h2 class="sh">Усе для бізнесу — <span class="ac">в одному місці</span></h2>
+      <p class="pf-sub">Календар, клієнти, оплати, команда, аналітика й нагадування працюють разом — без зайвих сервісів і подвійної роботи.</p>
+    </div>
+    <div class="pf-bento">
+      <div class="bx bx-w2 bx-lav">
+        <div class="bx-tx"><span class="bx-ic" set:html={ICF.calendar}></span><b>Розумний календар</b><p>Записи по майстрах і послугах, без конфліктів у розкладі та подвійних бронювань.</p></div>
+        <div class="bx-cal">
+          <div class="bx-cc"><i class="e-lav"></i></div>
+          <div class="bx-cc"><i class="e-peach" style="margin-top:16px"></i></div>
+          <div class="bx-cc"><i class="e-mint" style="margin-top:30px"></i></div>
+          <div class="bx-cc"><i class="e-pink" style="margin-top:8px"></i><i class="e-lav" style="margin-top:8px"></i></div>
+          <div class="bx-cc"><i class="e-mint" style="margin-top:22px"></i></div>
+        </div>
+      </div>
+      <div class="bx">
+        <span class="bx-ic" set:html={ICF.clock}></span><b>Онлайн-запис 24/7</b><p>Клієнти бронюють самі.</p>
+        <div class="bx-chips"><span>10:30</span><span class="on">12:00</span><span>15:30</span></div>
+      </div>
+      <div class="bx">
+        <span class="bx-ic" set:html={ICF.card}></span><b>Фінанси та зарплати</b>
+        <div class="bx-fin"><b>₴18 400</b><div class="bx-bars"><i style="height:38%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:88%"></i><i style="height:70%"></i></div></div>
+      </div>
+      <div class="bx bx-w2">
+        <div class="bx-tx"><span class="bx-ic" set:html={ICF.users}></span><b>Клієнтська база (CRM)</b><p>Історія візитів, уподобання, теги й нотатки — уся картка клієнта під рукою майстра.</p></div>
+        <div class="bx-avs">
+          <span style="background-image:url(/img/faq1.webp)"></span>
+          <span style="background-image:url(/img/faq2.webp)"></span>
+          <span style="background-image:url(/img/faq3.webp)"></span>
+          <span style="background-image:url(/img/model.webp)"></span>
+          <span class="more">+1.2k</span>
+        </div>
+      </div>
+      <div class="bx">
+        <span class="bx-ic" set:html={ICF.bell}></span><b>SMS та пуш-нагадування</b>
+        <div class="bx-bubble">Нагадування: візит завтра о 14:00 <i class="bx-ok">✓</i></div>
+      </div>
+      <div class="bx">
+        <span class="bx-ic" set:html={ICF.chart}></span><b>Аналітика й звіти</b>
+        <div class="bx-spark"><svg viewBox="0 0 100 34" preserveAspectRatio="none"><path d="M2 28 C18 26 26 18 40 16 C56 14 64 8 98 4" fill="none" stroke="var(--violet)" stroke-width="2.4" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg><span class="bx-up">+41%</span></div>
+      </div>
+      <div class="bx"><span class="bx-ic" set:html={ICF.users}></span><b>Команда й ролі</b><p>Графіки, доступи та виплати майстрам.</p></div>
+      <div class="bx"><span class="bx-ic" set:html={ICF.gift}></span><b>Програми лояльності</b><p>Бонуси, знижки й повторні візити.</p></div>
+      <div class="bx"><span class="bx-ic" set:html={ICF.mobile}></span><b>Мобільний застосунок</b><p>iOS та Android для вас і клієнтів.</p></div>
+      <div class="bx"><span class="bx-ic" set:html={ICF.bolt}></span><b>Віджет для сайту</b><p>Кнопка «Записатись» будь-де.</p></div>
+    </div>
+  </section>
+
+  <FinalCta />
+  <Footer />
+</Layout>

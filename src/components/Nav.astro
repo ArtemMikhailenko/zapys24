@@ -1,8 +1,16 @@
-<nav><div class="nav-in glass">
-  <div class="logo"><span class="mark">z</span>zapys24</div>
-  <div class="nav-links"><a href="#">Можливості</a><a href="#">Галузі</a><a href="#stories">Історії</a><a href="#prices">Тарифи</a></div>
-  <div style="display:flex;gap:10px;align-items:center">
-    <a class="btn btn-glass" href="#" style="padding:11px 18px">Увійти</a>
-    <a class="btn btn-ink" href="#" style="padding:11px 20px">Спробувати</a>
+---
+const { variant } = Astro.props;
+---
+<nav class={variant === 'dark' ? 'nav-dark' : undefined}><div class="nav-in">
+  <a class="logo" href="/" aria-label="Zapys24">
+    <img class="logo-mark" src="/img/zapys-icon.webp" alt="" />
+    <span class="logo-tx">Zapys <b>24</b></span>
+  </a>
+  <div class="nav-links">
+    <a href="/platforma">Можливості</a><a href="/#hsec">Галузі</a><a href="/pricing">Тарифи</a><a href="/pro-nas">Про нас</a><a href="/kontakty">Контакти</a>
+  </div>
+  <div class="nav-act">
+    <a class="nav-login" href="#">Увійти</a>
+    <a class="nav-cta" href="#">Спробувати<span class="nav-cta-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
   </div>
 </div></nav>

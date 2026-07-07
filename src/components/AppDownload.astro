@@ -1,0 +1,76 @@
+---
+const badges = `
+  <a class="sb" href="#" aria-label="Завантажити в App Store">
+    <svg class="sb-ico" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.05 12.04c-.03-2.7 2.2-4 2.3-4.06-1.25-1.84-3.2-2.09-3.9-2.12-1.66-.17-3.24.97-4.08.97-.84 0-2.14-.95-3.52-.92-1.81.03-3.48 1.05-4.41 2.67-1.88 3.27-.48 8.1 1.35 10.76.9 1.3 1.96 2.76 3.36 2.71 1.35-.05 1.86-.87 3.49-.87 1.63 0 2.09.87 3.52.84 1.45-.03 2.37-1.32 3.26-2.63 1.03-1.51 1.45-2.97 1.47-3.05-.03-.01-2.82-1.08-2.85-4.28zM14.39 4.5c.74-.9 1.24-2.15 1.1-3.4-1.07.04-2.36.71-3.12 1.61-.68.79-1.28 2.06-1.12 3.28 1.19.09 2.4-.6 3.14-1.49z"></path></svg>
+    <span class="sb-tx"><small>Завантажити в</small><b>App Store</b></span>
+  </a>
+  <a class="sb" href="#" aria-label="Доступно в Google Play">
+    <svg class="sb-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D76F" d="M2.8 2.4 16.3 9.4 13 12 2.8 12Z"></path><path fill="#00B6FF" d="M2.8 12 13 12 2.8 21.6Z"></path><path fill="#FF4150" d="M2.8 21.6 13 12 16.3 14.6Z"></path><path fill="#FFCE2B" d="M16.3 9.4 20.5 12 16.3 14.6 13 12Z"></path></svg>
+    <span class="sb-tx"><small>Доступно в</small><b>Google Play</b></span>
+  </a>`;
+
+const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const IC = {
+  cal: S('<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M16 3l0 4"/><path d="M8 3l0 4"/><path d="M4 11l16 0"/><path d="M8 15h2v2h-2l0 -2"/>'),
+  chart: S('<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6"/><path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10"/><path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14"/><path d="M4 20h14"/>'),
+  bell: S('<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
+  users: S('<path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>'),
+  card: S('<path d="M3 8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -8"/><path d="M3 10l18 0"/><path d="M7 15l.01 0"/><path d="M11 15l2 0"/>'),
+  trend: S('<path d="M3 17l6 -6l4 4l8 -8"/><path d="M14 7l7 0l0 7"/>'),
+};
+
+const sched = [
+  { t:'10:00', n:'Марія І.', img:'faq1.webp' },
+  { t:'11:30', n:'Андрій К.', img:'faq3.webp' },
+  { t:'13:00', n:'Олена К.', img:'model.webp' },
+  { t:'15:00', n:'Дмитро С.', img:'faq2.webp' },
+  { t:'16:30', n:'Марія І.', img:'faq1.webp' },
+];
+const feats = [
+  { ic:IC.bell,  t:'Нагадування зменшують кількість неявок' },
+  { ic:IC.users, t:'Команда працює злагоджено' },
+  { ic:IC.card,  t:'Онлайн-оплати та зручний облік доходів' },
+  { ic:IC.trend, t:'Аналітика для зростання вашого бізнесу' },
+];
+---
+
+<section class="wrap reveal apps-sec ad">
+  <div class="ad-head">
+    <div class="ad-head-tx">
+      <h2 class="sh ad-h">Усе необхідне —<br>в одному <span class="ac">застосунку</span></h2>
+      <p class="ad-sub">Бронювання, клієнти, команда та оплати. Zapys24 об'єднує все, що потрібно для щоденної роботи та розвитку бізнесу.</p>
+    </div>
+    <div class="znote ad-note"><p class="hand">обидва<br>безкоштовні</p><span class="zar"><svg viewBox="0 0 118 82" fill="none" aria-hidden="true"><path d="M108 14 C64 6 22 22 15 60" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/><path d="M15 60 l3 -17 M15 60 l16 -6" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/></svg></span></div>
+  </div>
+
+  <div class="ad-stage">
+    <div class="ad-left">
+      <div class="ad-photo" style="background-image:url(/img/ad-client.webp)"></div>
+      <div class="ad-card ad-card-c">
+        <span class="ad-ic" set:html={IC.cal}></span>
+        <span class="ad-k">Для клієнтів</span>
+        <b class="ad-ct">Бронювання<br>в кілька секунд</b>
+        <p>Зручний вибір послуг, майстра та часу. Нагадування про візит і історія записів завжди під рукою.</p>
+        <div class="app-badges" set:html={badges}></div>
+      </div>
+    </div>
+
+    <div class="ad-phones">
+      <img class="ad-ph-img ad-ph-c" src="/img/app-client.webp" alt="Застосунок Zapys24 для клієнтів" />
+      <img class="ad-ph-img ad-ph-b" src="/img/app-biz.webp" alt="Застосунок Zapys24 Pro для бізнесу" />
+      <span class="ad-znode"><img src="/img/zapys-icon.webp" alt="" /></span>
+    </div>
+
+    <div class="ad-card ad-card-b">
+      <span class="ad-ic" set:html={IC.chart}></span>
+      <span class="ad-k">Для бізнесу</span>
+      <b class="ad-ct">Контроль і розвиток<br>без зайвих складнощів</b>
+      <p>Керування записами, командою, фінансами та клієнтами. Аналітика, яка допомагає приймати рішення.</p>
+      <div class="app-badges" set:html={badges}></div>
+    </div>
+  </div>
+
+  <div class="ad-feats">
+    {feats.map(f => (<div class="ad-feat"><span class="ad-feat-ic" set:html={f.ic}></span><p>{f.t}</p></div>))}
+  </div>
+</section>
