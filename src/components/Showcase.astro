@@ -1,52 +1,99 @@
 ---
 const masters = [
-  { nm: 'Олена', img: 'quote.webp' },
-  { nm: 'Ірина', img: 'model.webp' },
-  { nm: 'Андрій', img: 'p1.webp' },
-  { nm: 'Софія', img: 'p2.webp' },
+  { nm: "Олена", img: "quote.webp" },
+  { nm: "Ірина", img: "model.webp" },
+  { nm: "Андрій", img: "p1.webp" },
+  { nm: "Софія", img: "p2.webp" },
 ];
-const times = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+const times = [
+  "09:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "13:00",
+  "14:00",
+  "15:00",
+  "16:00",
+  "17:00",
+];
 const HOUR = 42;
 const bookings = [
-  { col:0, h:0, span:1, t:'Стрижка', w:'Олена М.', tone:'v' },
-  { col:1, h:1, span:1, t:'Манікюр', w:'Ірина П.', tone:'a' },
-  { col:3, h:2, span:1, t:'Фарбування', w:'Софія К.', tone:'g' },
-  { col:2, h:3, span:1, t:'Чоловіча стрижка', w:'Андрій Д.', tone:'b' },
-  { col:0, h:4, span:1, t:'Укладка', w:'Марія І.', tone:'v2' },
-  { col:1, h:6, span:1, t:'Педикюр', w:'Катерина С.', tone:'a' },
-  { col:3, h:7, span:1, t:'Брови', w:'Наталія Т.', tone:'g' },
+  { col: 0, h: 0, span: 1, t: "Стрижка", w: "Олена М.", tone: "v" },
+  { col: 1, h: 1, span: 1, t: "Манікюр", w: "Ірина П.", tone: "a" },
+  { col: 3, h: 2, span: 1, t: "Фарбування", w: "Софія К.", tone: "g" },
+  { col: 2, h: 3, span: 1, t: "Чоловіча стрижка", w: "Андрій Д.", tone: "b" },
+  { col: 0, h: 4, span: 1, t: "Укладка", w: "Марія І.", tone: "v2" },
+  { col: 1, h: 6, span: 1, t: "Педикюр", w: "Катерина С.", tone: "a" },
+  { col: 3, h: 7, span: 1, t: "Брови", w: "Наталія Т.", tone: "g" },
 ];
 const phoneRows = [
-  { t:'09:00', s:'Стрижка', w:'Олена М.', tone:'v' },
-  { t:'10:30', s:'Манікюр', w:'Ірина П.', tone:'a' },
-  { t:'12:00', s:'Чоловіча стрижка', w:'Андрій Д.', tone:'b' },
-  { t:'13:30', s:'Фарбування', w:'Софія К.', tone:'g' },
-  { t:'15:00', s:'Укладка', w:'Марія І.', tone:'v2' },
-  { t:'16:30', s:'Педикюр', w:'Катерина С.', tone:'a' },
+  { t: "09:00", s: "Стрижка", w: "Олена М.", tone: "v" },
+  { t: "10:30", s: "Манікюр", w: "Ірина П.", tone: "a" },
+  { t: "12:00", s: "Чоловіча стрижка", w: "Андрій Д.", tone: "b" },
+  { t: "13:30", s: "Фарбування", w: "Софія К.", tone: "g" },
+  { t: "15:00", s: "Укладка", w: "Марія І.", tone: "v2" },
+  { t: "16:30", s: "Педикюр", w: "Катерина С.", tone: "a" },
 ];
 const stats = [
-  { l:'Записів', v:'24', d:'+6 до вчора', ic:'cal' },
-  { l:'Дохід', v:'₴18 400', d:'+21%', ic:'money' },
-  { l:'Нових клієнтів', v:'7', d:'+3', ic:'users' },
-  { l:'Завантаженість', v:'82%', d:'+12%', ic:'target' },
+  { l: "Записів", v: "24", d: "+6 до вчора", ic: "cal" },
+  { l: "Дохід", v: "₴18 400", d: "+21%", ic: "money" },
+  { l: "Нових клієнтів", v: "7", d: "+3", ic: "users" },
+  { l: "Завантаженість", v: "82%", d: "+12%", ic: "target" },
 ];
-const avs = ['quote.webp','model.webp','p1.webp','p2.webp'];
+const avs = ["quote.webp", "model.webp", "p1.webp", "p2.webp"];
 ---
 
 <section class="sec wrap reveal scsec softbg">
   <div class="sc-top">
     <div class="sc-head">
-      <div class="kicker" style="color:var(--violet)">Ваш кабінет</div>
-      <h2 class="sh">Усе під контролем&nbsp;—<br>на компʼютері й у <span class="ac">телефоні</span></h2>
-      <p class="sub2">Керуйте записами, клієнтами та майстрами звідки зручно. Веб-кабінет і мобільний застосунок синхронізуються в реальному часі.</p>
+      <div class="kicker" style="color:var(--violet)">
+        Ваш кабінет завжди з вами
+      </div>
+      <h2 class="sh">
+        Контролюйте роботу бізнесу будь де&nbsp;—<br />в <span class="ac"
+          >компʼютері</span
+        > або у <span class="ac">телефоні</span>
+      </h2>
+      <p class="sub2">
+        Керуйте записами, клієнтами, персоналом та прибутками звідки зручно.
+        Веб-кабінет і мобільний застосунок синхронізуються в реальному часі.
+      </p>
     </div>
     <div class="sc-social">
       <div class="sc-avs">
-        {avs.map(a => <span class="sc-av" style={`background-image:url(/img/${a})`}></span>)}
-        <span class="sc-av sc-avp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 6v12M6 12h12"/></svg></span>
+        {
+          avs.map((a) => (
+            <span class="sc-av" style={`background-image:url(/img/${a})`} />
+          ))
+        }
+        <span class="sc-av sc-avp"
+          ><svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"><path d="M12 6v12M6 12h12"></path></svg
+          ></span
+        >
       </div>
-      <svg class="sc-ar sc-ar1" viewBox="0 0 130 86" fill="none" aria-hidden="true"><path d="M6,80 C44,76 86,70 112,26" stroke="#2A2230" stroke-width="2" stroke-linecap="round"/><path d="M112,26 l-16,5 M112,26 l-3,16" stroke="#2A2230" stroke-width="2" stroke-linecap="round"/></svg>
-      <p class="hand sc-note1">Веб-кабінет і застосунок —<br>усе синхронно в реальному часі</p>
+      <svg
+        class="sc-ar sc-ar1"
+        viewBox="0 0 130 86"
+        fill="none"
+        aria-hidden="true"
+        ><path
+          d="M6,80 C44,76 86,70 112,26"
+          stroke="#2A2230"
+          stroke-width="2"
+          stroke-linecap="round"></path><path
+          d="M112,26 l-16,5 M112,26 l-3,16"
+          stroke="#2A2230"
+          stroke-width="2"
+          stroke-linecap="round"></path></svg
+      >
+      <p class="hand sc-note1">
+        Веб-кабінет і застосунок —<br />усе синхронно в реальному часі
+      </p>
     </div>
   </div>
 
@@ -54,14 +101,49 @@ const avs = ['quote.webp','model.webp','p1.webp','p2.webp'];
     <div class="sc-photo"></div>
 
     <div class="sc-dash">
-      <img src="/img/dashboard.webp" alt="Дашборд Zapys24 — кабінет бізнесу" />
+      <img src="/img/dashboard.png" alt="Дашборд Zapys24 — кабінет бізнесу" />
     </div>
 
     <div class="sc-phone">
-      <img src="/img/phone-real.webp" alt="Мобільний застосунок Zapys24 — записи" />
+      <img
+        src="/img/phone-real.webp"
+        alt="Мобільний застосунок Zapys24 — записи"
+      />
     </div>
 
-    <svg class="sc-ar sc-ar2" viewBox="0 0 140 116" fill="none" aria-hidden="true"><path d="M14,110 C18,64 36,34 118,20" stroke="#2A2230" stroke-width="2" stroke-linecap="round"/><path d="M118,20 l-17,-1 M118,20 l-9,14" stroke="#2A2230" stroke-width="2" stroke-linecap="round"/></svg>
-    <p class="hand sc-note2">Гнучке вікно запису<br>для ваших клієнтів —<br>менше дзвінків, більше часу<br>на те, що важливо</p>
+    <svg
+      class="sc-ar sc-ar2"
+      viewBox="0 0 140 116"
+      fill="none"
+      aria-hidden="true"
+      ><path
+        d="M14,110 C18,64 36,34 118,20"
+        stroke="#2A2230"
+        stroke-width="2"
+        stroke-linecap="round"></path><path
+        d="M118,20 l-17,-1 M118,20 l-9,14"
+        stroke="#2A2230"
+        stroke-width="2"
+        stroke-linecap="round"></path></svg
+    >
+    <p class="hand sc-note2">
+      Гнучке вікно запису<br />для ваших клієнтів —<br />менше дзвінків, більше
+      часу<br />на те, що важливо
+    </p>
+  </div>
+
+  <div class="sc-ctaw">
+    <a class="cta-pill" href="#" data-signup
+      >Почати безкоштовно<span class="cta-pill-ar"
+        ><svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+        ></span
+      ></a
+    >
   </div>
 </section>

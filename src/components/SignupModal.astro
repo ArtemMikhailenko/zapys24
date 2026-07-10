@@ -1,0 +1,168 @@
+---
+const industries = [
+  {
+    key: "beauty",
+    name: "Бʼюті",
+    desc: "Салони, барбершопи, майстри манікюру, косметологи",
+    photo: "/img/beauty.webp",
+    href: "https://beauty.zapys24.com/register",
+    demo: "https://demo.zapys24.com",
+  },
+  {
+    key: "horse",
+    name: "Кінний клуб",
+    desc: "Стайні, прокат коней, тренери, іпотерапія",
+    photo: "/img/horse.webp",
+    href: "https://horse.zapys24.com/register",
+    demo: "https://demo-horse.zapys24.com",
+  },
+];
+---
+
+<div class="sgm" id="signupModal" hidden>
+  <div class="sgm-back" data-signup-close></div>
+  <div
+    class="sgm-box"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="signupModalTitle"
+  >
+    <button class="sgm-x" type="button" aria-label="Закрити" data-signup-close>
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg
+      >
+    </button>
+    <p class="sgm-kicker" id="signupModalKicker">Спробуй безкоштовно</p>
+    <h2 class="dis sgm-h" id="signupModalTitle">Оберіть свою сферу</h2>
+    <p class="sgm-sub" id="signupModalSub">
+      Ми підготували окремий кабінет під кожну індустрію — з потрібним
+      функціоналом саме під вашу сферу діяльності.
+    </p>
+    <div class="sgm-grid">
+      {
+        industries.map((i) => (
+          <a
+            class={`sgm-card sgm-${i.key}`}
+            href={i.href}
+            data-href-signup={i.href}
+            data-href-demo={i.demo}
+            target="_blank"
+            rel="noopener"
+          >
+            <span
+              class="sgm-photo"
+              style={`background-image:url(${i.photo})`}
+              aria-hidden="true"
+            />
+            <span class="sgm-body">
+              <b>{i.name}</b>
+              <i>{i.desc}</i>
+            </span>
+            <span class="sgm-ar" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+    <p class="sgm-foot">
+      Інші сфери — <span>автосервіс, фітнес, медицина</span> — вже в розробці.
+    </p>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("signupModal");
+  if (modal) {
+    const box = modal.querySelector(".sgm-box") as HTMLElement;
+    const kicker = document.getElementById("signupModalKicker") as HTMLElement;
+    const title = document.getElementById("signupModalTitle") as HTMLElement;
+    const sub = document.getElementById("signupModalSub") as HTMLElement;
+    const cards = box.querySelectorAll<HTMLAnchorElement>(".sgm-card");
+    let lastFocused: HTMLElement | null = null;
+
+    const modes = {
+      signup: {
+        kicker: "Спробуй безкоштовно",
+        title: "Оберіть свою сферу",
+        sub: "Ми підготували окремий кабінет під кожну індустрію — з потрібним функціоналом саме під вашу сферу діяльності.",
+      },
+      demo: {
+        kicker: "Демо-кабінет",
+        title: "Яке демо показати?",
+        sub: "Зайдіть у готовий кабінет із прикладами записів і клієнтів — без реєстрації та оцініть усі можливості системи.",
+      },
+    };
+
+    const open = (trigger?: HTMLElement) => {
+      const mode = trigger?.dataset.signup === "demo" ? "demo" : "signup";
+      const t = modes[mode];
+      kicker.textContent = t.kicker;
+      title.textContent = t.title;
+      sub.textContent = t.sub;
+      cards.forEach((c) => {
+        const href =
+          mode === "demo" ? c.dataset.hrefDemo : c.dataset.hrefSignup;
+        if (href) c.href = href;
+      });
+
+      lastFocused = trigger || (document.activeElement as HTMLElement);
+      modal.hidden = false;
+      document.body.classList.add("sgm-open");
+      requestAnimationFrame(() => modal.classList.add("on"));
+      (box.querySelector(".sgm-card") as HTMLElement)?.focus();
+    };
+
+    const close = () => {
+      modal.classList.remove("on");
+      document.body.classList.remove("sgm-open");
+      setTimeout(() => {
+        modal.hidden = true;
+      }, 280);
+      lastFocused?.focus();
+    };
+
+    document.querySelectorAll("[data-signup]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        open(el as HTMLElement);
+      });
+    });
+
+    modal.querySelectorAll("[data-signup-close]").forEach((el) => {
+      el.addEventListener("click", close);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (modal.hidden) return;
+      if (e.key === "Escape") close();
+      if (e.key === "Tab") {
+        const f = box.querySelectorAll<HTMLElement>("a[href], button");
+        if (!f.length) return;
+        const first = f[0];
+        const last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  }
+</script>

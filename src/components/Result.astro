@@ -1,44 +1,98 @@
 ---
-const arrow = '<svg viewBox="0 0 120 82" fill="none" aria-hidden="true"><path d="M6 18 C48 6 96 14 108 58" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/><path d="M108 58 l-17 -3 M108 58 l-2 -17" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/></svg>';
-const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const arrow =
+  '<svg viewBox="0 0 120 82" fill="none" aria-hidden="true"><path d="M6 18 C48 6 96 14 108 58" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/><path d="M108 58 l-17 -3 M108 58 l-2 -17" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/></svg>';
+const S = (p) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const vals = [
-  { ic: S('<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M16 3l0 4"/><path d="M8 3l0 4"/><path d="M4 11l16 0"/><path d="M8 15h2v2h-2l0 -2"/>'),
-    t: 'Онлайн-запис 24/7', d: 'клієнти бронюють самі, без дзвінків і переписок', c: 'v' },
-  { ic: S('<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
-    t: 'Авто-нагадування', d: 'менше неявок і забутих візитів', c: 'a' },
-  { ic: S('<path d="M12 3l8 4.5v9l-8 4.5l-8 -4.5v-9l8 -4.5"/><path d="M12 12l8 -4.5"/><path d="M12 12l0 9"/><path d="M12 12l-8 -4.5"/>'),
-    t: 'Усе в одному місці', d: 'календар, клієнти, послуги та оплати', c: 'g' },
+  {
+    ic: S(
+      '<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M16 3l0 4"/><path d="M8 3l0 4"/><path d="M4 11l16 0"/><path d="M8 15h2v2h-2l0 -2"/>',
+    ),
+    t: "Онлайн-запис 24/7",
+    d: "клієнти бронюють самі, без дзвінків і переписок",
+    c: "v",
+  },
+  {
+    ic: S(
+      '<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>',
+    ),
+    t: "Авто-нагадування",
+    d: "менше неявок і забутих візитів",
+    c: "a",
+  },
+  {
+    ic: S(
+      '<path d="M12 3l8 4.5v9l-8 4.5l-8 -4.5v-9l8 -4.5"/><path d="M12 12l8 -4.5"/><path d="M12 12l0 9"/><path d="M12 12l-8 -4.5"/>',
+    ),
+    t: "Усе в одному місці",
+    d: "календар, клієнти, послуги та фінанси",
+    c: "g",
+  },
 ];
 ---
 
 <section class="rz reveal">
   <div class="rz-in">
     <div class="rz-text">
-      <div class="kicker">Чому Zapys24</div>
-      <h2 class="rz-h">Zapys24 бере<br><span class="ac">рутину на себе</span></h2>
-      <p class="rz-lead">Онлайн-запис, нагадування та облік працюють автоматично — а ви займаєтесь тим, що любите, і не гаєте час на рутину.</p>
+      <div class="kicker">Чому Zapys24?</div>
+      <h2 class="rz-h">
+        Zapys24 бере<br /><span class="ac">рутину на себе</span>
+      </h2>
+      <p class="rz-lead">
+        Онлайн-запис, нагадування та облік працюють автоматично — а ви
+        займаєтесь тим, що любите, і не гаєте час на рутину.
+      </p>
 
       <div class="rz-vals">
-        {vals.map(v => (
-          <div class="rz-val">
-            <span class={`rz-val-ic n-${v.c}`} set:html={v.ic}></span>
-            <div class="rz-val-tx"><b>{v.t}</b><i>{v.d}</i></div>
-          </div>
-        ))}
+        {
+          vals.map((v) => (
+            <div class="rz-val">
+              <span class={`rz-val-ic n-${v.c}`} set:html={v.ic} />
+              <div class="rz-val-tx">
+                <>
+                  <b>{v.t}</b>
+                  <i>{v.d}</i>
+                </>
+              </div>
+            </div>
+          ))
+        }
       </div>
+
+      <a class="cta-pill rz-cta" href="#" data-signup
+        >Почати безкоштовно<span class="cta-pill-ar"
+          ><svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+          ></span
+        ></a
+      >
     </div>
   </div>
 
   <div class="rz-note">
-    <p class="hand">усе працює<br>на автоматі ✨</p>
-    <span class="rz-note-ar" set:html={arrow}></span>
+    <p class="hand">усе працює<br />на автоматі ✨</p>
+    <span class="rz-note-ar" set:html={arrow} />
   </div>
 
   <div class="rz-photo">
-    <img src="/img/res.webp" alt="Власниця бізнесу">
+    <img src="/img/res.webp" alt="Власниця бізнесу" />
     <div class="rz-glass">
-      <span class="rz-glass-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
-      <span>Більше записів.<br>Менше рутини.</span>
+      <span class="rz-glass-ic"
+        ><svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg
+        ></span
+      >
+      <span>Більше записів.<br />Менше рутини.</span>
     </div>
   </div>
 </section>
