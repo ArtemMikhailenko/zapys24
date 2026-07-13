@@ -558,14 +558,18 @@ h2.sh .ac{color:var(--violet)}
 
 .sc-ar2{left:58px;bottom:40px;width:128px;height:104px;z-index:5}
 .sc-note2{position:absolute;left:-28px;bottom:-40px;font-size:18px;transform:rotate(-2deg);z-index:5}
+.sc-swipe{display:none}
 @media(max-width:920px){
   .sc-top{flex-direction:column;gap:0}
   .sc-social{display:none}
   .sc-stage{min-height:0;padding-bottom:0;margin-top:28px}
   .sc-photo,.sc-ar2,.sc-note2{display:none}
-  .sc-dash{position:relative;left:auto;right:auto;top:auto;width:100%;transform:none;box-shadow:0 30px 60px -36px rgba(42,14,55,.5)}
+  .sc-dash{position:relative;left:auto;right:auto;top:auto;width:100%;transform:none;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;border-radius:var(--r-md);box-shadow:0 30px 60px -36px rgba(42,14,55,.5)}
+  .sc-dash img{width:780px;min-width:780px;max-width:none}
+  .sc-swipe{display:inline-flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:11px;font-size:12.5px;font-weight:600;color:var(--muted)}
+  .sc-swipe svg{width:16px;height:16px;color:var(--violet)}
   .sc-stats{position:relative;left:auto;right:auto;top:auto;width:100%;max-width:320px;margin:16px auto 0}
-  .sc-phone{position:relative;left:auto;right:auto;bottom:auto;top:auto;width:238px;margin:18px auto 0;transform:none}
+  .sc-phone{position:relative;left:auto;right:auto;bottom:auto;top:auto;width:250px;margin:22px auto 0;transform:none}
 }
 
 /* pricing */
