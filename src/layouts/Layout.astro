@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import SignupModal from '../components/SignupModal.astro';
 const { title = 'Zapys24 — записи приходять самі' } = Astro.props;
 ---
 
@@ -21,5 +22,6 @@ const { title = 'Zapys24 — записи приходять самі' } = Astro
   <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
   <div class="grain"></div>
   <slot />
+  <SignupModal />
 </body>
 </html>
