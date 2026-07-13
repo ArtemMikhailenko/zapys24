@@ -2682,11 +2682,31 @@ h2.sh .ac{color:var(--violet)}
 @media(max-width:600px){
   .ws-mi-ch{display:none}
   .ws-mi{flex-basis:100%}
-  .ws-content{padding:15px}
-  .ws-kpis3{grid-template-columns:1fr}
-  .ws-fin2{gap:16px}
   .ws-more{grid-template-columns:1fr}
   .ws-mq{flex-wrap:wrap;gap:12px}
+  /* mockup → real mobile-app shell: sidebar rail becomes a bottom tab bar */
+  .ws-win{min-height:0}
+  .ws-app{flex-direction:column-reverse}
+  .ws-rail{width:auto;flex-direction:row;align-items:center;justify-content:space-around;gap:2px;padding:7px 6px calc(7px + env(safe-area-inset-bottom,0px));border-right:none;border-top:1px solid #E8EAF0;box-shadow:0 -8px 22px -16px rgba(60,45,120,.35)}
+  .ws-rail-logo,.ws-rail-b,.ws-rn-graph,.ws-rn-catalog{display:none}
+  .ws-rn{width:52px;height:40px;border-radius:11px}
+  .ws-rn.on::before{left:50%;top:-7px;transform:translateX(-50%);width:20px;height:3px}
+  .ws-content{padding:16px 15px;overflow-y:auto}
+  /* panel content: comfortable single-column stacks like a phone app */
+  .ws-kpis3{grid-template-columns:1fr;gap:10px}
+  .ws-kpi3 b{font-size:22px}
+  .ws-fin2{flex-direction:column;align-items:stretch;gap:16px}
+  .ws-donut2{align-self:center}
+  .ws-stats4{gap:10px}
+  .ws-top-t b{font-size:16px}
+  .ws-grid-times span{height:52px}
+  .ws-grid-line{height:52px}
+}
+@media(max-width:400px){
+  .ws-stats4{grid-template-columns:1fr}
+  .ws-rn{width:46px}
+  .ws-chrome{gap:10px;padding:10px 13px}
+  .ws-content{padding:14px 13px}
 }
 
 /* platforma — how it works (animated journey) */
@@ -3256,6 +3276,13 @@ h2.sh .ac{color:var(--violet)}
   .kr-dash-stats{grid-template-columns:1fr}
   .kr-dash-add{display:none}
   .pfh-badges{flex-wrap:wrap}
+  /* dashboard replica → mobile-app shell: 64px rail becomes a 5-icon bottom bar */
+  .kr-dash-body{display:flex;flex-direction:column-reverse}
+  .kr-dash-rail{flex-direction:row;align-items:center;justify-content:space-around;gap:2px;padding:7px 6px calc(7px + env(safe-area-inset-bottom,0px));border-right:none;border-top:1px solid #E8EAF0;box-shadow:0 -8px 22px -16px rgba(60,45,120,.28)}
+  .kr-dash-logo,.kr-dash-rail>span:nth-child(4),.kr-dash-rail>span:nth-child(6),.kr-dash-rail>span:nth-child(9){display:none}
+  .kr-dash-ri{width:52px;height:40px}
+  .kr-dash-main{padding:18px 15px}
+  .kr-dash-bar b{font-size:16px}
 }
 
 /* ===== PRICING v3 — reference rebuild ===== */
