@@ -1044,8 +1044,8 @@ h2.sh .ac{color:var(--violet)}
   .ba{grid-template-columns:1fr}
   .ba-inner{display:flex;flex-direction:column;min-height:0;margin-right:0}
   .ba-photo{position:relative;inset:auto;transform:none;width:100%;height:220px;aspect-ratio:auto;border-radius:var(--r-md);margin:0 0 16px}
-  .bap-b{position:relative;inset:auto;right:auto;top:auto;bottom:auto;width:100%;border-radius:var(--r-lg);padding:24px 18px}
-  .btag-r{top:10px;right:10px}.btag-l{top:6px;left:6px}.bknob{display:none}.ba-chips{display:none}
+  .bap-b{position:relative;inset:auto;right:auto;top:auto;bottom:auto;width:100%;border-radius:var(--r-lg);padding:52px 18px 24px}
+  .btag-l{top:14px;left:14px}.btag-r{top:242px;left:14px;right:auto}.bknob{display:none}.ba-chips{display:none}
   .crow2{margin-left:0}.cnote{font-size:11px}
   .islide{flex:0 0 230px}.islide-cta{flex:0 0 210px}
   .hsec{height:auto;margin:34px 0}.hsticky{position:static;height:auto;display:block;overflow:visible}
@@ -1059,7 +1059,7 @@ h2.sh .ac{color:var(--violet)}
   .hubz{font-size:50px}
   .intnode{position:static;transform:none;animation:none}.intnode:hover .ic{transform:none}
   .faqsec{min-height:0;padding-bottom:20px}
-  .faq-head{position:static;width:auto}.faq-head .sub2{max-width:none}.faq-head h2.sh{font-size:32px}
+  .faq-head{position:relative;z-index:2;top:auto;left:auto;width:auto}.faq-head .sub2{max-width:none}.faq-head h2.sh{font-size:32px}
   .faq-deco{display:none}
   .faq-stage{width:auto;max-width:none;aspect-ratio:auto;margin:24px 0 0}
   .faq-rings,.faq-dot,.faq-orb{display:none}
@@ -1067,14 +1067,12 @@ h2.sh .ac{color:var(--violet)}
   .faqp-ans{position:static;transform:none!important;opacity:1;visibility:visible;max-height:0;overflow:hidden;transition:max-height .3s ease}
   .faqp.open .faqp-ans{max-height:240px;margin-top:8px}
   .faqp.up .faqp-ans{bottom:auto;top:auto}
-  .faq-foot{position:static;flex-wrap:wrap;gap:16px;margin-top:24px}.faq-ask{margin-left:0}.faq-chat{margin-left:0}.faq-nav{margin-left:auto}
+  .faq-foot{position:relative;z-index:2;flex-wrap:wrap;gap:14px 20px;margin-top:22px;align-items:center}.faq-ask{margin-left:0}.faq-chat{margin-left:0}.faq-nav{display:none}
   .hiwsec{padding-bottom:20px}
   .hiw-head h2.sh{white-space:normal;font-size:30px}
   .hiw-grid{grid-template-columns:1fr;gap:18px}
-  .hcard:nth-of-type(1),.hcard:nth-of-type(3){margin-top:0}
-  .hconn,.hiw-wire,.hiw-dot{display:none}
-  .hchip{position:static;transform:none!important;margin:10px 0 0;width:fit-content}
-  .hchip-url{left:auto}
+  .hiw-grid .hcard:nth-of-type(1),.hiw-grid .hcard:nth-of-type(2),.hiw-grid .hcard:nth-of-type(3){margin-top:0}
+  .hconn,.hiw-wire,.hiw-dot,.hchip{display:none}
   .footin{grid-template-columns:1fr 1fr;gap:24px}.footer{padding:40px 0 24px}
   .faq summary{font-size:15px}
   .stories,.prices{grid-template-columns:1fr;gap:14px}.scard,.pcard.pop{transform:none}
@@ -1196,7 +1194,15 @@ h2.sh .ac{color:var(--violet)}
 .ob5{top:85%;left:28%;animation-delay:.45s}
 @keyframes obFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @media (prefers-reduced-motion:reduce){.ob{animation:none}}
-@media(max-width:920px){.organize-badges{display:none}}
+@media(max-width:920px){
+  /* keep the banner lively on mobile: 2 floating badges over the lower photo, clear of the text */
+  .ob1,.ob2{display:none}
+  .ob{font-size:13px;padding:9px 15px}
+  .ob svg{width:16px;height:16px}
+  .ob3{top:auto;bottom:7%;left:5%;animation-delay:0s}
+  .ob4{top:auto;bottom:24%;right:5%;left:auto;animation-delay:1.1s}
+  .ob5{display:none}
+}
 
 /* Result — lavender frame panel */
 .res .res-frame{position:relative;z-index:1;border-radius:36px;padding:56px 60px;margin-top:8px;background:radial-gradient(120% 110% at 0% 0%,rgba(167,139,250,.22),transparent 44%),radial-gradient(120% 110% at 100% 100%,rgba(167,139,250,.2),transparent 44%),linear-gradient(165deg,#F5F3FC 0%,#FCFBFE 50%,#F4F1FB 100%);border:1px solid rgba(124,58,237,.13);box-shadow:0 50px 100px -55px rgba(80,40,160,.5),inset 0 1px 2px rgba(255,255,255,.9)}
@@ -2838,12 +2844,14 @@ h2.sh .ac{color:var(--violet)}
   .ad-left{min-height:0}
   .ad-photo{position:relative;left:auto;right:auto;top:auto;height:210px;border-radius:22px}
   .ad-card-c{margin-top:-48px;margin-left:16px;margin-right:16px}
-  .ad-phones{order:1;margin:12px auto}
+  .ad-phones{margin:22px auto 10px}
   .ad-feats{grid-template-columns:1fr 1fr}
 }
 @media(max-width:560px){
   .ad-head{flex-direction:column}.ad-note{display:none}
-  .ad-ph-c{margin-right:-30px;transform:rotate(-3deg)}
+  .ad-ph-img{width:162px}
+  .ad-ph-c{margin-right:-34px;transform:rotate(-4deg)}
+  .ad-ph-b{margin-left:-34px;transform:rotate(5deg)}
   .ad-feats{grid-template-columns:1fr}
 }
 
@@ -2875,10 +2883,17 @@ h2.sh .ac{color:var(--violet)}
 .cb-3{left:-2%;top:57%}
 .cb-4{right:-2%;top:51%}
 @media(max-width:980px){
-  .calm-scene{height:420px}
-  .calm-circle{width:330px;height:330px}
-  .calm-fig{width:300px;height:360px}
+  .calm-sec{padding:14px 0 0;margin-bottom:-76px}
+  .calm-scene{height:380px;margin-top:0}
+  .calm-circle{width:320px;height:320px;top:50%}
+  .calm-fig{width:310px;height:370px}
   .calm-badge{display:none}
+}
+@media(max-width:560px){
+  .calm-sec{padding:4px 0 0;margin-bottom:-52px}
+  .calm-scene{height:300px}
+  .calm-circle{width:262px;height:262px}
+  .calm-fig{width:264px;height:312px}
 }
 
 /* ===== Industries v2 — selector + showcase ===== */
