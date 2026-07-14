@@ -24263,7 +24263,7 @@ body.sgm-open {
 .organize-tx{max-width:470px;text-align:left;margin-right:auto;margin-left:0}
 .organize-tx h2,.organize-tx p{text-align:left}
 .organize-tx h2{font-family:'Unbounded';font-weight:700;font-size:clamp(34px,4.4vw,52px);line-height:1.05;letter-spacing:-.025em;color:#2B2440;margin-bottom:20px}
-.organize-tx p{font-size:17px;line-height:1.6;color:#4b4460;margin-bottom:30px;max-width:430px}
+.organize-tx p{font-size:17px;line-height:1.6;color:#4b4460;margin-bottom:30px;margin-left:0;max-width:430px}
 .org-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#7C3AED,#9F5BF0);color:#fff;font-weight:700;font-size:16px;padding:14px 16px 14px 28px;border-radius:100px;text-decoration:none;box-shadow:0 18px 40px -14px rgba(124,58,237,.5);transition:transform .22s,box-shadow .22s}
 .org-btn:hover{transform:translateY(-2px);box-shadow:0 26px 52px -16px rgba(124,58,237,.55)}
 .org-ar{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;flex-shrink:0}
@@ -24280,7 +24280,7 @@ body.sgm-open {
 
 /* organize floating glass badges */
 .organize-tx{position:relative;z-index:3}
-.organize-badges{position:absolute;inset:0;z-index:2;pointer-events:none}
+.organize-badges{display:none}
 .ob{position:absolute;display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:100px;font-weight:600;font-size:15px;color:#2B2440;white-space:nowrap;background:rgba(255,255,255,.5);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid rgba(255,255,255,.65);box-shadow:0 16px 38px -14px rgba(60,40,110,.4),inset 0 1px 1px rgba(255,255,255,.7);animation:obFloat 6s ease-in-out infinite}
 .ob svg{width:18px;height:18px;color:var(--violet);flex-shrink:0}
 .ob1{top:12%;left:2%;animation-delay:0s}
