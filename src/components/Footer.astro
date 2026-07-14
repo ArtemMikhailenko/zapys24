@@ -11,12 +11,15 @@ import { CONTACTS, EMAIL, PHONE_DISPLAY } from "../data/contacts";
         CRM і онлайн-запис для сервісного бізнесу. Більше записів, менше хаосу.
       </div>
       <div class="fbadges">
-        <a
-          class="fbadge"
-          href="https://apps.apple.com/ua/app/zapys24-%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8-%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD/id6764380820?l=ru"
-          target="_blank"
-          rel="noopener">▸ App Store</a
-        ><a class="fbadge" href="#">▸ Google Play</a>
+        <span
+          class="fbadge fbadge-off"
+          aria-disabled="true"
+          aria-label="App Store — скоро">▸ App Store</span
+        ><span
+          class="fbadge fbadge-off"
+          aria-disabled="true"
+          aria-label="Google Play — скоро">▸ Google Play</span
+        >
       </div>
       <div class="fcontacts">
         <a href={CONTACTS.phone}>{PHONE_DISPLAY}</a><a href={CONTACTS.email}

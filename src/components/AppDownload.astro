@@ -9,7 +9,18 @@ const badges = `
     <span class="sb-tx"><small>Скоро в</small><b>Google Play</b></span>
   </span>`;
 
-const S = (p) =>
+// Zapys24 Pro (бизнес) ещё не опубликован — обе кнопки неактивны
+const badgesBiz = `
+  <span class="sb sb-off" aria-disabled="true" aria-label="App Store — скоро">
+    <svg class="sb-ico" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.05 12.04c-.03-2.7 2.2-4 2.3-4.06-1.25-1.84-3.2-2.09-3.9-2.12-1.66-.17-3.24.97-4.08.97-.84 0-2.14-.95-3.52-.92-1.81.03-3.48 1.05-4.41 2.67-1.88 3.27-.48 8.1 1.35 10.76.9 1.3 1.96 2.76 3.36 2.71 1.35-.05 1.86-.87 3.49-.87 1.63 0 2.09.87 3.52.84 1.45-.03 2.37-1.32 3.26-2.63 1.03-1.51 1.45-2.97 1.47-3.05-.03-.01-2.82-1.08-2.85-4.28zM14.39 4.5c.74-.9 1.24-2.15 1.1-3.4-1.07.04-2.36.71-3.12 1.61-.68.79-1.28 2.06-1.12 3.28 1.19.09 2.4-.6 3.14-1.49z"></path></svg>
+    <span class="sb-tx"><small>Скоро в</small><b>App Store</b></span>
+  </span>
+  <span class="sb sb-off" aria-disabled="true" aria-label="Google Play — скоро">
+    <svg class="sb-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00D76F" d="M2.8 2.4 16.3 9.4 13 12 2.8 12Z"></path><path fill="#00B6FF" d="M2.8 12 13 12 2.8 21.6Z"></path><path fill="#FF4150" d="M2.8 21.6 13 12 16.3 14.6Z"></path><path fill="#FFCE2B" d="M16.3 9.4 20.5 12 16.3 14.6 13 12Z"></path></svg>
+    <span class="sb-tx"><small>Скоро в</small><b>Google Play</b></span>
+  </span>`;
+
+const S = (p: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const IC = {
   cal: S(
@@ -68,7 +79,8 @@ const feats = [
             stroke="var(--violet)"
             stroke-width="2.2"
             stroke-linecap="round"></path></svg
-        ></span>
+        ></span
+      >
     </div>
   </div>
 
@@ -110,7 +122,7 @@ const feats = [
         Керування записами, командою, фінансами та клієнтами. Аналітика, яка
         допомагає приймати рішення.
       </p>
-      <div class="app-badges" set:html={badges} />
+      <div class="app-badges" set:html={badgesBiz} />
     </div>
   </div>
 

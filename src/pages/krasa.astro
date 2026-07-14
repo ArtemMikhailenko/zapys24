@@ -6,8 +6,6 @@ import Showcase from "../components/Showcase.astro";
 
 const arrow =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
-const play =
-  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
 const check =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>';
 const xmark =
@@ -18,7 +16,7 @@ const noteArrow =
   '<svg viewBox="0 0 118 82" fill="none" aria-hidden="true"><path d="M108 14 C64 6 22 22 15 60" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/><path d="M15 60 l3 -17 M15 60 l16 -6" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/></svg>';
 const connDash =
   '<svg viewBox="0 0 92 24" fill="none" aria-hidden="true"><path d="M3 12 H79" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 8" opacity=".55"/><path d="M73 5l8 7-8 7" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const S = (p) =>
+const S = (p: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const IC = {
   cal: S(
@@ -160,7 +158,7 @@ const bkSteps = [
   },
 ];
 const stepIcons = [NI.scissors, IC.cal, check];
-const spark = (arr) => {
+const spark = (arr: number[]) => {
   const w = 58,
     h = 20,
     mx = Math.max(...arr),
@@ -175,17 +173,12 @@ const spark = (arr) => {
     .join(" ");
 };
 // Exact lucide-react (0.468) icons — 1:1 with the real app
-const L = (p) =>
+const L = (p: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const calCheck = L(
   '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/>',
 );
 const plus = L('<path d="M5 12h14"/><path d="M12 5v14"/>');
-const trendIc = L(
-  '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
-);
-const starIc =
-  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.6 6.3 6.8.5-5.2 4.4 1.6 6.6L12 17.4 6.2 20.9l1.6-6.6L2.6 9.9l6.8-.5z"></path></svg>';
 // stat cards mirror features/dashboard/pages/DashboardPage.tsx (Calendar, UserPlus, Receipt, TrendingUp)
 const dashStats = [
   {
@@ -313,38 +306,6 @@ const integrations = [
     img: "email.svg",
     bg: "#EA4335",
     d: "Сповіщення й підтвердження на пошту",
-  },
-];
-// hexagon positions (%) around the central hub
-const hubPos = [
-  { x: 50, y: 8 },
-  { x: 82, y: 24 },
-  { x: 82, y: 56 },
-  { x: 50, y: 72 },
-  { x: 18, y: 56 },
-  { x: 18, y: 24 },
-];
-const intgVals = [
-  {
-    ic: L(
-      '<path d="M8 9h8"/><path d="M8 13h5"/><path d="M18 4a3 3 0 0 1 3 3v7a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-7a3 3 0 0 1 3 -3z"/>',
-    ),
-    t: "Запис із будь-де",
-    d: "Діліться посиланням на запис у соцмережах — клієнт бронює за пару тапів.",
-  },
-  {
-    ic: L(
-      '<rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20"/>',
-    ),
-    t: "Облік фінансів",
-    d: "Прозора каса: доходи, витрати та зарплати команди.",
-  },
-  {
-    ic: L(
-      '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74 -1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499 -1.411 5.956 -2.738 7.326"/>',
-    ),
-    t: "Авто-нагадування",
-    d: "SMS та пуш-сповіщення нагадують клієнтам про візит.",
   },
 ];
 const faqs = [

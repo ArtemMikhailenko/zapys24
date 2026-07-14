@@ -7101,6 +7101,13 @@ h2.sh .ac {
   flex-wrap: wrap
 }
 
+.fbadge-off {
+  opacity: .45;
+  filter: grayscale(1);
+  cursor: not-allowed;
+  pointer-events: none
+}
+
 .fbadge {
   display: inline-flex;
   align-items: center;
