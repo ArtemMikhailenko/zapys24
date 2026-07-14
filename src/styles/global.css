@@ -250,17 +250,12 @@ nav.nav-hidden {
   color: var(--ink)
 }
 
-.logo-mark {
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
+/* Logo.astro — inline copy of logo-with-text.svg (500x100) */
+.logo-svg {
   display: block;
-  box-shadow: 0 8px 18px -8px rgba(124, 58, 237, .6)
-}
-
-.logo-tx b {
-  color: var(--violet);
-  font-weight: 700
+  height: 50px;
+  width: auto;
+  flex: none
 }
 
 .nav-links {
@@ -7057,7 +7052,7 @@ h2.sh .ac {
 
 .footin {
   display: grid;
-  grid-template-columns: 1.7fr 1fr 1fr 1fr;
+  grid-template-columns: 1.6fr .85fr .85fr .85fr 1.15fr;
   gap: 30px;
   padding-bottom: 34px;
   border-bottom: 1px solid rgba(255, 255, 255, .1)
@@ -7075,15 +7070,21 @@ h2.sh .ac {
   text-decoration: none
 }
 
-.flogo .mark {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: #fff;
-  color: var(--ink);
-  display: grid;
-  place-items: center;
-  font-size: 14px
+.flogo .logo-svg {
+  height: 58px
+}
+
+/* тёмный футер: #1e1b2e из svg на тёмном фоне не читается */
+.flogo .logo-svg-name {
+  fill: #fff
+}
+
+.flogo .logo-svg-num {
+  fill: #B79BF0
+}
+
+.flogo .logo-svg-tag {
+  fill: rgba(255, 255, 255, .55)
 }
 
 .ftag {
@@ -8057,8 +8058,7 @@ h2.sh .ac {
     font-size: 16px
   }
 
-  .logo-mark {
-    width: 32px;
+  .logo-svg {
     height: 32px
   }
 }
@@ -10656,8 +10656,17 @@ h2.sh .ac {
   color: #fff
 }
 
-.nav-dark .logo-tx b {
-  color: #B79BF0
+/* тёмная шапка: #1e1b2e из svg на тёмном фоне не читается */
+.nav-dark .logo-svg-name {
+  fill: #fff
+}
+
+.nav-dark .logo-svg-num {
+  fill: #B79BF0
+}
+
+.nav-dark .logo-svg-tag {
+  fill: rgba(255, 255, 255, .6)
 }
 
 .nav-dark .nav-links a {
@@ -15106,13 +15115,143 @@ h2.sh .ac {
   line-height: 1.7
 }
 
+.legal ol {
+  margin-top: 12px;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.7
+}
+
 .legal li {
   margin-top: 6px
+}
+
+.legal li strong {
+  color: var(--ink);
+  font-weight: 600
 }
 
 .legal a {
   color: var(--violet);
   text-decoration: none
+}
+
+.legal a:hover {
+  text-decoration: underline
+}
+
+/* оглавление правовых страниц */
+.legal-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 26px
+}
+
+.legal-toc a {
+  font-size: 13px;
+  padding: 7px 13px;
+  border-radius: 100px;
+  background: rgba(124, 58, 237, .06);
+  border: 1px solid rgba(124, 58, 237, .16)
+}
+
+.legal-toc a:hover {
+  background: rgba(124, 58, 237, .12);
+  text-decoration: none
+}
+
+/* кнопка скачивания исходного pdf */
+.legal-dl {
+  margin-top: 24px
+}
+
+.legal-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 22px 10px 10px;
+  border-radius: 100px;
+  background: #fff;
+  border: 1px solid rgba(124, 58, 237, .22);
+  box-shadow: 0 10px 26px -14px rgba(42, 14, 55, .28);
+  text-decoration: none;
+  transition: .25s
+}
+
+.legal a.legal-dl-btn:hover {
+  border-color: rgba(124, 58, 237, .45);
+  box-shadow: 0 16px 32px -14px rgba(124, 58, 237, .42);
+  transform: translateY(-1px);
+  text-decoration: none
+}
+
+.legal-dl-ic {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  flex: none;
+  background: linear-gradient(135deg, #A66BFF, #6E36E8);
+  color: #fff
+}
+
+.legal-dl-ic svg {
+  width: 17px;
+  height: 17px
+}
+
+.legal-dl-tx {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.25
+}
+
+.legal-dl-tx b {
+  font-family: 'Manrope';
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink)
+}
+
+.legal-dl-tx span {
+  font-size: 12px;
+  color: var(--muted)
+}
+
+/* таблица категорий cookie */
+.legal-table {
+  width: 100%;
+  margin-top: 16px;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  color: var(--muted)
+}
+
+.legal-table th,
+.legal-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(25, 16, 23, .09);
+  line-height: 1.6
+}
+
+.legal-table th {
+  color: var(--ink);
+  font-weight: 600;
+  white-space: nowrap
+}
+
+.legal-table tbody th {
+  font-weight: 600
+}
+
+.legal-tw {
+  overflow-x: auto
 }
 
 /* ===== ABOUT v2 (pro-nas) ===== */
@@ -21410,6 +21549,13 @@ h2.sh .ac {
   background: rgba(255, 255, 255, .16)
 }
 
+.pfh-store-off {
+  opacity: .45;
+  filter: grayscale(1);
+  cursor: not-allowed;
+  pointer-events: none
+}
+
 .pfh-store-ic {
   width: 22px;
   height: 22px;
@@ -22870,6 +23016,16 @@ h2.sh .ac {
 }
 
 .kr-tf-r .kr-faq {
+  margin-top: 22px
+}
+
+/* faq без блока отзывов (krasa) */
+.kr-faq-only {
+  max-width: 780px;
+  margin: 0 auto
+}
+
+.kr-faq-only .kr-faq {
   margin-top: 22px
 }
 

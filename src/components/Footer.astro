@@ -1,11 +1,12 @@
 ---
+import Logo from "./Logo.astro";
 import { CONTACTS, EMAIL, PHONE_DISPLAY } from "../data/contacts";
 ---
 
 <footer class="footer">
   <div class="wrap footin">
     <div>
-      <a class="flogo" href="/"><span class="mark">z</span>zapys24</a>
+      <a class="flogo" href="/" aria-label="Zapys24"><Logo /></a>
       <div class="ftag">
         CRM і онлайн-запис для сервісного бізнесу. Більше записів, менше хаосу.
       </div>
@@ -95,6 +96,11 @@ import { CONTACTS, EMAIL, PHONE_DISPLAY } from "../data/contacts";
       <h4>Компанія</h4><a href="/">Головна</a><a href="/pro-nas">Про нас</a><a
         href="#">Блог</a
       ><a href="/kontakty">Контакти</a>
+    </div>
+    <div class="fcol">
+      <h4>Правова інформація</h4><a href="/pryvatnist"
+        >Політика конфіденційності</a
+      ><a href="/umovy">Умови використання</a><a href="/cookies">Cookies</a>
     </div>
   </div>
   <div class="wrap footbot">
