@@ -1,29 +1,59 @@
 ---
+const S = (p) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const IC = {
+  scissors: S(
+    '<circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/>'
+  ),
+  horse: S(
+    '<path d="M5 21v-7c0 -3.5 2 -7 6 -7c1.5 0 2.5 .5 3 1l1 -1c1.5 -1.5 4 -2 4 -2s-1 3 -2 4l-1 1c.5 .5 1 1.5 1 3v8"/><path d="M9 8l-1.5 -2.5l1.5 -1.5l2 2"/><path d="M9 21v-3"/><path d="M17 21v-3"/>'
+  ),
+  grid: S(
+    '<rect width="7" height="7" x="3" y="3" rx="1.4"/><rect width="7" height="7" x="14" y="3" rx="1.4"/><rect width="7" height="7" x="14" y="14" rx="1.4"/><rect width="7" height="7" x="3" y="14" rx="1.4"/>'
+  ),
+  calendar: S('<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>'),
+  card: S('<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>'),
+  xcircle: S('<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>'),
+  lock: S('<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'),
+};
+const arrow =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+const play =
+  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
 const industries = [
   {
     key: "beauty",
-    name: "Бʼюті",
-    desc: "Салони, барбершопи, майстри манікюру, косметологи",
+    name: "Бʼюті та краса",
+    desc: "Салони, барбершопи, клініки краси",
     photo: "/img/byuti-hero.webp",
+    icon: IC.scissors,
     href: "https://beauty.zapys24.com/register",
     demo: "https://demo.zapys24.com",
   },
   {
     key: "horse",
     name: "Кінний клуб",
-    desc: "Стайні, прокат коней, тренери, іпотерапія",
+    desc: "Стайні, клуби, тренери",
     photo: "/img/koni-hero.png",
+    icon: IC.horse,
     href: "https://horse.zapys24.com/register",
     demo: "https://demo-horse.zapys24.com",
   },
+  // {
+  //   key: "other",
+  //   name: "Інші сфери",
+  //   desc: "Фітнес, медичні центри, освітні заклади та інші",
+  //   photo: "/img/contact-hero.webp",
+  //   icon: IC.grid,
+  //   href: "/kontakty",
+  //   demo: "/kontakty",
+  // },
 ];
-const play =
-  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
-const arrow =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
-const check =
-  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>';
-const trust = ["14 днів безкоштовно", "Без картки", "Скасувати будь-коли"];
+// const trust = [
+//   { t: "14 днів безкоштовно", ic: IC.calendar },
+//   { t: "Без картки", ic: IC.card },
+//   { t: "Скасувати будь-коли", ic: IC.xcircle },
+// ];
 ---
 
 <div class="sgm" id="signupModal" hidden>
@@ -34,6 +64,7 @@ const trust = ["14 днів безкоштовно", "Без картки", "С�
     aria-modal="true"
     aria-labelledby="signupModalTitle"
   >
+    <span class="sgm-grip" aria-hidden="true"></span>
     <button class="sgm-x" type="button" aria-label="Закрити" data-signup-close>
       <svg
         viewBox="0 0 24 24"
@@ -44,63 +75,61 @@ const trust = ["14 днів безкоштовно", "Без картки", "С�
         aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg
       >
     </button>
-    <div class="sgm-head">
-      <p class="sgm-kicker" id="signupModalKicker">Спробуй безкоштовно</p>
-      <h2 class="dis sgm-h" id="signupModalTitle">Оберіть свою сферу</h2>
-      <p class="sgm-sub" id="signupModalSub">
-        Ми підготували окремий кабінет під кожну індустрію — з потрібним
-        функціоналом саме під вашу сферу діяльності.
-      </p>
-    </div>
-    <div class="sgm-grid">
-      {
-        industries.map((i) => (
-          <div class={`sgm-card sgm-${i.key}`}>
-            <span
-              class="sgm-photo"
-              style={`background-image:url(${i.photo})`}
-              aria-hidden="true"
-            />
-            <span class="sgm-veil" aria-hidden="true" />
-            <div class="sgm-content">
-              <h3 class="dis sgm-name">{i.name}</h3>
-              <div class="sgm-reveal">
+    <div class="sgm-main">
+      <div class="sgm-aside">
+        <div class="sgm-aside-in">
+          <p class="sgm-kicker">
+            <span class="sgm-kicker-ic" set:html={IC.scissors} />
+            <span id="signupModalKicker">Спробуй безкоштовно</span>
+          </p>
+          <h2 class="dis sgm-h" id="signupModalTitle">Оберіть свою сферу</h2>
+          <p class="sgm-sub" id="signupModalSub">
+            Ми підготували окремий кабінет під кожну індустрію — з потрібним
+            функціоналом саме під вашу сферу діяльності.
+          </p>
+        </div>
+      </div>
+      <div class="sgm-choices">
+        {
+          industries.map((i) => (
+            <div class={`sgm-card sgm-${i.key}`}>
+              <span
+                class="sgm-photo"
+                style={`background-image:url(${i.photo})`}
+                aria-hidden="true"
+              />
+              <span class="sgm-veil" aria-hidden="true" />
+              <span class="sgm-card-ic" set:html={i.icon} />
+              <div class="sgm-content">
+                <h3 class="dis sgm-name">{i.name}</h3>
                 <p class="sgm-desc">{i.desc}</p>
-                <div class="sgm-acts">
-                  <a
-                    class="sgm-btn sgm-btn-go"
-                    href={i.href}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Почати
-                    <span class="sgm-btn-ic" set:html={arrow} />
-                  </a>
-                  <a
-                    class="sgm-btn sgm-btn-demo"
-                    href={i.demo}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <span class="sgm-btn-ic" set:html={play} />
-                    Демо
-                  </a>
+                <div class="sgm-reveal">
+                  <div class="sgm-acts">
+                    <a
+                      class="sgm-btn sgm-btn-go"
+                      href={i.href}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      Почати
+                      <span class="sgm-btn-ic" set:html={arrow} />
+                    </a>
+                    <a
+                      class="sgm-btn sgm-btn-demo"
+                      href={i.demo}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <span class="sgm-btn-ic" set:html={play} />
+                      Демо
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))
-      }
-    </div>
-    <div class="sgm-trust">
-      {
-        trust.map((t) => (
-          <span>
-            <span class="sgm-trust-ic" set:html={check} />
-            {t}
-          </span>
-        ))
-      }
+          ))
+        }
+      </div>
     </div>
   </div>
 </div>
@@ -114,7 +143,6 @@ const trust = ["14 днів безкоштовно", "Без картки", "С�
     const sub = document.getElementById("signupModalSub") as HTMLElement;
     let lastFocused: HTMLElement | null = null;
 
-    // both actions live on every card now — the trigger only sets the wording
     const modes = {
       signup: {
         kicker: "Спробуй безкоштовно",
@@ -129,7 +157,8 @@ const trust = ["14 днів безкоштовно", "Без картки", "С�
     };
 
     const open = (trigger?: HTMLElement) => {
-      const t = modes[trigger?.dataset.signup === "demo" ? "demo" : "signup"];
+      const isDemo = trigger?.dataset.signup === "demo";
+      const t = modes[isDemo ? "demo" : "signup"];
       kicker.textContent = t.kicker;
       title.textContent = t.title;
       sub.textContent = t.sub;
