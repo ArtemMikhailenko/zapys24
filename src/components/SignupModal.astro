@@ -17,6 +17,10 @@ const industries = [
     demo: "https://demo-horse.zapys24.com",
   },
 ];
+const play =
+  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
+const arrow =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
 ---
 
 <div class="sgm" id="signupModal" hidden>
@@ -46,36 +50,37 @@ const industries = [
     <div class="sgm-grid">
       {
         industries.map((i) => (
-          <a
-            class={`sgm-card sgm-${i.key}`}
-            href={i.href}
-            data-href-signup={i.href}
-            data-href-demo={i.demo}
-            target="_blank"
-            rel="noopener"
-          >
+          <div class={`sgm-card sgm-${i.key}`}>
             <span
               class="sgm-photo"
               style={`background-image:url(${i.photo})`}
               aria-hidden="true"
             />
-            <span class="sgm-body">
-              <b>{i.name}</b>
-              <i>{i.desc}</i>
-            </span>
-            <span class="sgm-ar" aria-hidden="true">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </span>
-          </a>
+            <div class="sgm-body">
+              <h3 class="dis sgm-name">{i.name}</h3>
+              <p class="sgm-desc">{i.desc}</p>
+              <div class="sgm-acts">
+                <a
+                  class="sgm-btn sgm-btn-go"
+                  href={i.href}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Почати
+                  <span class="sgm-btn-ic" set:html={arrow} />
+                </a>
+                <a
+                  class="sgm-btn sgm-btn-demo"
+                  href={i.demo}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <span class="sgm-btn-ic" set:html={play} />
+                  Демо
+                </a>
+              </div>
+            </div>
+          </div>
         ))
       }
     </div>
@@ -92,9 +97,9 @@ const industries = [
     const kicker = document.getElementById("signupModalKicker") as HTMLElement;
     const title = document.getElementById("signupModalTitle") as HTMLElement;
     const sub = document.getElementById("signupModalSub") as HTMLElement;
-    const cards = box.querySelectorAll<HTMLAnchorElement>(".sgm-card");
     let lastFocused: HTMLElement | null = null;
 
+    // both actions live on every card now — the trigger only sets the wording
     const modes = {
       signup: {
         kicker: "Спробуй безкоштовно",
@@ -103,28 +108,22 @@ const industries = [
       },
       demo: {
         kicker: "Демо-кабінет",
-        title: "Яке демо показати?",
+        title: "Оберіть свою сферу",
         sub: "Зайдіть у готовий кабінет із прикладами записів і клієнтів — без реєстрації та оцініть усі можливості системи.",
       },
     };
 
     const open = (trigger?: HTMLElement) => {
-      const mode = trigger?.dataset.signup === "demo" ? "demo" : "signup";
-      const t = modes[mode];
+      const t = modes[trigger?.dataset.signup === "demo" ? "demo" : "signup"];
       kicker.textContent = t.kicker;
       title.textContent = t.title;
       sub.textContent = t.sub;
-      cards.forEach((c) => {
-        const href =
-          mode === "demo" ? c.dataset.hrefDemo : c.dataset.hrefSignup;
-        if (href) c.href = href;
-      });
 
       lastFocused = trigger || (document.activeElement as HTMLElement);
       modal.hidden = false;
       document.body.classList.add("sgm-open");
       requestAnimationFrame(() => modal.classList.add("on"));
-      (box.querySelector(".sgm-card") as HTMLElement)?.focus();
+      box.querySelector<HTMLAnchorElement>(".sgm-btn")?.focus();
     };
 
     const close = () => {

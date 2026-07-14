@@ -13,24 +13,12 @@ const faqs = [
     a: "Жодних відсотків із записів. Ви платите фіксовану підписку, а вся виручка лишається вашою — без прихованих платежів.",
   },
   {
-    q: "Наскільки безпечні дані?",
-    a: "Дані шифруються та зберігаються на серверах у ЄС. Щоденні бекапи, а доступ — лише у вас і вашої команди. Експорт — будь-коли.",
-  },
-  {
     q: "Чи є мобільний застосунок?",
     a: "Так, Zapys24 Pro для iOS та Android: розклад, клієнти й сповіщення завжди під рукою у майстрів і адміністратора.",
   },
   {
-    q: "А якщо не підійде?",
-    a: "14 днів безкоштовно, без прив’язки картки. Не сподобається — просто не продовжуєте, а дані віддамо.",
-  },
-  {
     q: "Чи безкоштовний тариф назавжди?",
     a: "Так! Безкоштовний тариф не має обмежень по часу. Ви можете користуватися ним скільки завгодно з обмеженнями по кількості записів та майстрів.",
-  },
-  {
-    q: "Чи можу я змінити тип бізнесу після реєстрації?",
-    a: "Ні, ви можете створити новий тип бізнесу за напрямком. Інтерфейс адаптується під специфіку вашого бізнесу. І ви керуєте двома різними бізнесами незалежно с одного інтерфейсу перемикаючи їх",
   },
   {
     q: "Чи потрібна кредитна картка для старту?",
@@ -40,15 +28,8 @@ const faqs = [
     q: "Як клієнти записуються до мене?",
     a: "Ви отримуєте унікальне посилання для запису, яке можна розміщувати в соцмережах, на сайті або в Google Maps. Також ваш бізнес автоматично з’являється в мобільному додатку Zapys24.",
   },
-  {
-    q: "Чи є технічна підтримка?",
-    a: "Так! На всіх тарифах доступна підтримка. Free — email (1–2 дні), Standard — пріоритетна підтримка (до 24 год), Premium — виділений менеджер.",
-  },
 ];
-// Two orbits keep 11 pills clear of each other: 6 on the outer ring (every 60°),
-// the rest on the inner one (every 72°, offset half a step). % of the square stage.
-const OUTER = { r: 48, n: 6, start: -90 };
-const INNER = { r: 28, start: -54 };
+// Pills ride the outer ring (r=42% of the square stage), evenly spaced from 12 o'clock.
 const point = (r: number, ang: number) => {
   const a = (ang * Math.PI) / 180;
   const t = 50 + r * Math.sin(a);
@@ -58,13 +39,10 @@ const point = (r: number, ang: number) => {
     up: t > 52, // below the centre → the answer opens upwards
   };
 };
-const innerN = faqs.length - OUTER.n;
-const pos = faqs.map((_, i) =>
-  i < OUTER.n
-    ? point(OUTER.r, OUTER.start + (360 / OUTER.n) * i)
-    : point(INNER.r, INNER.start + (360 / innerN) * (i - OUTER.n)),
-);
-const dots = Array.from({ length: 6 }, (_, i) => point(38, -60 + 60 * i));
+const step = 360 / faqs.length;
+const pos = faqs.map((_, i) => point(42, -90 + step * i));
+// dots sit on the inner ring, offset half a step so they read as gaps between pills
+const dots = faqs.map((_, i) => point(27, -90 + step * (i + 0.5)));
 ---
 
 <section class="sec wrap reveal faqsec" id="faq">
@@ -141,7 +119,7 @@ const dots = Array.from({ length: 6 }, (_, i) => point(38, -60 + 60 * i));
           stroke-linecap="round"></path></svg
       >
     </div>
-    <a class="faq-chat" href="#"
+    <a class="faq-chat" href="/napysaty#form"
       ><span class="faq-chat-ic"
         ><svg
           viewBox="0 0 24 24"
@@ -154,7 +132,7 @@ const dots = Array.from({ length: 6 }, (_, i) => point(38, -60 + 60 * i));
             d="M21 11.5a7.5 7.5 0 01-10.9 6.7L4 20l1.8-5A7.5 7.5 0 1121 11.5z"
           ></path></svg
         ></span
-      >Чат з підтримкою</a
+      >Є питання?</a
     >
   </div>
 </section>

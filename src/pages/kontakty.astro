@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { CONTACTS, EMAIL, PHONE_DISPLAY, TELEGRAM_HANDLE } from '../data/contacts';
 
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
 const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
@@ -27,11 +28,12 @@ const topics = [
   { ic:IC.news, t:'Преса',       d:'Запити від ЗМІ та публічні запити', c:'b' },
 ];
 const channels = [
-  { nm:'Email',    s:'Відповідаємо швидко',   st:'≈ 15 хв',  ico:IC.mail,       bg:'linear-gradient(150deg,#7C3AED,#A96BF0)' },
-  { nm:'Telegram', s:'Найшвидший спосіб',     st:'миттєво',  img:'telegram.svg',bg:'linear-gradient(150deg,#2AABEE,#1E96D4)' },
-  { nm:'Instagram',s:'Пишіть у Direct',       st:'≈ 30 хв',  img:'instagram.svg',bg:'linear-gradient(150deg,#F58529,#DD2A7B,#8134AF)' },
-  { nm:'Facebook', s:'Месенджер',             st:'≈ 30 хв',  raw:fb,            bg:'linear-gradient(150deg,#1877F2,#0C5FD6)' },
-  { nm:'Viber',    s:'Зручний чат',           st:'миттєво',  img:'viber.svg',   bg:'linear-gradient(150deg,#7360F2,#5B49D6)' },
+  { nm:'Email',    s:EMAIL,                   st:'≈ 15 хв',  href:CONTACTS.email,     ico:IC.mail,       bg:'linear-gradient(150deg,#7C3AED,#A96BF0)' },
+  { nm:'Telegram', s:TELEGRAM_HANDLE,         st:'миттєво',  href:CONTACTS.telegram,  img:'telegram.svg',bg:'linear-gradient(150deg,#2AABEE,#1E96D4)' },
+  { nm:'Instagram',s:'Пишіть у Direct',       st:'≈ 30 хв',  href:CONTACTS.instagram, img:'instagram.svg',bg:'linear-gradient(150deg,#F58529,#DD2A7B,#8134AF)' },
+  { nm:'Facebook', s:'Месенджер',             st:'≈ 30 хв',  href:CONTACTS.facebook,  raw:fb,            bg:'linear-gradient(150deg,#1877F2,#0C5FD6)' },
+  { nm:'Viber',    s:PHONE_DISPLAY,           st:'миттєво',  href:CONTACTS.viber,     img:'viber.svg',   bg:'linear-gradient(150deg,#7360F2,#5B49D6)' },
+  { nm:'Телефон',  s:PHONE_DISPLAY,           st:'Пн–Пт',    href:CONTACTS.phone,     ico:IC.head,       bg:'linear-gradient(150deg,#16A34A,#0E8C3F)' },
 ];
 const team = [
   { nm:'Ірина',  role:'Служба підтримки',   tag:'Відповідає за 5 хв', img:'quote.webp' },
@@ -114,7 +116,7 @@ const faqs = [
     <h2 class="sh kx-ctr-h">Пишіть там, де вам <span class="ac">зручно</span></h2>
     <div class="kx-channels">
       {channels.map(c => (
-        <a class="kx-chan" href="#">
+        <a class="kx-chan" href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel={c.href.startsWith('http') ? 'noopener' : undefined}>
           <span class="kx-chan-logo" style={`background:${c.bg}`}>{c.img ? <img src={`/img/logos/${c.img}`} alt={c.nm} /> : <span class="kx-chan-svg" set:html={c.raw || c.ico}></span>}</span>
           <div class="kx-chan-tx"><b>{c.nm}</b><span>{c.s}</span></div>
           <div class="kx-chan-st"><i></i>{c.st}</div>

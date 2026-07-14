@@ -3396,7 +3396,7 @@ h2.sh .ac {
 
 .sc-ar1 {
   right: 58px;
-  top: 46px;
+  top: 96px;
   width: 112px;
   height: 62px
 }
@@ -3404,7 +3404,7 @@ h2.sh .ac {
 .sc-note1 {
   position: absolute;
   right: 0;
-  top: 122px;
+  top: 8px;
   font-size: 21px;
   text-align: left;
   transform: rotate(-3deg)
@@ -5793,7 +5793,7 @@ h2.sh .ac {
 /* ===== FAQ — glass-orb orbital (v2) ===== */
 .faqsec {
   position: relative;
-  min-height: 892px;
+  min-height: 772px;
   padding-top: 0;
   padding-bottom: var(--sec-y)
 }
@@ -5886,8 +5886,8 @@ h2.sh .ac {
 .faq-stage {
   position: relative;
   margin-left: auto;
-  width: 760px;
-  max-width: 64%;
+  width: 640px;
+  max-width: 57%;
   aspect-ratio: 1;
   z-index: 2
 }
@@ -5961,7 +5961,7 @@ h2.sh .ac {
   position: absolute;
   transform: translate(-50%, -50%);
   z-index: 3;
-  width: 180px
+  width: 220px
 }
 
 .faqp-head {
@@ -5982,7 +5982,7 @@ h2.sh .ac {
 
 .faqp-q {
   flex: 1;
-  font-size: 12.5px;
+  font-size: 13.5px;
   font-weight: 700;
   line-height: 1.28;
   color: var(--ink);
@@ -6026,8 +6026,8 @@ h2.sh .ac {
 .faqp-ans {
   position: absolute;
   top: calc(100% + 10px);
-  left: -44px;
-  right: -44px;
+  left: -28px;
+  right: -28px;
   z-index: 2;
   opacity: 0;
   pointer-events: none;
@@ -7145,6 +7145,26 @@ h2.sh .ac {
   vertical-align: middle
 }
 
+.fcontacts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px
+}
+
+.fcontacts a {
+  font-size: 14px;
+  font-weight: 600;
+  color: #CFC6D6;
+  text-decoration: none;
+  width: fit-content;
+  transition: color .2s
+}
+
+.fcontacts a:hover {
+  color: #fff
+}
+
 .fsocial {
   display: flex;
   gap: 10px;
@@ -8156,6 +8176,19 @@ h2.sh .ac {
 .sb:hover {
   transform: translateY(-2px);
   box-shadow: 0 16px 30px -14px rgba(20, 10, 40, .7)
+}
+
+/* store badge for an app that isn't published yet */
+.sb-off {
+  opacity: .45;
+  filter: grayscale(1);
+  cursor: not-allowed;
+  pointer-events: none
+}
+
+.sb-off:hover {
+  transform: none;
+  box-shadow: 0 10px 22px -12px rgba(20, 10, 40, .7)
 }
 
 .sb-ico {
@@ -24003,7 +24036,7 @@ body.sgm-open {
 .sgm-box {
   position: relative;
   width: 100%;
-  max-width: 620px;
+  max-width: 680px;
   max-height: calc(100vh - 48px);
   overflow-y: auto;
   background: var(--paper);
@@ -24088,99 +24121,136 @@ body.sgm-open {
 
 .sgm-grid {
   display: grid;
-  gap: 14px
+  grid-template-columns: 1fr 1fr;
+  gap: 16px
 }
 
+/* square industry tile: photo behind, copy and both actions on top */
 .sgm-card {
+  position: relative;
+  aspect-ratio: 1;
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  justify-content: flex-end;
   text-align: left;
-  text-decoration: none;
-  color: var(--ink);
-  padding: 14px 18px 14px 14px;
-  border: 1px solid rgba(25, 16, 23, .1);
+  overflow: hidden;
   border-radius: var(--r-lg);
-  background: #fff;
-  transition: transform .24s cubic-bezier(.22, 1, .36, 1), box-shadow .24s, border-color .24s
+  background: #2A1E48;
+  box-shadow: 0 22px 48px -22px rgba(42, 14, 55, .5);
+  transition: transform .26s cubic-bezier(.22, 1, .36, 1), box-shadow .26s
 }
 
-.sgm-card:hover,
-.sgm-card:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: 0 22px 48px -20px rgba(42, 14, 55, .34);
-  outline: none
-}
-
-.sgm-beauty:hover,
-.sgm-beauty:focus-visible {
-  border-color: var(--n-beauty)
-}
-
-.sgm-horse:hover,
-.sgm-horse:focus-visible {
-  border-color: var(--n-eq)
+.sgm-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 62px -24px rgba(42, 14, 55, .55)
 }
 
 .sgm-photo {
-  width: 74px;
-  height: 74px;
-  border-radius: var(--r-md);
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
-  flex-shrink: 0;
-  filter: var(--photo)
+  filter: var(--photo);
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1)
+}
+
+.sgm-card:hover .sgm-photo {
+  transform: scale(1.05)
+}
+
+.sgm-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(24, 12, 40, .12) 0%, rgba(24, 12, 40, .55) 45%, rgba(24, 12, 40, .9) 100%)
 }
 
 .sgm-body {
+  position: relative;
+  z-index: 1;
+  padding: 18px
+}
+
+.sgm-name {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: #fff;
+  margin: 0
+}
+
+.sgm-desc {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, .82);
+  margin: 6px 0 14px
+}
+
+.sgm-acts {
   display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0
+  flex-wrap: nowrap;
+  gap: 8px
 }
 
-.sgm-body b {
-  font-family: 'Unbounded';
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: -.01em
-}
-
-.sgm-body i {
+.sgm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-size: 13px;
-  font-style: normal;
-  color: var(--muted);
-  margin-top: 4px;
-  line-height: 1.4
+  font-weight: 700;
+  padding: 9px 14px;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .2s, transform .2s, border-color .2s
 }
 
-.sgm-ar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.sgm-btn:hover {
+  transform: translateY(-2px)
+}
+
+.sgm-btn-ic {
   display: grid;
   place-items: center;
-  flex-shrink: 0;
-  background: rgba(25, 16, 23, .05);
-  color: var(--ink);
-  transition: background .24s, color .24s, transform .24s
+  line-height: 0
 }
 
-.sgm-ar svg {
-  width: 18px;
-  height: 18px
+.sgm-btn-ic svg {
+  width: 14px;
+  height: 14px
 }
 
-.sgm-beauty:hover .sgm-ar {
+.sgm-btn-go {
+  background: #fff;
+  color: #2A1E48
+}
+
+.sgm-beauty .sgm-btn-go:hover {
   background: var(--n-beauty);
-  color: #fff;
-  transform: translateX(3px)
+  color: #fff
 }
 
-.sgm-horse:hover .sgm-ar {
+.sgm-horse .sgm-btn-go:hover {
   background: var(--n-eq);
+  color: #fff
+}
+
+.sgm-btn-demo {
+  background: rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255, 255, 255, .38);
   color: #fff;
-  transform: translateX(3px)
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px)
+}
+
+.sgm-btn-demo:hover {
+  background: rgba(255, 255, 255, .26)
+}
+
+.sgm-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px
 }
 
 .sgm-foot {
@@ -24213,27 +24283,32 @@ body.sgm-open {
     margin-bottom: 22px
   }
 
+  /* one tile per row, and let it be shorter than a square so both fit */
+  .sgm-grid {
+    grid-template-columns: 1fr;
+    gap: 12px
+  }
+
   .sgm-card {
-    padding: 12px;
-    gap: 13px
+    aspect-ratio: 16/10
   }
 
-  .sgm-photo {
-    width: 60px;
-    height: 60px
+  .sgm-body {
+    padding: 15px
   }
 
-  .sgm-body b {
-    font-size: 15.5px
+  .sgm-name {
+    font-size: 19px
   }
 
-  .sgm-body i {
-    font-size: 12px
+  .sgm-desc {
+    font-size: 12px;
+    margin-bottom: 12px
   }
 
-  .sgm-ar {
-    width: 34px;
-    height: 34px
+  .sgm-btn {
+    font-size: 12.5px;
+    padding: 8px 13px
   }
 }
 
@@ -24242,7 +24317,8 @@ body.sgm-open {
   .sgm-back,
   .sgm-box,
   .sgm-card,
-  .sgm-ar,
+  .sgm-photo,
+  .sgm-btn,
   .sgm-x {
     transition: none
   }
