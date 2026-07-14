@@ -4,7 +4,7 @@ const industries = [
     key: "beauty",
     name: "Бʼюті",
     desc: "Салони, барбершопи, майстри манікюру, косметологи",
-    photo: "/img/beauty.webp",
+    photo: "/img/byuti-hero.webp",
     href: "https://beauty.zapys24.com/register",
     demo: "https://demo.zapys24.com",
   },
@@ -12,7 +12,7 @@ const industries = [
     key: "horse",
     name: "Кінний клуб",
     desc: "Стайні, прокат коней, тренери, іпотерапія",
-    photo: "/img/horse.webp",
+    photo: "/img/koni-hero.png",
     href: "https://horse.zapys24.com/register",
     demo: "https://demo-horse.zapys24.com",
   },
@@ -21,6 +21,9 @@ const play =
   '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
 const arrow =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+const check =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>';
+const trust = ["14 днів безкоштовно", "Без картки", "Скасувати будь-коли"];
 ---
 
 <div class="sgm" id="signupModal" hidden>
@@ -41,12 +44,14 @@ const arrow =
         aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg
       >
     </button>
-    <p class="sgm-kicker" id="signupModalKicker">Спробуй безкоштовно</p>
-    <h2 class="dis sgm-h" id="signupModalTitle">Оберіть свою сферу</h2>
-    <p class="sgm-sub" id="signupModalSub">
-      Ми підготували окремий кабінет під кожну індустрію — з потрібним
-      функціоналом саме під вашу сферу діяльності.
-    </p>
+    <div class="sgm-head">
+      <p class="sgm-kicker" id="signupModalKicker">Спробуй безкоштовно</p>
+      <h2 class="dis sgm-h" id="signupModalTitle">Оберіть свою сферу</h2>
+      <p class="sgm-sub" id="signupModalSub">
+        Ми підготували окремий кабінет під кожну індустрію — з потрібним
+        функціоналом саме під вашу сферу діяльності.
+      </p>
+    </div>
     <div class="sgm-grid">
       {
         industries.map((i) => (
@@ -56,37 +61,47 @@ const arrow =
               style={`background-image:url(${i.photo})`}
               aria-hidden="true"
             />
-            <div class="sgm-body">
+            <span class="sgm-veil" aria-hidden="true" />
+            <div class="sgm-content">
               <h3 class="dis sgm-name">{i.name}</h3>
-              <p class="sgm-desc">{i.desc}</p>
-              <div class="sgm-acts">
-                <a
-                  class="sgm-btn sgm-btn-go"
-                  href={i.href}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Почати
-                  <span class="sgm-btn-ic" set:html={arrow} />
-                </a>
-                <a
-                  class="sgm-btn sgm-btn-demo"
-                  href={i.demo}
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <span class="sgm-btn-ic" set:html={play} />
-                  Демо
-                </a>
+              <div class="sgm-reveal">
+                <p class="sgm-desc">{i.desc}</p>
+                <div class="sgm-acts">
+                  <a
+                    class="sgm-btn sgm-btn-go"
+                    href={i.href}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Почати
+                    <span class="sgm-btn-ic" set:html={arrow} />
+                  </a>
+                  <a
+                    class="sgm-btn sgm-btn-demo"
+                    href={i.demo}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <span class="sgm-btn-ic" set:html={play} />
+                    Демо
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         ))
       }
     </div>
-    <p class="sgm-foot">
-      Інші сфери — <span>автосервіс, фітнес, медицина</span> — вже в розробці.
-    </p>
+    <div class="sgm-trust">
+      {
+        trust.map((t) => (
+          <span>
+            <span class="sgm-trust-ic" set:html={check} />
+            {t}
+          </span>
+        ))
+      }
+    </div>
   </div>
 </div>
 
@@ -123,7 +138,7 @@ const arrow =
       modal.hidden = false;
       document.body.classList.add("sgm-open");
       requestAnimationFrame(() => modal.classList.add("on"));
-      box.querySelector<HTMLAnchorElement>(".sgm-btn")?.focus();
+      box.querySelector<HTMLButtonElement>(".sgm-x")?.focus();
     };
 
     const close = () => {
