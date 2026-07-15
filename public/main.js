@@ -94,7 +94,92 @@ if(hiwSteps&&hfill){
   window.addEventListener('resize',()=>setHiw(hi));
 }
 var shSlides=document.querySelectorAll('.sh-slide'),shDots=document.querySelectorAll('.sh-dots span'),shi=0;
-if(shSlides.length>1){setInterval(function(){shSlides[shi].classList.remove('on');if(shDots[shi])shDots[shi].classList.remove('on');shi=(shi+1)%shSlides.length;shSlides[shi].classList.add('on');if(shDots[shi])shDots[shi].classList.add('on');},5000);}
+
+/* hero: mock CRM cards per industry (beauty → horses → medicine), synced with the photo slider */
+var shIndustries=[
+  {
+    title:'Записи сьогодні',tag:'18 записів',
+    rows:[
+      {c:'#C9B6FF',t:'09:00',n:'Стрижка + укладка',s:'Олена · майстер Аня',st:'ok'},
+      {c:'#F4B0D4',t:'11:30',n:'Манікюр гель',s:'Ірина · майстер Віка',st:'ok'},
+      {c:'#A6D8F2',t:'14:00',n:'Фарбування',s:'Софія · майстер Аня',st:'new'},
+      {c:'#A6E8BE',t:'16:30',n:'Чоловіча стрижка',s:'Андрій · майстер Олег',st:'ok'},
+      {c:'#F2C79A',t:'18:00',n:'Укладка',s:'Марія · майстер Віка',st:'new'}
+    ],
+    avatar:'/img/quote.webp',name:'Олена Кравець',meta:'12 візитів · майстер Аня',
+    noteLabel:'Нотатка',note:'алергія на аміак · кава без цукру',
+    tags:['VIP','Постійний клієнт'],
+    last:'Останній візит · 12 травня · Фарбування ₴800',
+    noteTitle:'Новий запис',noteSub:'Ірина · сьогодні 14:00',
+    chips:['₴9 400 цей тиждень · ↑38%','⟳ Нагадати клієнту автоматично','◷ Запис онлайн · 24/7']
+  },
+  {
+    title:'Заняття сьогодні',tag:'14 занять',
+    rows:[
+      {c:'#C9B6FF',t:'09:00',n:'Прогулянка у лісі',s:'Олена · кінь Вітер',st:'ok'},
+      {c:'#F2C79A',t:'11:30',n:'Верхова їзда · група',s:'6 вершників · тренер Марта',st:'ok'},
+      {c:'#A6D8F2',t:'14:00',n:'Індивідуальне заняття',s:'Софія · тренер Ігор',st:'new'},
+      {c:'#A6E8BE',t:'16:30',n:'Прокат коня · 1 год',s:'Андрій · кінь Грім',st:'ok'},
+      {c:'#F4B0D4',t:'18:00',n:'Іпотерапія',s:'Марія · тренер Оксана',st:'new'}
+    ],
+    avatar:'/img/p2.webp',name:'Софія Мельник',meta:'24 заняття · тренер Марта',
+    noteLabel:'Нотатка',note:'їздить на Вітрі · боїться галопу',
+    tags:['Абонемент','Постійний вершник'],
+    last:'Останнє заняття · 12 травня · Верхова їзда ₴600',
+    noteTitle:'Новий запис на заняття',noteSub:'Софія · сьогодні 14:00',
+    chips:['₴12 800 цей тиждень · ↑24%','⟳ Нагадати про заняття автоматично','◷ Бронювання коня · 24/7']
+  },
+  {
+    title:'Прийоми сьогодні',tag:'22 прийоми',
+    rows:[
+      {c:'#A6D8F2',t:'09:00',n:'Плановий огляд',s:'Олена · лікар Коваль',st:'ok'},
+      {c:'#A6E8BE',t:'11:30',n:'УЗД щитоподібної',s:'Ірина · лікар Шевчук',st:'ok'},
+      {c:'#C9B6FF',t:'14:00',n:'Консультація терапевта',s:'Андрій · лікар Коваль',st:'new'},
+      {c:'#F2C79A',t:'16:30',n:'Забір аналізів',s:'Марія · медсестра Ніна',st:'ok'},
+      {c:'#F4B0D4',t:'18:00',n:'Повторний прийом',s:'Олег · лікар Шевчук',st:'new'}
+    ],
+    avatar:'/img/p3.webp',name:'Андрій Ткаченко',meta:'8 візитів · лікар Коваль',
+    noteLabel:'Анамнез',note:'алергія на пеніцилін · тиск 130/85',
+    tags:['Страховка','Диспансерний облік'],
+    last:'Останній візит · 12 травня · Плановий огляд ₴550',
+    noteTitle:'Новий запис на прийом',noteSub:'Андрій · сьогодні 14:00',
+    chips:['₴21 300 цей тиждень · ↑16%','⟳ Нагадати про прийом автоматично','◷ Онлайн-запис · 24/7']
+  }
+];
+var shEls={
+  title:document.getElementById('shcTitle'),tag:document.getElementById('shcTag'),
+  list:document.getElementById('shcList'),avatar:document.getElementById('shcAvatar'),
+  name:document.getElementById('shcName'),meta:document.getElementById('shcMeta'),
+  note:document.getElementById('shcNote'),tags:document.getElementById('shcTags'),
+  last:document.getElementById('shcLast'),noteTitle:document.getElementById('shcNoteTitle'),
+  noteSub:document.getElementById('shcNoteSub'),
+  chips:[document.querySelector('.sh-chip0'),document.querySelector('.sh-chip1'),document.querySelector('.sh-chip2')],
+  cards:document.querySelectorAll('.sh-card')
+};
+function shEsc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function shRender(i){
+  var d=shIndustries[i];if(!d||!shEls.list)return;
+  shEls.title.textContent=d.title;shEls.tag.textContent=d.tag;
+  shEls.list.innerHTML=d.rows.map(function(r){
+    var badge=r.st==='new'?'<span class="shc-rnew">Новий</span>':'<span class="shc-rok">✓</span>';
+    return '<div class="shc-r"><span class="shc-bar" style="background:'+r.c+'"></span>'+
+      '<span class="shc-rtm">'+shEsc(r.t)+'</span>'+
+      '<span class="shc-rtx"><b>'+shEsc(r.n)+'</b><i>'+shEsc(r.s)+'</i></span>'+badge+'</div>';
+  }).join('');
+  shEls.avatar.style.backgroundImage='url('+d.avatar+')';
+  shEls.name.textContent=d.name;shEls.meta.textContent=d.meta;
+  shEls.note.innerHTML='<span>'+shEsc(d.noteLabel)+'</span>'+shEsc(d.note);
+  shEls.tags.innerHTML=d.tags.map(function(t){return '<span>'+shEsc(t)+'</span>';}).join('');
+  shEls.last.textContent=d.last;
+  shEls.noteTitle.textContent=d.noteTitle;shEls.noteSub.textContent=d.noteSub;
+  shEls.chips.forEach(function(c,k){if(c)c.textContent=d.chips[k];});
+}
+function shSwap(i){
+  var fade=[].slice.call(shEls.cards).concat(shEls.chips.filter(Boolean));
+  fade.forEach(function(el){el.classList.add('sh-fade');});
+  setTimeout(function(){shRender(i);fade.forEach(function(el){el.classList.remove('sh-fade');});},380);
+}
+if(shSlides.length>1){setInterval(function(){shSlides[shi].classList.remove('on');if(shDots[shi])shDots[shi].classList.remove('on');shi=(shi+1)%shSlides.length;shSlides[shi].classList.add('on');if(shDots[shi])shDots[shi].classList.add('on');shSwap(shi%shIndustries.length);},5000);}
 const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 

@@ -1,45 +1,65 @@
 ---
+import Logo from "./Logo.astro";
 const { variant } = Astro.props;
 const links = [
-  { href: '/platforma', label: 'Можливості' },
-  { href: '/#hsec', label: 'Галузі' },
-  { href: '/pricing', label: 'Тарифи' },
-  { href: '/pro-nas', label: 'Про нас' },
-  { href: '/kontakty', label: 'Контакти' },
+  { href: "/platforma", label: "Можливості" },
+  { href: "/#hsec", label: "Галузі" },
+  { href: "/pricing", label: "Тарифи" },
+  { href: "/pro-nas", label: "Про нас" },
+  { href: "/kontakty", label: "Контакти" },
 ];
 ---
-<nav class={variant === 'dark' ? 'nav-dark' : undefined}>
+
+<nav class={variant === "dark" ? "nav-dark" : undefined}>
   <div class="nav-in">
     <a class="logo" href="/" aria-label="Zapys24">
-      <img class="logo-mark" src="/img/zapys-icon.webp" alt="" />
-      <span class="logo-tx">Zapys <b>24</b></span>
+      <Logo />
     </a>
     <div class="nav-links">
-      {links.map(l => (<a href={l.href}>{l.label}</a>))}
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </div>
     <div class="nav-act">
-      <a class="nav-login" href="#">Увійти</a>
-      <a class="nav-cta" href="#">Спробувати<span class="nav-cta-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
-      <button class="nav-burger" id="navBurger" type="button" aria-label="Меню" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a class="nav-cta" href="#" data-signup
+        >Спробувати<span class="nav-cta-ar"
+          ><svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg
+          ></span
+        ></a
+      >
+      <button
+        class="nav-burger"
+        id="navBurger"
+        type="button"
+        aria-label="Меню"
+        aria-expanded="false"><span></span><span></span><span></span></button
+      >
     </div>
   </div>
   <div class="nav-mobile" id="navMobile">
-    {links.map(l => (<a href={l.href}>{l.label}</a>))}
-    <a class="nav-mobile-login" href="#">Увійти</a>
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
   </div>
 </nav>
 <script>
   (() => {
-    const b = document.getElementById('navBurger');
-    const m = document.getElementById('navMobile');
+    const b = document.getElementById("navBurger");
+    const m = document.getElementById("navMobile");
     if (!b || !m) return;
-    const close = () => { b.classList.remove('on'); m.classList.remove('on'); b.setAttribute('aria-expanded', 'false'); };
-    b.addEventListener('click', () => {
-      const open = !b.classList.contains('on');
-      b.classList.toggle('on', open);
-      m.classList.toggle('on', open);
-      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const close = () => {
+      b.classList.remove("on");
+      m.classList.remove("on");
+      b.setAttribute("aria-expanded", "false");
+    };
+    b.addEventListener("click", () => {
+      const open = !b.classList.contains("on");
+      b.classList.toggle("on", open);
+      m.classList.toggle("on", open);
+      b.setAttribute("aria-expanded", open ? "true" : "false");
     });
-    m.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+    m.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
   })();
 </script>

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { CONTACTS, EMAIL, PHONE_DISPLAY, TELEGRAM_HANDLE } from '../data/contacts';
 
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
 const back = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>';
@@ -11,6 +12,7 @@ const IC = {
   shield:S('<path d="M12 3a12 12 0 0 0 8 3a12 12 0 0 1 -8 15a12 12 0 0 1 -8 -15a12 12 0 0 0 8 -3"/><path d="M9 12l2 2l4 -4"/>'),
   user:  S('<path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>'),
   mail:  S('<path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10"/><path d="M3 7l9 6l9 -6"/>'),
+  phone: S('<path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"/>'),
   list:  S('<path d="M9 6l11 0"/><path d="M9 12l11 0"/><path d="M9 18l11 0"/><path d="M5 6l0 .01"/><path d="M5 12l0 .01"/><path d="M5 18l0 .01"/>'),
   chat:  S('<path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4"/>'),
   inbox: S('<path d="M4 13a2 2 0 0 1 2 -2h1l2 3h6l2 -3h1a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/><path d="M12 3v9"/><path d="M9 8l3 3l3 -3"/>'),
@@ -21,11 +23,12 @@ const IC = {
 const fb = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 22v-8h3l1-4h-4V8c0-1.1.3-2 2-2h2V2.2C18.6 2.1 17.4 2 16 2c-3 0-5 1.8-5 5.2V10H8v4h3v8h2z"/></svg>';
 
 const ways = [
-  { nm:'Telegram',           s:'Найшвидший спосіб',   img:'telegram.svg',  bg:'#26A5E4' },
-  { nm:'Instagram',          s:'Пишіть у Direct',     img:'instagram.svg', bg:'linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)' },
-  { nm:'Email',              s:'Підтримка та запити', ic:IC.mail,          bg:'linear-gradient(135deg,#7C3AED,#A96BF0)' },
-  { nm:'Viber',              s:'Зручний чат',         img:'viber.svg',     bg:'#7360F2' },
-  { nm:'Facebook Messenger', s:'Месенджер',           raw:fb,              bg:'#1877F2' },
+  { nm:'Telegram',           s:TELEGRAM_HANDLE,       href:CONTACTS.telegram,  img:'telegram.svg',  bg:'#26A5E4' },
+  { nm:'Instagram',          s:'Пишіть у Direct',     href:CONTACTS.instagram, img:'instagram.svg', bg:'linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)' },
+  { nm:'Email',              s:EMAIL,                 href:CONTACTS.email,     ic:IC.mail,          bg:'linear-gradient(135deg,#7C3AED,#A96BF0)' },
+  { nm:'Viber',              s:PHONE_DISPLAY,         href:CONTACTS.viber,     img:'viber.svg',     bg:'#7360F2' },
+  { nm:'Facebook Messenger', s:'Месенджер',           href:CONTACTS.facebook,  raw:fb,              bg:'#1877F2' },
+  { nm:'Телефон',            s:PHONE_DISPLAY,         href:CONTACTS.phone,     ic:IC.phone,         bg:'linear-gradient(135deg,#16A34A,#0E8C3F)' },
 ];
 const steps = [
   { ic:IC.inbox, t:'Ми отримуємо ваше повідомлення', d:'Миттєво отримуємо та реєструємо запит' },
@@ -67,7 +70,7 @@ const faqs = [
   </section>
 
   <!-- FORM + SIDE -->
-  <section class="kr-sec wrap reveal">
+  <section class="kr-sec wrap reveal" id="form">
     <div class="np-grid">
       <form class="np-form" onsubmit="return false">
         <h2 class="np-form-h">Розкажіть, чим можемо допомогти</h2>
@@ -91,7 +94,7 @@ const faqs = [
         <div class="np-ways">
           <h3 class="np-side-h">Інші способи зв'язку</h3>
           {ways.map(w => (
-            <a class="np-way" href="#">
+            <a class="np-way" href={w.href} target={w.href.startsWith('http') ? '_blank' : undefined} rel={w.href.startsWith('http') ? 'noopener' : undefined}>
               <span class="np-way-ic" style={`background:${w.bg}`}>{w.img ? <img src={`/img/logos/${w.img}`} alt={w.nm} /> : <span class="np-way-svg" set:html={w.raw || w.ic}></span>}</span>
               <div class="np-way-tx"><b>{w.nm}</b><span>{w.s}</span></div>
               <span class="np-way-ar" set:html={arrow}></span>
@@ -101,7 +104,7 @@ const faqs = [
         <div class="np-urgent">
           <h3 class="np-urgent-h">Потрібна термінова допомога?</h3>
           <p>Скористайтесь онлайн-чатом — наші спеціалісти вже готові допомогти.</p>
-          <a class="np-urgent-btn" href="#"><span set:html={IC.chat}></span>Відкрити чат</a>
+          <a class="np-urgent-btn" href={CONTACTS.telegram} target="_blank" rel="noopener"><span set:html={IC.chat}></span>Відкрити чат</a>
           <div class="np-online">
             <div class="np-avs"><span style="background-image:url(/img/quote.webp)"></span><span style="background-image:url(/img/model.webp)"></span><span style="background-image:url(/img/faq3.webp)"></span></div>
             <span class="np-online-tx"><i class="kx-dot"></i>Зараз онлайн 3 спеціалісти</span>
