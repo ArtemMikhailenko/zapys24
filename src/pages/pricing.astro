@@ -3,9 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
-const fmt = (n) => n.toLocaleString('uk-UA');
-const S = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
-const Sw = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const fmt = (n: number) => n.toLocaleString('uk-UA');
+const S = (p: string) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const Sw = (p: string) => `<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 
 const VIC = {
   scissors: Sw('<path d="M3 7a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M8.6 8.6l10.4 10.4"/><path d="M8.6 15.4l10.4 -10.4"/>'),
@@ -32,86 +32,118 @@ const IC = {
   check: S('<path d="M5 12.5l4.5 4.5L19 7"/>'),
 };
 
-const VERTICALS = [
-  { key: 'beauty', label: 'Краса', dot: 'var(--n-beauty, #7C3AED)', ic: VIC.scissors, plans: [
-    { name: 'Старт',  desc: 'Ідеально для фрілансерів та майстрів-початківців', price: 0,    cta: 'Почати безкоштовно', f: ['1 майстер', 'Онлайн-запис 24/7', 'База клієнтів', 'Нагадування'] },
-    { name: 'Бізнес', desc: 'Для команд і студій, які хочуть рости',           price: 790,  cta: 'Спробувати 14 днів', pop: true, f: ['До 10 майстрів', 'SMS-нагадування', 'Фінанси та зарплати', 'Аналітика й звіти', 'Віджет запису'] },
-    { name: 'Профі',  desc: 'Для мереж, салонів і великих команд',             price: 1490, cta: 'Зв’язатися з нами',  f: ['Без лімітів майстрів', 'Кілька філій', 'API та інтеграції', 'Пріоритетна підтримка'] },
-  ]},
-  { key: 'equestrian', label: 'Кінний спорт', dot: 'var(--n-eq, #6B4A35)', ic: VIC.horse, plans: [
-    { name: 'Конюшня', desc: 'Для невеликої стайні чи приватного тренера',   price: 0,    cta: 'Почати безкоштовно', f: ['До 5 коней', 'Запис на тренування', 'Картки коней', 'Ветжурнал'] },
-    { name: 'Клуб',    desc: 'Для кінного клубу, що активно росте',           price: 990,  cta: 'Спробувати 14 днів', pop: true, f: ['Без лімітів коней', 'Абонементи вершників', 'Розклад тренерів', 'Виплати тренерам', 'Групові заняття'] },
-    { name: 'Центр',   desc: 'Для великого центру з кількома локаціями',      price: 1890, cta: 'Зв’язатися з нами',  f: ['Кілька локацій', 'Облік амуніції', 'API та інтеграції', 'Пріоритетна підтримка'] },
-  ]},
-  { key: 'auto_service', label: 'Авто', dot: 'var(--n-auto, #2563EB)', ic: VIC.car, soon: true, plans: [
-    { name: 'Старт',  desc: 'Ідеально для одного боксу чи майстра',          price: 0,    cta: 'Почати безкоштовно', f: ['1 бокс', 'Онлайн-запис', 'Історія авто', 'Нагадування'] },
-    { name: 'Сервіс', desc: 'Для СТО, мийки чи шиномонтажу',                  price: 890,  cta: 'Спробувати 14 днів', pop: true, f: ['До 10 майстрів', 'SMS-нагадування', 'Картка авто', 'Фінанси', 'Віджет запису'] },
-    { name: 'Мережа', desc: 'Для мережі сервісів і кількох локацій',         price: 1690, cta: 'Зв’язатися з нами',  f: ['Без лімітів', 'Кілька локацій', 'API та інтеграції', 'Пріоритетна підтримка'] },
-  ]},
-  { key: 'fitness', label: 'Фітнес', dot: 'var(--n-fit, #16A34A)', ic: VIC.dumbbell, soon: true, plans: [
-    { name: 'Старт',  desc: 'Ідеально для соло-тренера',                      price: 0,    cta: 'Почати безкоштовно', f: ['1 тренер', 'Запис на заняття', 'База клієнтів', 'Нагадування'] },
-    { name: 'Студія', desc: 'Для залу чи студії з командою',                  price: 690,  cta: 'Спробувати 14 днів', pop: true, f: ['Абонементи', 'Групові заняття', 'Розклад тренерів', 'Аналітика', 'Віджет запису'] },
-    { name: 'Мережа', desc: 'Для мережі залів і кількох локацій',            price: 1390, cta: 'Зв’язатися з нами',  f: ['Без лімітів', 'Кілька локацій', 'API та інтеграції', 'Пріоритетна підтримка'] },
-  ]},
-  { key: 'medical', label: 'Медицина', dot: 'var(--n-med, #DB2777)', ic: VIC.cross, soon: true, plans: [
-    { name: 'Кабінет', desc: 'Ідеально для соло-практики',                    price: 0,    cta: 'Почати безкоштовно', f: ['1 спеціаліст', 'Онлайн-запис', 'Картки пацієнтів', 'Нагадування'] },
-    { name: 'Клініка', desc: 'Для клініки чи медичного центру',              price: 990,  cta: 'Спробувати 14 днів', pop: true, f: ['До 15 лікарів', 'SMS-нагадування', 'Історія візитів', 'Фінанси та звіти', 'Віджет запису'] },
-    { name: 'Мережа',  desc: 'Для мережі клінік і кількох філій',            price: 1890, cta: 'Зв’язатися з нами',  f: ['Без лімітів', 'Кілька філій', 'API та інтеграції', 'Пріоритетна підтримка'] },
-  ]},
+// ── Тарифи з бекенду ──────────────────────────────────────────────
+// Валюта у відповіді відсутня — показуємо у гривнях.
+const CURRENCY = '₴';
+const money = (n: number) => `${fmt(n)} ${CURRENCY}`;
+// Куди веде кнопка кожного тарифу (register відповідної індустрії).
+// УВАГА: піддомен medical — припущення, звірте з бекендом.
+const REGISTER: Record<string, string> = {
+  beauty: 'https://beauty.zapys24.com/register',
+  equestrian: 'https://horse.zapys24.com/register',
+  medical: 'https://med.zapys24.com/register',
+};
+
+// Індустрії з реальними тарифами (порядок = порядок пілюль).
+const REAL = [
+  { key: 'beauty', label: 'Краса', dot: 'var(--n-beauty, #7C3AED)', ic: VIC.scissors },
+  { key: 'equestrian', label: 'Кінний спорт', dot: 'var(--n-eq, #6B4A35)', ic: VIC.horse },
+];
+// Індустрії без тарифів — показуємо як «Скоро».
+const SOON = [
+  { key: 'medical', label: 'Медицина', dot: 'var(--n-med, #DB2777)', ic: VIC.cross, soon: true },
+  { key: 'auto_service', label: 'Авто', dot: 'var(--n-auto, #2563EB)', ic: VIC.car, soon: true },
+  { key: 'fitness', label: 'Фітнес', dot: 'var(--n-fit, #16A34A)', ic: VIC.dumbbell, soon: true },
 ];
 
-const CATEGORIES = [
-  { key: 'booking', label: 'Онлайн-запис', ic: IC.calendar, rows: [
-    { t: 'Онлайн-запис 24/7', d: 'Клієнти записуються самі', v: ['y','y','y'] },
-    { t: 'Віджет запису на сайт', d: 'Кастомізований віджет', v: ['n','y','y'] },
-    { t: 'Блокування дат і вихідних', d: 'Керуйте доступністю розкладу', v: ['y','y','y'] },
-    { t: 'Повторні записи', d: 'Швидкий запис для постійних клієнтів', v: ['n','y','y'] },
-    { t: 'Підтвердження запису', d: 'Email та SMS підтвердження', v: ['n','y','y'] },
-    { t: 'Черга та лист очікування', d: 'Якщо немає вільних слотів', v: ['y','y','y'] },
+let apiPlans = [];
+try {
+  const res = await fetch('https://api.zapys24.com/api/v1/billing/plans?industry=all');
+  if (res.ok) apiPlans = await res.json();
+} catch (_) {}
+
+const byIndustry = (code: string) => apiPlans
+  .filter((p: any) => p.industry === code && p.isActive)
+  .sort((a: any, b: any) => (a.sortOrder - b.sortOrder) || (a.price - b.price));
+
+// Реальні індустрії з планами (без даних — відсіюємо, напр. якщо fetch впав).
+const industries = REAL
+  .map((m) => ({ ...m, plans: byIndustry(m.key) }))
+  .filter((g) => g.plans.length > 0);
+
+// -1 у лімітах = без обмежень.
+const smsIncl = (p: any) => (p.features.notificationPolicy || {}).smsMonthlyIncluded ?? 0;
+function highlights(p: any) {
+  const L = p.limits, F = p.features, out = [];
+  out.push(L.maxStaffPerBusiness === -1 ? 'Без лімітів співробітників' : `До ${L.maxStaffPerBusiness} співробітників`);
+  out.push(L.maxBookingsPerMonth === -1 ? 'Безлімітні записи' : `${fmt(L.maxBookingsPerMonth)} записів/міс`);
+  out.push(L.maxClientsPerBusiness === -1 ? 'Без лімітів клієнтів' : `${fmt(L.maxClientsPerBusiness)} клієнтів`);
+  if (F.hasSmsNotifications) out.push(`SMS-сповіщення · ${smsIncl(p)}/міс`);
+  if (F.hasFinanceReports) out.push('Фінансові звіти');
+  if (F.hasSalaryManagement) out.push('Зарплати команди');
+  if (F.apiAccess) out.push('API та інтеграції');
+  if (F.prioritySupport) out.push('Пріоритетна підтримка');
+  if (F.customBranding) out.push('Власний бренд');
+  return out.slice(0, 6);
+}
+function ctaLabel(p: any) {
+  if (p.price === 0) return 'Почати безкоштовно';
+  if (p.trialDays > 0) return `Спробувати ${p.trialDays} днів`;
+  return 'Обрати план';
+}
+
+// Повний функціонал: групи рядків із ключами бекенду.
+// type 'bool' → features[k]; 'limit' → limits[k]; 'sms' → notificationPolicy.smsMonthlyIncluded.
+const FEAT_GROUPS = [
+  { key: 'booking', label: 'Записи та розклад', ic: IC.calendar, rows: [
+    { label: 'Онлайн-запис 24/7', type: 'bool', k: 'hasOnlineBooking' },
+    { label: 'Записів на місяць', type: 'limit', k: 'maxBookingsPerMonth' },
+    { label: 'Послуг', type: 'limit', k: 'maxServicesPerBusiness' },
+    { label: 'Фото на послугу', type: 'limit', k: 'maxPhotosPerService' },
+    { label: 'Знижки та акції', type: 'bool', k: 'hasDiscounts' },
   ]},
-  { key: 'crm', label: 'CRM та клієнти', ic: IC.users, rows: [
-    { t: 'Картка клієнта', d: 'Історія візитів і вподобання', v: ['y','y','y'] },
-    { t: 'Теги та нотатки', d: 'Сегментація вашої бази', v: ['y','y','y'] },
-    { t: 'Імпорт клієнтів', d: 'З Excel або Google Sheets', v: ['n','y','y'] },
-    { t: 'Абонементи та пакети', d: 'Продаж пакетів візитів', v: ['n','y','y'] },
-  ]},
-  { key: 'reminders', label: 'Нагадування', ic: IC.bell, rows: [
-    { t: 'Пуш-нагадування', d: 'У застосунку клієнта', v: ['y','y','y'] },
-    { t: 'SMS-нагадування', d: 'Менше неявок', v: ['n','y','y'] },
-    { t: 'Email-нагадування', d: 'Автоматичні листи', v: ['n','y','y'] },
-    { t: 'Подяки після візиту', d: 'З пропозицією повернутись', v: ['n','y','y'] },
-  ]},
-  { key: 'finance', label: 'Фінанси', ic: IC.wallet, rows: [
-    { t: 'Облік доходів і витрат', d: 'Прозора каса', v: ['n','y','y'] },
-    { t: 'Зарплати майстрів', d: 'Автоматичний розрахунок виплат', v: ['n','y','y'] },
-    { t: 'Борги клієнтів', d: 'Облік заборгованостей', v: ['n','y','y'] },
-    { t: 'Звіти по касі', d: 'За будь-який період', v: ['n','y','y'] },
-  ]},
-  { key: 'analytics', label: 'Аналітика', ic: IC.chart, rows: [
-    { t: 'Дашборд показників', d: 'Ключові метрики на одному екрані', v: ['n','y','y'] },
-    { t: 'Завантаженість команди', d: 'Хто скільки заробляє', v: ['n','y','y'] },
-    { t: 'Повернення клієнтів', d: 'Хто повертається, а хто ні', v: ['n','y','y'] },
-    { t: 'Експорт звітів', d: 'PDF та Excel', v: ['n','n','y'] },
-  ]},
-  { key: 'automation', label: 'Автоматизація', ic: IC.bolt, rows: [
-    { t: 'Авто-підтвердження записів', d: 'Без вашої участі', v: ['n','y','y'] },
-    { t: 'Тригери й сценарії', d: 'Дії за подіями', v: ['n','n','y'] },
-    { t: 'Автонагадування про повторний візит', d: 'Повертайте клієнтів на автоматі', v: ['n','y','y'] },
-  ]},
-  { key: 'api', label: 'API та інтеграції', ic: IC.plug, rows: [
-    { t: 'Публічний API', d: 'Для розробників', v: ['n','n','y'] },
-    { t: 'Webhooks', d: 'Події у ваші сервіси', v: ['n','n','y'] },
-    { t: 'Ключі API та доступи', d: 'Керуйте інтеграціями', v: ['n','n','y'] },
-    { t: 'Посилання на запис', d: 'Діліться у соцмережах і месенджерах', v: ['y','y','y'] },
+  { key: 'crm', label: 'Клієнти', ic: IC.users, rows: [
+    { label: 'Клієнтів у базі', type: 'limit', k: 'maxClientsPerBusiness' },
+    { label: 'Абонементи клієнтів', type: 'bool', k: 'hasClientSubscriptions' },
+    { label: 'Способи оплати', type: 'bool', k: 'hasPaymentMethods' },
   ]},
   { key: 'team', label: 'Команда та філії', ic: IC.branch, rows: [
-    { t: 'Ролі та доступи', d: 'Кожен бачить лише своє', v: ['n','y','y'] },
-    { t: 'Кілька філій', d: 'Один акаунт — багато локацій', v: ['n','n','y'] },
-    { t: 'Спільний розклад', d: 'Уся команда синхронно', v: ['n','y','y'] },
-    { t: 'Керування правами', d: 'Гнучкі налаштування', v: ['n','n','y'] },
+    { label: 'Бізнесів (філій)', type: 'limit', k: 'maxBusinesses' },
+    { label: 'Співробітників', type: 'limit', k: 'maxStaffPerBusiness' },
+    { label: 'Рейтинг персоналу', type: 'bool', k: 'hasStaffRanking' },
+    { label: 'Вакансії', type: 'bool', k: 'hasJobVacancies' },
+    { label: 'Адмін-панель', type: 'bool', k: 'hasAdmin' },
+  ]},
+  { key: 'reminders', label: 'Сповіщення', ic: IC.bell, rows: [
+    { label: 'SMS-сповіщення', type: 'bool', k: 'hasSmsNotifications' },
+    { label: 'SMS у місяць', type: 'sms' },
+    { label: 'Email-сповіщення', type: 'bool', k: 'hasEmailNotifications' },
+    { label: 'Пуш-сповіщення', type: 'bool', k: 'hasNotifications' },
+  ]},
+  { key: 'finance', label: 'Фінанси', ic: IC.wallet, rows: [
+    { label: 'Фінансові звіти', type: 'bool', k: 'hasFinanceReports' },
+    { label: 'Облік витрат', type: 'bool', k: 'hasExpenseTracking' },
+    { label: 'Зарплати команди', type: 'bool', k: 'hasSalaryManagement' },
+  ]},
+  { key: 'analytics', label: 'Аналітика', ic: IC.chart, rows: [
+    { label: 'Статистика', type: 'bool', k: 'hasStatistics' },
+    { label: 'Експорт даних', type: 'bool', k: 'hasExport' },
+  ]},
+  { key: 'api', label: 'Інтеграції', ic: IC.plug, rows: [
+    { label: 'API-доступ', type: 'bool', k: 'apiAccess' },
+    { label: 'Власний бренд', type: 'bool', k: 'customBranding' },
+    { label: 'Пріоритетна підтримка', type: 'bool', k: 'prioritySupport' },
   ]},
 ];
-const cell = (x) => x === 'y' ? `<span class="tp-ck">${IC.check}</span>` : `<span class="tp-dash">—</span>`;
+const ckCell = `<span class="tp-ck">${IC.check}</span>`;
+const dashCell = '<span class="tp-dash">—</span>';
+function cellFor(p: any, row: any) {
+  if (row.type === 'bool') return p.features[row.k] ? ckCell : dashCell;
+  const v = row.type === 'sms' ? smsIncl(p) : p.limits[row.k];
+  if (v === -1) return '<span class="tp-num">∞</span>';
+  if (v === 0 || v == null) return dashCell;
+  return `<span class="tp-num">${fmt(v)}</span>`;
+}
 
 const TRUST = [
   { ic: IC.shield, t: 'Без комісій з записів' },
@@ -126,7 +158,6 @@ const FAQ = [
   { q: 'Що після 14 днів безкоштовно?', a: 'Просто оберете план, коли будете готові. Картку наперед не просимо — тестуйте спокійно.' },
   { q: 'Скільки коштують SMS-нагадування?', a: 'SMS входять у платні плани пакетами; понад ліміт — за собівартістю оператора, без націнки.' },
 ];
-const price = (p) => p === 0 ? '€0' : '€' + fmt(p);
 ---
 
 <Layout title="Тарифи — Zapys24">
@@ -140,7 +171,7 @@ const price = (p) => p === 0 ? '€0' : '€' + fmt(p);
         <h1 class="dis tp-h1">Оберіть свій<br>план</h1>
         <p class="tp-sub">Фіксована ціна, жодних комісій із записів. Виберіть тариф, який підходить саме вам.</p>
         <div class="tp-pills" id="tpPills">
-          {VERTICALS.map((v, i) => (
+          {[...industries, ...SOON].map((v: any, i: number) => (
             <button class={`tp-pill${i === 0 ? ' on' : ''}${v.soon ? ' soon' : ''}`} data-k={v.key} type="button">
               <span class="tp-pill-ic" style={`background:${v.dot}`} set:html={v.ic}></span>{v.label}
               {v.soon && <span class="tp-pill-soon">Скоро</span>}
@@ -151,25 +182,41 @@ const price = (p) => p === 0 ? '€0' : '€' + fmt(p);
       <div class="tp-hero-r">
         <img class="tp-cal" src="/img/kalendar.png" alt="Календар записів Zapys24" />
         <span class="tp-float tp-float-1"><i class="tp-fdot"></i><div><b>Новий запис</b><em>Олена, 14:00</em></div></span>
-        <span class="tp-float tp-float-2"><span class="tp-fic v" set:html={IC.card}></span><div><b>Оплата отримана</b><em>+790 €</em></div></span>
+        <span class="tp-float tp-float-2"><span class="tp-fic v" set:html={IC.calendar}></span><div><b>Запис перенесено</b><em>на 16:00</em></div></span>
         <span class="tp-float tp-float-3"><span class="tp-fic b" set:html={IC.send}></span><div><b>SMS відправлено</b><em>Клієнту</em></div></span>
       </div>
     </section>
 
     <!-- PRICING CARDS -->
     <section class="wrap tp-plans-sec">
-      {VERTICALS.map((v, i) => (
-        <div class={`tp-plans${i === 0 ? ' on' : ''}`} data-ind={v.key}>
-          {v.plans.map(pl => (
-            <div class={`tp-card${pl.pop ? ' pop' : ''}`}>
-              {pl.pop && <span class="tp-pop-badge">Популярний</span>}
+      {industries.map((g, i) => (
+        <div
+          class={`tp-plans${i === 0 ? ' on' : ''}${g.plans.length >= 4 ? ' tp-plans-dense' : ''}`}
+          data-ind={g.key}
+          style={`--cols:${g.plans.length}`}
+        >
+          {g.plans.map((pl: any) => (
+            <div class={`tp-card${pl.isPopular ? ' pop' : ''}`}>
+              {pl.isPopular && <span class="tp-pop-badge">Популярний</span>}
               <b class="tp-card-name">{pl.name}</b>
-              <p class="tp-card-desc">{pl.desc}</p>
-              <div class="tp-card-price"><span class="tp-amt">{price(pl.price)}</span><small>/міс</small></div>
-              <ul class="tp-feat">{pl.f.map(x => (<li><i class="tp-feat-ck" set:html={IC.check}></i>{x}</li>))}</ul>
-              <a class={`tp-card-btn${pl.pop ? ' pop' : ''}`} href="#">{pl.cta}</a>
+              <p class="tp-card-desc">{pl.description}</p>
+              <div class="tp-card-price"><span class="tp-amt">{money(pl.price)}</span><small>/міс</small></div>
+              {pl.yearlyPrice ? <div class="tp-card-year">або {money(pl.yearlyPrice)}/рік</div> : null}
+              {pl.price > 0 && pl.trialDays > 0 ? <div class="tp-card-trial">{pl.trialDays} днів безкоштовно</div> : null}
+              <ul class="tp-feat">{highlights(pl).map(x => (<li><i class="tp-feat-ck" set:html={IC.check}></i>{x}</li>))}</ul>
+              <a class={`tp-card-btn${pl.isPopular ? ' pop' : ''}`} href={REGISTER[g.key] || '#'} target="_blank" rel="noopener">{ctaLabel(pl)}</a>
             </div>
           ))}
+        </div>
+      ))}
+      {SOON.map(g => (
+        <div class="tp-plans tp-plans-soon" data-ind={g.key}>
+          <div class="tp-soon-card">
+            <span class="tp-soon-ic" style={`background:${g.dot}`} set:html={g.ic}></span>
+            <b>Тарифи для сфери «{g.label}» — скоро</b>
+            <p>Ми готуємо окремі плани під цю індустрію. Залиште контакт — і ми повідомимо про запуск.</p>
+            <a class="tp-card-btn pop" href="/napysaty#form">Повідомити мене</a>
+          </div>
         </div>
       ))}
     </section>
@@ -206,30 +253,37 @@ const price = (p) => p === 0 ? '€0' : '€' + fmt(p);
     */}
 
     <!-- FULL FEATURE COMPARISON -->
-    <section class="wrap tp-fn-sec">
+    <section class="wrap tp-fn-sec" id="tpFnSec">
       <h2 class="sh tp-fn-h">Повний функціонал</h2>
       <div class="tp-fn">
         <aside class="tp-cats" id="tpCats">
-          {CATEGORIES.map((c, i) => (
+          {FEAT_GROUPS.map((c, i) => (
             <button class={`tp-cat${i === 0 ? ' on' : ''}`} data-c={c.key} type="button"><span class="tp-cat-ic" set:html={c.ic}></span>{c.label}</button>
           ))}
         </aside>
-        <div class="tp-fn-table">
-          <table>
-            <thead>
-              <tr><th class="tp-th-f">Функції</th><th class="tp-th tp-th-0">Старт</th><th class="tp-th tp-th-1 tp-th-pop">Бізнес</th><th class="tp-th tp-th-2">Профі</th></tr>
-            </thead>
-            {CATEGORIES.map((c, i) => (
-              <tbody class={`tp-catbody${i === 0 ? ' on' : ''}`} data-c={c.key}>
-                {c.rows.map(r => (
+        <div class="tp-fn-tables">
+          {industries.map((g, gi) => (
+            <div class={`tp-fn-table tp-fn-block${gi === 0 ? ' on' : ''}`} data-ind={g.key}>
+              <table>
+                <thead>
                   <tr>
-                    <td class="tp-td-f"><b>{r.t}</b><span>{r.d}</span></td>
-                    {r.v.map((val, ci) => (<td class={`tp-td ${ci === 1 ? 'tp-td-pop' : ''}`} set:html={cell(val)}></td>))}
+                    <th class="tp-th-f">Функції</th>
+                    {g.plans.map(p => (<th class={`tp-th${p.isPopular ? ' tp-th-pop' : ''}`}>{p.name}</th>))}
                   </tr>
+                </thead>
+                {FEAT_GROUPS.map((c, ci) => (
+                  <tbody class={`tp-catbody${ci === 0 ? ' on' : ''}`} data-c={c.key}>
+                    {c.rows.map(r => (
+                      <tr>
+                        <td class="tp-td-f"><b>{r.label}</b></td>
+                        {g.plans.map(p => (<td class={`tp-td${p.isPopular ? ' tp-td-pop' : ''}`} set:html={cellFor(p, r)}></td>))}
+                      </tr>
+                    ))}
+                  </tbody>
                 ))}
-              </tbody>
-            ))}
-          </table>
+              </table>
+            </div>
+          ))}
           <button class="tp-showall" id="tpShowAll" type="button">Показати всі категорії<span class="tp-showall-ch">▾</span></button>
         </div>
       </div>
@@ -252,7 +306,7 @@ const price = (p) => p === 0 ? '€0' : '€' + fmt(p);
         <span class="tp-custom-ic" set:html={IC.head}></span>
         <h3>Потрібен індивідуальний план?</h3>
         <p>Мережа, особливі інтеграції чи великий обсяг — підберемо умови під вас.</p>
-        <a class="tp-custom-btn" href="/kontakty">Поговорити з нами</a>
+        <a class="tp-custom-btn" href="/napysaty#form">Поговорити з нами</a>
       </div>
     </section>
   </main>
@@ -260,63 +314,49 @@ const price = (p) => p === 0 ? '€0' : '€' + fmt(p);
 </Layout>
 
 <script>
-  const pills = Array.from(document.querySelectorAll('#tpPills .tp-pill'));
-  const planSets = Array.from(document.querySelectorAll('.tp-plans'));
-  const ths = [0,1,2].map(i => document.querySelector('.tp-th-' + i));
+  const pills = Array.from(document.querySelectorAll<HTMLElement>('#tpPills .tp-pill'));
+  const planSets = Array.from(document.querySelectorAll<HTMLElement>('.tp-plans'));
+  const fnBlocks = Array.from(document.querySelectorAll<HTMLElement>('.tp-fn-block'));
+  const fnSec = document.getElementById('tpFnSec');
 
-  const PLAN_NAMES = {};
-  planSets.forEach(set => {
-    PLAN_NAMES[set.dataset.ind] = Array.from(set.querySelectorAll('.tp-card-name')).map(n => n.textContent);
-  });
-
-  pills.forEach(p => p.addEventListener('click', () => {
+  // перемикання індустрії: картки + таблиця + приховування порівняння для «Скоро»
+  pills.forEach((p) => p.addEventListener('click', () => {
     const k = p.dataset.k;
-    pills.forEach(x => x.classList.toggle('on', x === p));
-    planSets.forEach(s => s.classList.toggle('on', s.dataset.ind === k));
-    const names = PLAN_NAMES[k] || [];
-    ths.forEach((th, i) => { if (th && names[i]) th.textContent = names[i]; });
+    pills.forEach((x) => x.classList.toggle('on', x === p));
+    planSets.forEach((s) => s.classList.toggle('on', s.dataset.ind === k));
+    let hasTable = false;
+    fnBlocks.forEach((b) => {
+      const match = b.dataset.ind === k;
+      b.classList.toggle('on', match);
+      if (match) hasTable = true;
+    });
+    if (fnSec) fnSec.style.display = hasTable ? '' : 'none';
   }));
 
-  // category switch
-  const cats = Array.from(document.querySelectorAll('#tpCats .tp-cat'));
-  const bodies = Array.from(document.querySelectorAll('.tp-catbody'));
+  // перемикання категорій
+  const cats = Array.from(document.querySelectorAll<HTMLElement>('#tpCats .tp-cat'));
+  const bodies = Array.from(document.querySelectorAll<HTMLElement>('.tp-catbody'));
   const showAll = document.getElementById('tpShowAll');
   let allOpen = false;
-  cats.forEach(c => c.addEventListener('click', () => {
+  const setLabel = (txt: string) => {
+    if (showAll && showAll.firstChild) showAll.firstChild.textContent = txt;
+  };
+  const activeCat = () => {
+    const on = cats.find((c) => c.classList.contains('on'));
+    return on ? on.dataset.c : undefined;
+  };
+  cats.forEach((c) => c.addEventListener('click', () => {
     allOpen = false;
-    showAll.classList.remove('on');
-    showAll.firstChild.textContent = 'Показати всі категорії';
-    cats.forEach(x => x.classList.toggle('on', x === c));
-    bodies.forEach(b => b.classList.toggle('on', b.dataset.c === c.dataset.c));
+    if (showAll) showAll.classList.remove('on');
+    setLabel('Показати всі категорії');
+    cats.forEach((x) => x.classList.toggle('on', x === c));
+    bodies.forEach((b) => b.classList.toggle('on', b.dataset.c === c.dataset.c));
   }));
-  showAll && showAll.addEventListener('click', () => {
+  if (showAll) showAll.addEventListener('click', () => {
     allOpen = !allOpen;
     showAll.classList.toggle('on', allOpen);
-    showAll.firstChild.textContent = allOpen ? 'Згорнути категорії' : 'Показати всі категорії';
-    bodies.forEach(b => b.classList.toggle('on', allOpen || b.dataset.c === (cats.find(c => c.classList.contains('on')) || {dataset:{}}).dataset.c));
+    setLabel(allOpen ? 'Згорнути категорії' : 'Показати всі категорії');
+    const key = activeCat();
+    bodies.forEach((b) => b.classList.toggle('on', allOpen || b.dataset.c === key));
   });
-
-  // ROI calculator
-  const state = { masters: 5, check: 800 };
-  const step = { masters: 1, check: 100 };
-  const min = { masters: 1, check: 100 };
-  const elMasters = document.getElementById('tpMasters');
-  const elCheck = document.getElementById('tpCheck');
-  const elMonthly = document.getElementById('tpMonthly');
-  const elYearly = document.getElementById('tpYearly');
-  const fmt = (n) => n.toLocaleString('uk-UA');
-  function renderCalc() {
-    if (!elMasters || !elCheck || !elMonthly || !elYearly) return;
-    elMasters.textContent = fmt(state.masters);
-    elCheck.textContent = fmt(state.check);
-    const monthly = state.masters * state.check * 4;
-    elMonthly.textContent = '+' + fmt(monthly) + ' €';
-    elYearly.textContent = '+' + fmt(monthly * 12) + ' €';
-  }
-  document.querySelectorAll('.tp-step').forEach(b => b.addEventListener('click', () => {
-    const t = b.dataset.t, d = Number(b.dataset.d);
-    state[t] = Math.max(min[t], state[t] + d * step[t]);
-    renderCalc();
-  }));
-  renderCalc();
 </script>

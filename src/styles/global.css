@@ -23451,13 +23451,26 @@ h2.sh .ac {
 
 .tp-plans {
   display: none;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
   gap: 22px;
   align-items: stretch
 }
 
 .tp-plans.on {
   display: grid
+}
+
+/* 4 плани — щільніше, щоб уміститись у ряд */
+.tp-plans-dense {
+  gap: 16px
+}
+
+.tp-plans-dense .tp-card {
+  padding: 26px 22px
+}
+
+.tp-plans-dense .tp-amt {
+  font-size: 32px
 }
 
 .tp-card {
@@ -23835,8 +23848,23 @@ h2.sh .ac {
   background: linear-gradient(165deg, #fff, #F8F6FD);
   border: 1px solid #ECE7FA;
   border-radius: 20px;
-  overflow: hidden;
+  overflow-x: auto;
   box-shadow: 0 30px 64px -46px rgba(70, 35, 140, .3)
+}
+
+/* одна таблиця на індустрію — перемикаються пілюлями */
+.tp-fn-block {
+  display: none
+}
+
+.tp-fn-block.on {
+  display: block
+}
+
+.tp-num {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink)
 }
 
 .tp-fn-table table {
@@ -25126,4 +25154,71 @@ body.sgm-open {
   .km-card {
     margin: 0 auto
   }
+}
+
+/* ===== pricing — нове (річна ціна, тріал, «Скоро») ===== */
+.tp-card-year {
+  margin: -16px 0 14px;
+  font-size: 13px;
+  color: var(--muted)
+}
+
+.tp-card-trial {
+  display: inline-flex;
+  align-self: flex-start;
+  margin: -8px 0 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #10B981;
+  background: rgba(16, 185, 129, .1);
+  padding: 5px 11px;
+  border-radius: 100px
+}
+
+.tp-plans-soon.on {
+  display: grid;
+  place-items: center
+}
+
+.tp-soon-card {
+  max-width: 460px;
+  text-align: center;
+  background: #fff;
+  border: 1px dashed #D9CEF3;
+  border-radius: 24px;
+  padding: 44px 34px;
+  box-shadow: 0 30px 64px -46px rgba(70, 35, 140, .28)
+}
+
+.tp-soon-ic {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  margin-bottom: 16px
+}
+
+.tp-soon-ic svg {
+  width: 28px;
+  height: 28px
+}
+
+.tp-soon-card b {
+  display: block;
+  font-family: 'Unbounded';
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--ink)
+}
+
+.tp-soon-card p {
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin: 10px 0 22px
+}
+
+.tp-soon-card .tp-card-btn {
+  display: inline-block
 }
