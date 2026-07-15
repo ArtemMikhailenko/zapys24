@@ -6,6 +6,8 @@ import Showcase from "../components/Showcase.astro";
 
 const arrow =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+const play =
+  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
 const check =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>';
 const xmark =
@@ -348,8 +350,15 @@ const faqs = [
           допомагає керувати салоном легко та заробляти більше.
         </p>
         <div class="pfh-cta">
-          <a class="fbtn" href="#" data-signup
+          <a class="fbtn" href="https://beauty.zapys24.com/register"
             >Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow} /></a
+          >
+          <a
+            class="kr-demo"
+            href="https://demo.zapys24.com"
+            target="_blank"
+            rel="noopener"
+            ><span class="kr-demo-ic" set:html={play} />Дивитись демо</a
           >
         </div>
         <div class="pfh-rate">
@@ -708,7 +717,7 @@ const faqs = [
             Відстежуйте ключові показники, аналізуйте прибуток, навантаження та
             ефективність майстрів.
           </p>
-          <a class="fbtn kr-dash-btn" href="#" data-signup
+          <a class="fbtn kr-dash-btn" href="https://beauty.zapys24.com/register"
             >Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow} /></a
           >
         </div>
@@ -888,11 +897,18 @@ const faqs = [
             Приєднуйтесь до б'юті-майстрів, які автоматизують рутину із Zapys24.
           </p>
           <div class="kr-cta-row">
-            <a class="kr-cta-btn" href="#" data-signup
+            <a class="kr-cta-btn" href="https://beauty.zapys24.com/register"
               >Спробувати безкоштовно<span
                 class="fbtn-ar"
                 set:html={arrow}
               /></a
+            >
+            <a
+              class="kr-cta-demo"
+              href="https://demo.zapys24.com"
+              target="_blank"
+              rel="noopener"
+              ><span class="kr-demo-ic" set:html={play} />Дивитись демо</a
             >
           </div>
         </div>
