@@ -3455,6 +3455,10 @@ h2.sh .ac {
   display: block
 }
 
+.sc-dash-hint {
+  display: none
+}
+
 .dbar {
   width: 54px;
   flex-shrink: 0;
@@ -3887,6 +3891,10 @@ h2.sh .ac {
 }
 
 @media(max-width:920px) {
+  .scsec {
+    overflow: hidden
+  }
+
   .sc-top {
     flex-direction: column;
     gap: 0
@@ -3918,6 +3926,49 @@ h2.sh .ac {
     box-shadow: 0 30px 60px -36px rgba(42, 14, 55, .5)
   }
 
+  .sc-dash-vp {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(124, 58, 237, .5) transparent
+  }
+
+  .sc-dash-vp img {
+    width: min(760px, 220vw);
+    max-width: none
+  }
+
+  .sc-dash::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 52px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), #fff);
+    pointer-events: none;
+    z-index: 2
+  }
+
+  .sc-dash-hint {
+    display: inline-flex;
+    align-items: center;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 3;
+    background: rgba(124, 58, 237, .94);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    padding: 6px 11px;
+    border-radius: 100px;
+    box-shadow: 0 10px 22px -8px rgba(124, 58, 237, .7);
+    pointer-events: none
+  }
+
   .sc-stats {
     position: relative;
     left: auto;
@@ -3934,9 +3985,10 @@ h2.sh .ac {
     right: auto;
     bottom: auto;
     top: auto;
-    width: 238px;
-    margin: 18px auto 0;
-    transform: none
+    width: 230px;
+    margin: 20px auto 0;
+    transform: none;
+    z-index: 3
   }
 }
 
@@ -7863,7 +7915,10 @@ h2.sh .ac {
   }
 
   .faq-head {
-    position: static;
+    position: relative;
+    z-index: 2;
+    top: auto;
+    left: auto;
     width: auto
   }
 
@@ -7956,8 +8011,9 @@ h2.sh .ac {
     gap: 18px
   }
 
-  .hcard:nth-of-type(1),
-  .hcard:nth-of-type(3) {
+  .hiw-grid .hcard:nth-of-type(1),
+  .hiw-grid .hcard:nth-of-type(2),
+  .hiw-grid .hcard:nth-of-type(3) {
     margin-top: 0
   }
 
@@ -7967,32 +8023,32 @@ h2.sh .ac {
     display: none
   }
 
-  .hchip {
-    position: static;
-    transform: none !important;
-    margin: 10px 0 0;
-    width: fit-content
-  }
-
-  .hchip-url {
-    left: auto
-  }
-
+  .hchip,
   .hig {
-    position: static;
-    transform: none;
-    margin: 14px 0 0;
-    width: 100%;
-    max-width: 300px
+    display: none
   }
 
   .footin {
     grid-template-columns: 1fr 1fr;
-    gap: 24px
+    gap: 26px 20px
+  }
+
+  .footin>:first-child {
+    grid-column: 1 / -1
+  }
+
+  .ftag {
+    max-width: none
   }
 
   .footer {
     padding: 40px 0 24px
+  }
+
+  .footbot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px
   }
 
   .faq summary {
@@ -20220,8 +20276,7 @@ h2.sh .ac {
   }
 
   .ad-phones {
-    order: 1;
-    margin: 12px auto
+    margin: 4px auto 0
   }
 
   .ad-feats {
@@ -23194,6 +23249,25 @@ h2.sh .ac {
 
 .tp-pill.on .tp-pill-ic {
   background: rgba(255, 255, 255, .22) !important
+}
+
+.tp-pill-soon {
+  margin-left: 1px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--violet);
+  background: rgba(124, 58, 237, .12);
+  padding: 3px 7px;
+  border-radius: 100px;
+  line-height: 1;
+  white-space: nowrap
+}
+
+.tp-pill.on .tp-pill-soon {
+  color: #fff;
+  background: rgba(255, 255, 255, .25)
 }
 
 .tp-hero-r {
