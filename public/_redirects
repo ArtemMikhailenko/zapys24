@@ -1,0 +1,19 @@
+# 301 redirects — old URLs (Ukrainian-site relaunch) with no direct equivalent.
+# Pages that kept their old English slug (beauty, horse, about, contact,
+# privacy, terms, pricing, cookies) need NO redirect — the page exists at the
+# same URL. Only dropped/merged pages are listed here.
+# Format: Cloudflare Pages / Netlify. One hop only, no chains.
+
+# Industry pages not yet rebuilt ("Скоро") → general platform page
+/auto      /platform  301
+/wash      /platform  301
+/med       /platform  301
+/sport     /platform  301
+/law       /platform  301
+
+# Careers page dropped → about (team lives there now)
+/careers   /about     301
+
+# Blog dropped → home
+/blog      /          301
+/blog/*    /          301

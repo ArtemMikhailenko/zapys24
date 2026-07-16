@@ -1,5 +1,5 @@
 // Cloudflare Pages Function — проксі для форми зворотного зв'язку.
-// Маршрут: /api/contact  (форма napysaty.astro постить сюди).
+// Маршрут: /api/contact  (форма write.astro постить сюди).
 // Пересилає тіло запиту на бекенд, додаючи CORS-заголовки.
 const TARGET_URL = "https://api.zapys24.com/api/v1/landing/contact";
 

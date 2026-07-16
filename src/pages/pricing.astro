@@ -160,7 +160,10 @@ const FAQ = [
 ];
 ---
 
-<Layout title="Тарифи — Zapys24">
+<Layout
+  title="Тарифи Zapys24 — плани та ціни онлайн-запису"
+  description="Тарифи Zapys24 для салонів краси та кінного спорту. Прозорі плани, безкоштовний період, без прихованих платежів."
+>
   <Nav />
   <main class="tp">
 
@@ -180,7 +183,7 @@ const FAQ = [
         </div>
       </div>
       <div class="tp-hero-r">
-        <img class="tp-cal" src="/img/kalendar.png" alt="Календар записів Zapys24" />
+        <img class="tp-cal" src="/img/kalendar.webp" alt="Календар записів Zapys24" width="1536" height="1024" loading="lazy" decoding="async" />
         <span class="tp-float tp-float-1"><i class="tp-fdot"></i><div><b>Новий запис</b><em>Олена, 14:00</em></div></span>
         <span class="tp-float tp-float-2"><span class="tp-fic v" set:html={IC.calendar}></span><div><b>Запис перенесено</b><em>на 16:00</em></div></span>
         <span class="tp-float tp-float-3"><span class="tp-fic b" set:html={IC.send}></span><div><b>SMS відправлено</b><em>Клієнту</em></div></span>
@@ -215,7 +218,7 @@ const FAQ = [
             <span class="tp-soon-ic" style={`background:${g.dot}`} set:html={g.ic}></span>
             <b>Тарифи для сфери «{g.label}» — скоро</b>
             <p>Ми готуємо окремі плани під цю індустрію. Залиште контакт — і ми повідомимо про запуск.</p>
-            <a class="tp-card-btn pop" href="/napysaty#form">Повідомити мене</a>
+            <a class="tp-card-btn pop" href="/write#form">Повідомити мене</a>
           </div>
         </div>
       ))}
@@ -306,7 +309,7 @@ const FAQ = [
         <span class="tp-custom-ic" set:html={IC.head}></span>
         <h3>Потрібен індивідуальний план?</h3>
         <p>Мережа, особливі інтеграції чи великий обсяг — підберемо умови під вас.</p>
-        <a class="tp-custom-btn" href="/napysaty#form">Поговорити з нами</a>
+        <a class="tp-custom-btn" href="/write#form">Поговорити з нами</a>
       </div>
     </section>
   </main>

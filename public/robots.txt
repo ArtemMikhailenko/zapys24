@@ -1,0 +1,8 @@
+# Zapys24 — CRM та онлайн-запис для бізнесу
+User-agent: *
+Allow: /
+
+# Old URLs are handled by 301 redirects (_redirects) — intentionally NOT
+# disallowed here, so crawlers can see the 301 and pass link equity.
+
+Sitemap: https://zapys24.com/sitemap-index.xml

@@ -35,7 +35,7 @@ const wires = [
     <div class="hubcap">zapys24 · <b id="intcount">1 247</b> записів сьогодні</div>
     {nodes.map(n => (
       <div class="intnode" data-i={n.i} style={`left:${n.x};top:${n.y};--d:${n.d}`}>
-        <span class="ic" style={`background:${n.bg}`}><img src={`/img/logos/${n.img}`} alt={n.nm} /></span>
+        <span class="ic" style={`background:${n.bg}`}><img src={`/img/logos/${n.img}`} alt={n.nm} loading="lazy" decoding="async" /></span>
         <span class="nt">{n.nm}</span>
       </div>
     ))}

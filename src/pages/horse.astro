@@ -1,0 +1,1008 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import DashMobile from "../components/DashMobile.astro";
+
+const arrow =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+const play =
+  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
+const check =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>';
+const xmark =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>';
+const noteArrow =
+  '<svg viewBox="0 0 118 82" fill="none" aria-hidden="true"><path d="M108 14 C64 6 22 22 15 60" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/><path d="M15 60 l3 -17 M15 60 l16 -6" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round"/></svg>';
+const connDash =
+  '<svg viewBox="0 0 92 24" fill="none" aria-hidden="true"><path d="M3 12 H79" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 8" opacity=".55"/><path d="M73 5l8 7-8 7" stroke="var(--violet)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const S = (p: string) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const IC = {
+  cal: S(
+    '<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12"/><path d="M16 3l0 4"/><path d="M8 3l0 4"/><path d="M4 11l16 0"/><path d="M8 15h2v2h-2l0 -2"/>',
+  ),
+  bell: S(
+    '<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>',
+  ),
+  users: S(
+    '<path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/>',
+  ),
+  chart: S('<path d="M4 19l16 0"/><path d="M4 15l4 -6l4 2l4 -5l4 4"/>'),
+  home: S(
+    '<path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1 -1v-7"/><path d="M9 21v-6a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6"/>',
+  ),
+  wallet: S(
+    '<path d="M17 8V5a1 1 0 0 0 -1 -1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v3m0 4v1a1 1 0 0 1 -1 1H5a2 2 0 0 1 -2 -2V6"/><path d="M20 12v4h-4a2 2 0 0 1 0 -4h4"/>',
+  ),
+  mega: S(
+    '<path d="M18 8a3 3 0 0 1 0 6"/><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-3"/><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8"/>',
+  ),
+  cog: S(
+    '<path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>',
+  ),
+  list: S(
+    '<path d="M9 6l11 0"/><path d="M9 12l11 0"/><path d="M9 18l11 0"/><path d="M5 6l0 .01"/><path d="M5 12l0 .01"/><path d="M5 18l0 .01"/>',
+  ),
+};
+
+const NI = {
+  horse: S(
+    '<path d="M5 21v-7c0 -3.5 2 -7 6 -7c1.5 0 2.5 .5 3 1l1 -1c1.5 -1.5 4 -2 4 -2s-1 3 -2 4l-1 1c.5 .5 1 1.5 1 3v8"/><path d="M9 8l-1.5 -2.5l1.5 -1.5l2 2"/><path d="M9 21v-3"/><path d="M17 21v-3"/>',
+  ),
+  stable: S(
+    '<path d="M3 21v-8l9 -6l9 6v8"/><path d="M3 21h18"/><path d="M9 21v-6h6v6"/>',
+  ),
+  trophy: S(
+    '<path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1 -10 0z"/><path d="M7 4H5a2 2 0 0 0 0 4h1"/><path d="M17 4h2a2 2 0 0 1 0 4h-1"/>',
+  ),
+  ticket: S(
+    '<path d="M15 5v2"/><path d="M15 11v2"/><path d="M15 17v2"/><path d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2"/>',
+  ),
+  child: S(
+    '<circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"/>',
+  ),
+  vet: S(
+    '<path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M9 12l2 2l4 -4"/>',
+  ),
+};
+const niches = [
+  {
+    nm: "Кінні клуби",
+    d: "Записи на тренування, картки коней, абонементи вершників і розклад — усе в одному місці.",
+    img: "kinnyy-klub.webp",
+    ic: NI.horse,
+    tags: ["Картки коней", "Абонементи"],
+  },
+  {
+    nm: "Стайні та пансіон",
+    d: "Картки коней, вет-журнал, облік послуг, витрат і фінансів стайні.",
+    img: "stayni.webp",
+    ic: NI.stable,
+    tags: ["Вет-журнал", "Фінанси"],
+  },
+  {
+    nm: "Тренери",
+    d: "Розклад індивідуальних і групових занять та виплати тренерам.",
+    img: "trenery.webp",
+    ic: NI.trophy,
+    tags: ["Розклад", "Виплати"],
+  },
+  {
+    nm: "Прокат коней",
+    d: "Онлайн-бронювання прогулянок і занять — без дзвінків.",
+    img: "prokat.webp",
+    ic: NI.ticket,
+    tags: ["Бронювання", "24/7"],
+  },
+  {
+    nm: "Дитячі секції",
+    d: "Абонементи, групові заняття та нагадування батькам про заняття.",
+    img: "dytyachi-secciyi.webp",
+    ic: NI.child,
+    tags: ["Абонементи", "Групові заняття"],
+  },
+  {
+    nm: "Ветеринарія",
+    d: "Вет-журнал: щеплення, ветогляди, коваль і дегельмінтизація з нагадуваннями.",
+    img: "veterynar.webp",
+    ic: NI.vet,
+    tags: ["Вет-журнал", "Нагадування"],
+  },
+];
+const baBefore = [
+  "Записи в блокноті",
+  "Постійні дзвінки",
+  "Нагадування вручну",
+  "Загублена історія коней",
+  "Забуті вет-огляди",
+];
+const baAfter = [
+  "Онлайн-запис 24/7",
+  "Автоматичні нагадування",
+  "Картки коней і вет-журнал",
+  "Абонементи та групові заняття",
+  "Облік доходів і зарплат",
+];
+const results = [
+  { v: "+35%", l: "більше записів через онлайн" },
+  { v: "−40%", l: "менше неявок на прийом" },
+  { v: "+28%", l: "збільшення доходу в середньому" },
+  { v: "24/7", l: "запис без вихідних" },
+];
+const bkSteps = [
+  {
+    n: "1",
+    t: "Оберіть заняття та тренера",
+    d: "Клієнт переглядає послуги, тренерів і коней.",
+  },
+  {
+    n: "2",
+    t: "Виберіть дату та час",
+    d: "Зручний календар показує вільні вікна.",
+  },
+  {
+    n: "3",
+    t: "Підтвердіть запис і отримайте нагадування",
+    d: "Запис зберігається, а нагадування приходить автоматично.",
+  },
+];
+const stepIcons = [NI.trophy, IC.cal, check];
+const spark = (arr: number[]) => {
+  const w = 58,
+    h = 20,
+    mx = Math.max(...arr),
+    mn = Math.min(...arr),
+    rng = mx - mn || 1;
+  return arr
+    .map((v, i) => {
+      const x = (i / (arr.length - 1)) * w;
+      const y = h - 2 - ((v - mn) / rng) * (h - 4);
+      return `${i ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
+};
+// Exact lucide-react (0.468) icons — 1:1 with the real app
+const L = (p: string) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const calCheck = L(
+  '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/>',
+);
+const plus = L('<path d="M5 12h14"/><path d="M12 5v14"/>');
+// stat cards mirror features/dashboard/pages/DashboardPage.tsx (Calendar, UserPlus, Receipt, TrendingUp)
+// mirrors real equestrian dashboard (Frontend-business-equestrian/DashboardPage.tsx): Calendar, Scissors, Users(primary), TrendingUp — no sparkline
+const dashStats = [
+  {
+    l: "Записів сьогодні",
+    v: "9",
+    d: "За тиждень: 54",
+    ic: L(
+      '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>',
+    ),
+  },
+  {
+    l: "Послуг",
+    v: "12",
+    d: "Активних послуг",
+    ic: L(
+      '<circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/>',
+    ),
+  },
+  {
+    l: "Команда",
+    v: "5",
+    d: "Активних співробітників",
+    ic: L(
+      '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    ),
+    primary: true,
+  },
+  {
+    l: "Виручка сьогодні",
+    v: "11 600 ₴",
+    d: "За тиждень: 78 400 ₴",
+    ic: L(
+      '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+    ),
+  },
+];
+const dayBookings = [
+  {
+    t: "10:00",
+    nm: "Оля К.",
+    s: "Тренування · кінь Грім",
+    st: "ok",
+    color: "#A78BFA",
+  },
+  {
+    t: "12:00",
+    nm: "Іван М.",
+    s: "Прокат · 1 година",
+    st: "ok",
+    color: "#86EFAC",
+  },
+  {
+    t: "15:30",
+    nm: "Софія",
+    s: "Дитяча секція · група",
+    st: "new",
+    color: "#7DD3FC",
+  },
+];
+// sidebar icon-rail — real navSections.ts (LayoutDashboard active, Calendar, CalendarDays, Users, Tag, UserCircle, CreditCard, SlidersHorizontal)
+const rail = [
+  {
+    ic: L(
+      '<rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/>',
+    ),
+    on: true,
+  },
+  {
+    ic: L(
+      '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>',
+    ),
+  },
+  {
+    ic: L(
+      '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/>',
+    ),
+  },
+  {
+    ic: L(
+      '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    ),
+  },
+  {
+    ic: L(
+      '<path d="M5 21v-7c0 -3.5 2 -7 6 -7c1.5 0 2.5 .5 3 1l1 -1c1.5 -1.5 4 -2 4 -2s-1 3 -2 4l-1 1c.5 .5 1 1.5 1 3v8"/><path d="M9 8l-1.5 -2.5l1.5 -1.5l2 2"/><path d="M9 21v-3"/><path d="M17 21v-3"/>',
+    ),
+  },
+  {
+    ic: L(
+      '<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2H6a2 2 0 0 1 -2 -2V6a2 2 0 0 1 2 -2h2"/>',
+    ),
+  },
+  {
+    ic: L(
+      '<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
+    ),
+  },
+  {
+    ic: L(
+      '<line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>',
+    ),
+  },
+];
+const integrations = [
+  {
+    nm: "Instagram",
+    img: "instagram.svg",
+    bg: "linear-gradient(135deg,#F58529,#DD2A7B,#8134AF)",
+    d: "Посилання на запис у профілі та Stories",
+  },
+  {
+    nm: "Telegram",
+    img: "telegram.svg",
+    bg: "#26A5E4",
+    d: "Діліться посиланням на онлайн-запис",
+  },
+  {
+    nm: "Viber",
+    img: "viber.svg",
+    bg: "#7360F2",
+    d: "Надсилайте клієнтам посилання на запис",
+  },
+  {
+    nm: "Google",
+    img: "google.svg",
+    bg: "#4285F4",
+    d: "Імпорт клієнтів із Google Sheets",
+  },
+  {
+    nm: "SMS",
+    img: "sms.svg",
+    bg: "#37A05A",
+    d: "Авто-нагадування клієнтам по SMS",
+  },
+  {
+    nm: "Email",
+    img: "email.svg",
+    bg: "#EA4335",
+    d: "Сповіщення й підтвердження на пошту",
+  },
+];
+const faqs = [
+  {
+    q: "Чи є картки коней і вет-журнал?",
+    a: "Так — у кожного коня картка з породою, віком, статтю, фото, послугами та історією занять. Вет-журнал веде щеплення, ветогляди, коваля й дегельмінтизацію.",
+  },
+  {
+    q: "Чи є абонементи та групові заняття?",
+    a: "Так — продавайте абонементи вершникам, ведіть індивідуальні й групові заняття та розклад тренерів.",
+  },
+  {
+    q: "Як клієнти записуються на тренування?",
+    a: "Через вашу сторінку запису, Instagram чи Telegram — цілодобово, без дзвінків.",
+  },
+  {
+    q: "Чи є безкоштовний тариф?",
+    a: "Так — базовий тариф для стайні безкоштовний: картки коней, вет-журнал і онлайн-записи доступні одразу. За розширені можливості платите лише коли готові.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Layout
+  title="CRM для кінного спорту — записи та вет-журнал | Zapys24"
+  description="CRM для стаєнь і кінних клубів: записи на тренування, картки коней, вет-журнал, абонементи, фінанси й аналітика. Спробуйте безкоштовно."
+  preload="/img/koni-hero.webp"
+>
+  <Nav variant="dark" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- HERO -->
+  <section class="pfh kr-hero reveal">
+    <div class="pfh-photo" style="background-image:url(/img/koni-hero.webp)">
+    </div>
+    <div class="wrap pfh-grid">
+      <div class="pfh-tx">
+        <div class="kicker pfh-k">Для стаєнь, клубів та вершників</div>
+        <h1 class="dis pfh-h1">
+          Все для <span class="ac">кінного клубу</span><br />в одному місці
+        </h1>
+        <p class="pfh-lead">
+          Записи на тренування, картки коней, вет-журнал, абонементи та фінанси
+          — Zapys24 допомагає керувати стайнею легко та заробляти більше.
+        </p>
+        <div class="pfh-cta">
+          <a class="fbtn" href="https://horse.zapys24.com/register"
+            >Спробувати<span class="fbtn-ar" set:html={arrow} /></a
+          >
+          <a
+            class="kr-demo"
+            href="https://demo-horse.zapys24.com"
+            target="_blank"
+            rel="noopener"
+            ><span class="kr-demo-ic" set:html={play} />Дивитись демо</a
+          >
+        </div>
+        <div class="pfh-rate">
+          <b>14 днів безкоштовного користування</b>
+        </div>
+        <div class="pfh-badges">
+          <span
+            class="pfh-store pfh-store-off"
+            aria-disabled="true"
+            aria-label="App Store — скоро"
+            ><span class="pfh-store-ic"></span><span
+              ><i>Скоро в</i><b>App Store</b></span
+            ></span
+          >
+          <span
+            class="pfh-store pfh-store-off"
+            aria-disabled="true"
+            aria-label="Google Play — скоро"
+            ><span class="pfh-store-ic gp"></span><span
+              ><i>Скоро в</i><b>Google Play</b></span
+            ></span
+          >
+        </div>
+      </div>
+      <div class="pfh-media">
+        <div class="pfh-card pfh-book">
+          <div class="pfh-book-top">
+            <span class="pfh-bell" set:html={IC.cal} /><b>Новий запис</b>
+          </div>
+          <div class="pfh-book-cli">
+            <span class="pfh-cav" style="background-image:url(/img/model.webp)"
+            ></span><div class="pfh-book-ct">
+              <b>Оля К. · Грім</b><i>Сьогодні, 15:30</i>
+            </div>
+          </div>
+          <button class="pfh-book-btn">Підтвердити</button>
+        </div>
+        <div class="pfh-card pfh-rev">
+          <div class="pfh-rev-top">
+            <span>Виручка за місяць</span><em>+16%</em>
+          </div>
+          <b>₴78 400</b>
+          <div class="pfh-bars">
+            <i style="height:44%"></i><i style="height:60%"></i><i
+              style="height:52%"></i><i style="height:70%"></i><i
+              style="height:66%"></i><i style="height:90%"></i>
+          </div>
+        </div>
+        <div class="pfh-card krcal">
+          <div class="krcal-top">
+            <span class="krcal-nav">‹</span><b>Травень 2024</b><span
+              class="krcal-nav">›</span
+            >
+          </div>
+          <div class="krcal-days">
+            <span>Пн</span><span>Вт</span><span>Ср</span><span class="on"
+              >Чт</span
+            ><span>Пт</span><span>Сб</span><span>Нд</span>
+          </div>
+          <div class="krcal-dates">
+            <span>20</span><span>21</span><span class="on">22</span><span
+              >23</span
+            ><span>24</span><span>25</span><span>26</span>
+          </div>
+          <div class="krcal-grid">
+            <div class="krcal-times">
+              <span>10:00</span><span>11:00</span><span>12:00</span><span
+                >13:00</span
+              >
+            </div>
+            <div class="krcal-track">
+              <i class="krcal-line" style="top:25%"></i><i
+                class="krcal-line"
+                style="top:50%"></i><i class="krcal-line" style="top:75%"></i>
+              <span class="krcal-ev v" style="left:6%;top:2%;height:26%"
+                >Тренування<small>Оля К.</small></span
+              >
+              <span class="krcal-ev g" style="left:52%;top:24%;height:22%"
+                >Прокат<small>Іван М.</small></span
+              >
+              <span class="krcal-ev o" style="left:60%;top:60%;height:30%"
+                >Секція<small>група</small></span
+              >
+            </div>
+          </div>
+          <div class="krcal-foot">
+            <span class="on">День</span><span>Тиждень</span><span>Місяць</span>
+          </div>
+        </div>
+        <div class="pfh-card pfh-remind">
+          <div class="pfh-remind-top">
+            <span class="pfh-bell" set:html={IC.bell} /><b>Нагадування</b>
+          </div>
+          <p class="pfh-remind-cli"><b>Вет-огляд · через 30 хв</b></p>
+          <p class="pfh-remind-time">кінь Грім</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section class="kr-sec wrap reveal kr-eco-sec">
+    <div class="kr-head">
+      <div>
+        <div class="kicker" style="color:var(--violet)">
+          Два застосунки — одна екосистема
+        </div>
+        <h2 class="sh kr-fd-h">
+          Zapys24 та <span class="ac">Zapys24 Pro</span><br />працюють разом
+        </h2>
+        <p class="kr-feat-sub" style="max-width:540px">
+          Клієнти записуються через Zapys24, а ви керуєте бізнесом у Zapys24 Pro
+          — усе синхронізовано в реальному часі.
+        </p>
+      </div>
+      <div class="kr-note">
+        <p class="hand" style="transform:rotate(2.5deg)">
+          одна екосистема —<br />усе синхронно ✨
+        </p><span class="kr-note-ar" set:html={noteArrow} />
+      </div>
+    </div>
+    <div class="kr-eco">
+      <div class="kr-eco-card kr-eco-card-l">
+        <div class="kr-eco-head">
+          <span class="kr-eco-ic" set:html={IC.users} /><div>
+            <span class="kr-eco-k">Для клієнтів</span><b>Zapys24</b>
+          </div>
+        </div>
+        <ul class="kr-eco-list">
+          <li>
+            <span class="fn-ck" set:html={check} />Запис на тренування 24/7
+          </li>
+          <li>
+            <span class="fn-ck" set:html={check} />Нагадування про заняття
+          </li>
+          <li><span class="fn-ck" set:html={check} />Історія тренувань</li>
+          <li><span class="fn-ck" set:html={check} />Обрані тренери</li>
+          <li><span class="fn-ck" set:html={check} />Перегляд коней</li>
+          <li>
+            <span class="fn-ck" set:html={check} />Повідомити що запізнюєшься
+          </li>
+          <li><span class="fn-ck" set:html={check} />Перенести час занять</li>
+        </ul>
+      </div>
+      <div class="kr-eco-phones">
+        <span class="kr-eco-glow" aria-hidden="true"></span>
+        <span class="kr-eco-ring" aria-hidden="true"></span>
+        <span class="kr-eco-conn kr-eco-conn-l" set:html={connDash} />
+        <span class="kr-eco-conn kr-eco-conn-r" set:html={connDash} />
+        <div class="kr-eco-phwrap">
+          <img
+            class="kr-eco-ph kr-eco-ph-c"
+            src="/img/app-client.webp"
+            alt="Zapys24 — застосунок для клієнтів"
+          />
+          <img
+            class="kr-eco-ph kr-eco-ph-b"
+            src="/img/app-biz.webp"
+            alt="Zapys24 Pro — застосунок для бізнесу"
+          />
+        </div>
+        <span class="kr-eco-chip"
+          ><span class="kr-eco-chip-dot"></span>Синхронізація в реальному часі</span
+        >
+        <span class="kr-eco-badge kr-eco-badge-1"
+          ><span set:html={check} />Новий запис</span
+        >
+        <span class="kr-eco-badge kr-eco-badge-2">Кліент запізнюється</span>
+      </div>
+      <div class="kr-eco-card kr-eco-card-r">
+        <div class="kr-eco-head">
+          <span class="kr-eco-ic" set:html={IC.chart} /><div>
+            <span class="kr-eco-k">Для бізнесу</span><b>Zapys24 Pro</b>
+          </div>
+        </div>
+        <ul class="kr-eco-list">
+          <li><span class="fn-ck" set:html={check} />Управління записами</li>
+          <li><span class="fn-ck" set:html={check} />Клієнти та база</li>
+          <li><span class="fn-ck" set:html={check} />Аналітика та звіти</li>
+          <li><span class="fn-ck" set:html={check} />Команда та графік</li>
+          <li><span class="fn-ck" set:html={check} />Фінанси та оплати</li>
+          <li><span class="fn-ck" set:html={check} />Ветеринарний журнал</li>
+          <li><span class="fn-ck" set:html={check} />Управління кіньми</li>
+          <li>
+            <span class="fn-ck" set:html={check} />Абонементи та групові заняття
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- NICHES (interactive expanding panels) -->
+  <section class="kr-sec wrap reveal">
+    <div class="kr-head">
+      <div>
+        <div class="kicker" style="color:var(--violet)">Напрямки</div>
+        <h2 class="sh">
+          Zapys24 для будь-якого<br /><span class="ac">кінного напрямку</span>
+        </h2>
+      </div>
+      <div class="kr-note">
+        <p class="hand" style="transform:rotate(-2deg)">
+          наведіть —<br />і дослідіть ✨
+        </p><span class="kr-note-ar" set:html={noteArrow} />
+      </div>
+    </div>
+    <div class="kr-niche" id="krNiche">
+      {
+        niches.map((n, i) => (
+          <div
+            class={`kr-niche-p${i === 0 ? " on" : ""}`}
+            data-i={i}
+            style={`background-image:url(/img/${n.img})`}
+          >
+            <span class="kr-niche-tab">
+              <span class="kr-niche-lb">{n.nm}</span>
+              <span class="kr-niche-ic" set:html={n.ic} />
+            </span>
+            <div class="kr-niche-info">
+              <span class="kr-niche-ic-lg" set:html={n.ic} />
+              <b>{n.nm}</b>
+              <p>{n.d}</p>
+              <div class="kr-niche-tags">
+                {n.tags.map((t) => (
+                  <span>{t}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- BEFORE / AFTER + RESULTS -->
+  <section class="kr-sec wrap reveal">
+    <div class="kr-head">
+      <div>
+        <div class="kicker" style="color:var(--violet)">До / Після</div>
+        <h2 class="sh">Відчуйте <span class="ac">різницю</span></h2>
+      </div>
+      <div class="kr-note">
+        <p class="hand" style="transform:rotate(-2deg)">
+          спокій замість<br />хаосу ✨
+        </p><span class="kr-note-ar" set:html={noteArrow} />
+      </div>
+    </div>
+    <div class="kr-ba2">
+      <div class="kr-ba2-l">
+        <div class="kr-ba2-cols">
+          <div class="kr-ba2-col kr-ba2-before">
+            <span class="kr-ba2-tag">Хаос</span>
+            <span class="kr-ba2-h">До Zapys24</span>
+            <ul>
+              {
+                baBefore.map((t) => (
+                  <li>
+                    <span class="kr-ba2-x" set:html={xmark} />
+                    {t}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="kr-ba2-col kr-ba2-after">
+            <span class="kr-ba2-tag kr-ba2-tag-g">Порядок</span>
+            <span class="kr-ba2-h">Після Zapys24</span>
+            <ul>
+              {
+                baAfter.map((t) => (
+                  <li>
+                    <span class="kr-ba2-c" set:html={check} />
+                    {t}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <span class="kr-ba2-morph" set:html={arrow} />
+        </div>
+      </div>
+      <div class="kr-ba2-r">
+        <span class="kr-ba2-glow2" aria-hidden="true"></span>
+        <span class="kr-ba2-rk">Результати наших клієнтів</span>
+        <div class="kr-ba2-stats">
+          {
+            results.map((r) => (
+              <div class="kr-ba2-stat">
+                <>
+                  <b>{r.v}</b>
+                  <span>{r.l}</span>
+                </>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIRST BOOKING IN 3 STEPS (animated timeline flow) -->
+  <section class="kr-sec wrap reveal">
+    <div class="kr-head">
+      <div>
+        <div class="kicker" style="color:var(--violet)">
+          Перший запис — за 3 кроки
+        </div>
+        <h2 class="sh kr-fd-h">
+          Клієнт записується за <span class="ac">хвилину</span>
+        </h2>
+      </div>
+      <div class="kr-note">
+        <p class="hand" style="transform:rotate(2deg)">
+          швидко й<br />без дзвінків ✨
+        </p><span class="kr-note-ar" set:html={noteArrow} />
+      </div>
+    </div>
+    <div class="kr-flow3">
+      <span class="kr-flow3-line" aria-hidden="true"></span>
+      {
+        bkSteps.map((s, i) => (
+          <div class="kr-flow3-step">
+            <div class="kr-flow3-node">
+              <span class="kr-flow3-n">{i + 1}</span>
+            </div>
+            <div class="kr-flow3-card">
+              <span class="kr-flow3-ic" set:html={stepIcons[i]} />
+              <b>{s.t}</b>
+              <p>{s.d}</p>
+              {i === 0 && (
+                <div class="kr-flow3-mini">
+                  <span class="f3-pill f3-on">Тренування</span>
+                  <span class="f3-pill">Прокат</span>
+                  <span class="f3-pill">Секція</span>
+                </div>
+              )}
+              {i === 1 && (
+                <div class="kr-flow3-mini">
+                  <span class="f3-pill">11:30</span>
+                  <span class="f3-pill f3-on">16:00</span>
+                  <span class="f3-pill">17:30</span>
+                </div>
+              )}
+              {i === 2 && (
+                <div class="kr-flow3-mini f3-done">
+                  <span class="f3-check" set:html={check} />
+                  Підтверджено · 24 квітня, 16:00
+                </div>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ANALYTICS DASHBOARD (dark) -->
+  <section class="kr-dash-sec kr-dash-eq reveal">
+    <div class="kr-dash">
+      <div class="kr-dash-glow" aria-hidden="true"></div>
+      <div class="wrap kr-dash-in">
+        <div class="kr-dash-l">
+          <div class="kicker kr-dash-k">Аналітика</div>
+          <h2 class="dis kr-dash-h">
+            Аналітика, що допомагає<br />приймати <span class="ac2"
+              >правильні рішення</span
+            >
+          </h2>
+          <p class="kr-dash-sub">
+            Відстежуйте ключові показники, аналізуйте прибуток, завантаження
+            коней і ефективність тренерів.
+          </p>
+          <a class="fbtn kr-dash-btn" href="https://horse.zapys24.com/register"
+            >Почати<span class="fbtn-ar" set:html={arrow} /></a
+          >
+        </div>
+        <div class="kr-dash-r">
+          <span class="kr-dash-grid" aria-hidden="true"></span>
+          <div class="kr-dash-app">
+            <div class="kr-dash-chrome">
+              <span class="kr-dash-dots"><i></i><i></i><i></i></span>
+              <span class="kr-dash-url">app.zapys24.com/dashboard</span>
+              <span class="kr-dash-clive"><i></i>Live</span>
+            </div>
+            <div class="kr-dash-body">
+              <aside class="kr-dash-rail">
+                <span class="kr-dash-logo" set:html={calCheck} />
+                {
+                  rail.map((n) => (
+                    <span
+                      class={`kr-dash-ri${n.on ? " on" : ""}`}
+                      set:html={n.ic}
+                    />
+                  ))
+                }
+              </aside>
+              <div class="kr-dash-main">
+                <div class="kr-dash-bar">
+                  <div>
+                    <b>Вітаємо, Олег 👋</b><span>Середа, 24 квітня</span>
+                  </div>
+                  <span class="kr-dash-add"
+                    ><span set:html={plus} />Новий запис</span
+                  >
+                </div>
+                <div class="kr-dash-stats">
+                  {
+                    dashStats.map((s) => (
+                      <div
+                        class={`kr-dash-st${s.primary ? " kr-dash-st-primary" : ""}`}
+                      >
+                        <div class="kr-dash-st-top">
+                          <div class="kr-dash-st-tx">
+                            <>
+                              <span class="kr-dash-st-l">{s.l}</span>
+                              <b>{s.v}</b>
+                            </>
+                          </div>
+                          <span class="kr-dash-st-ic" set:html={s.ic} />
+                        </div>
+                        <span class="kr-dash-st-d">{s.d}</span>
+                        {s.sp && (
+                          <svg
+                            class="kr-dash-spark"
+                            viewBox="0 0 58 20"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d={spark(s.sp)}
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              vector-effect="non-scaling-stroke"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                    ))
+                  }
+                </div>
+                <div class="kr-dash-list">
+                  <div class="kr-dash-list-h">
+                    <b>Записи на сьогодні</b><span>3 записи</span>
+                  </div>
+                  {
+                    dayBookings.map((b) => (
+                      <div class="kr-dash-book">
+                        <span
+                          class="kr-dash-book-bar"
+                          style={`background:${b.color}`}
+                        />
+                        <span class="kr-dash-book-t">{b.t}</span>
+                        <div class="kr-dash-book-tx">
+                          <>
+                            <b>{b.nm}</b>
+                            <i>{b.s}</i>
+                          </>
+                        </div>
+                        <span class={`kr-dash-book-st ${b.st}`}>
+                          {b.st === "ok" ? "підтверджено" : "новий"}
+                        </span>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          <DashMobile
+            biz="Аврора"
+            who="Олег"
+            date="Середа, 24 квітня"
+            stats={[
+              { l: "Записів сьогодні", v: "9", d: "За тиждень: 54" },
+              { l: "Послуг", v: "12", d: "Активних" },
+              { l: "Команда", v: "5", d: "Тренерів" },
+              { l: "Виручка", v: "11 600 ₴", d: "тижд: 78 400 ₴" },
+            ]}
+            bookings={[
+              {
+                t: "10:00",
+                nm: "Оля К.",
+                s: "Тренування · Грім",
+                st: "ok",
+                color: "#A78BFA",
+              },
+              {
+                t: "12:00",
+                nm: "Іван М.",
+                s: "Прокат · 1 год",
+                st: "ok",
+                color: "#86EFAC",
+              },
+              {
+                t: "15:30",
+                nm: "Софія",
+                s: "Секція · група",
+                st: "new",
+                color: "#7DD3FC",
+              },
+            ]}
+          />
+          <div class="kr-dash-fig">
+            <span>FIG. 01</span>Кабінет бізнесу — оновлення в реальному часі
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRATIONS (bento hub) -->
+  <section class="kr-sec wrap reveal">
+    <div class="kr-head">
+      <div>
+        <div class="kicker" style="color:var(--violet)">Інтеграції</div>
+        <h2 class="sh">
+          Працює з тим, чим ви вже <span class="ac">користуєтесь</span>
+        </h2>
+      </div>
+      <div class="kr-note">
+        <p class="hand" style="transform:rotate(2deg)">
+          без ручної<br />роботи ✨
+        </p><span class="kr-note-ar" set:html={noteArrow} />
+      </div>
+    </div>
+    <div class="kr-intg2">
+      {
+        integrations.map((n) => (
+          <div class="kr-intg2-card">
+            <span class="kr-intg2-ic" style={`background:${n.bg}`}>
+              <img src={`/img/logos/${n.img}`} alt={n.nm} loading="lazy" decoding="async" />
+            </span>
+            <div class="kr-intg2-tx">
+              <b>{n.nm}</b>
+              <p>{n.d}</p>
+            </div>
+            <span class="kr-intg2-arr" set:html={arrow} />
+          </div>
+        ))
+      }
+      <a
+        class="kr-intg2-more"
+        href="https://developers.zapys24.com/"
+        target="_blank"
+        rel="noopener"
+      >
+        <b>+ Ще більше</b>
+        <span>Публічний API, Webhooks, Google Sheets — і зростає</span>
+        <span class="kr-intg2-more-ar" set:html={arrow} />
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="kr-sec wrap reveal">
+    <div class="kr-faq-only">
+      <div class="kicker" style="color:var(--violet)">Питання та відповіді</div>
+      <div class="kr-faq">
+        {
+          faqs.map((f, i) => (
+            <details class="kc-faq-item" open={i === 0}>
+              <summary>
+                {f.q}
+                <span class="kx-faq-chev">⌄</span>
+              </summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="kr-cta-sec reveal">
+    <div class="kr-cta">
+      <div class="wrap kr-cta-in">
+        <div class="kr-cta-tx">
+          <h2 class="dis">
+            Готові вивести ваш кінний клуб<br />на новий рівень?
+          </h2>
+          <p>
+            Приєднуйтесь до стаєнь і клубів, які автоматизують рутину із
+            Zapys24.
+          </p>
+          <div class="kr-cta-row">
+            <a class="kr-cta-btn" href="https://horse.zapys24.com/register"
+              >Спробувати<span class="fbtn-ar" set:html={arrow} /></a
+            >
+            <a
+              class="kr-cta-demo"
+              href="https://demo-horse.zapys24.com"
+              target="_blank"
+              rel="noopener"
+              ><span class="kr-demo-ic" set:html={play} />Дивитись демо</a
+            >
+          </div>
+          <div class="kr-cta-note">14 днів безкоштовного користування</div>
+        </div>
+        <div class="kr-cta-media">
+          <img class="kr-cta-fig" src="/img/koni-cta.webp" alt="Кінь" width="1024" height="1024" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script is:inline>
+  (function () {
+    var wrap = document.getElementById("krNiche");
+    if (!wrap) return;
+    var panels = wrap.querySelectorAll(".kr-niche-p");
+    function act(i) {
+      panels.forEach(function (p) {
+        p.classList.toggle("on", +p.dataset.i === i);
+      });
+    }
+    panels.forEach(function (p) {
+      var i = +p.dataset.i;
+      p.addEventListener("mouseenter", function () {
+        act(i);
+      });
+      p.addEventListener("click", function () {
+        act(i);
+      });
+    });
+  })();
+</script>

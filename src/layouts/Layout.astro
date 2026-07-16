@@ -1,28 +1,263 @@
 ---
 import '../styles/global.css';
 import SignupModal from '../components/SignupModal.astro';
-const { title = 'Zapys24 — записи приходять самі' } = Astro.props;
+
+const {
+  title = 'Zapys24 — CRM і онлайн-запис для бізнесу',
+  description = 'Zapys24 — українська CRM з онлайн-записом, клієнтською базою, аналітикою та фінансами. Керуйте сервісним бізнесом легко. 14 днів безкоштовно.',
+  image = '/og-image.jpg',
+  noindex = false,
+  preload = null,
+} = Astro.props;
+
+const FONTS =
+  'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap';
+
+// Self-referencing canonical + absolute OG/Twitter image, built from `site`.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://zapys24.com/#organization',
+      name: 'Zapys24',
+      url: 'https://zapys24.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://zapys24.com/icon-512.png',
+        width: 512,
+        height: 512,
+      },
+      description: 'Платформа онлайн-запису та CRM для бізнесу',
+      foundingDate: '2024',
+      areaServed: { '@type': 'Country', name: 'Україна' },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'customer service',
+        availableLanguage: ['Ukrainian'],
+        areaServed: 'UA',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://zapys24.com/#website',
+      url: 'https://zapys24.com',
+      name: 'Zapys24',
+      description: 'Єдина платформа онлайн-запису та CRM для бізнесу',
+      publisher: { '@id': 'https://zapys24.com/#organization' },
+      inLanguage: 'uk-UA',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://zapys24.com/#software',
+      name: 'Zapys24',
+      applicationCategory: 'BusinessApplication',
+      applicationSubCategory: 'Appointment Scheduling',
+      operatingSystem: 'Web, iOS, Android',
+      description:
+        'CRM та платформа онлайн-запису для салонів краси, кінних клубів та інших сервісних бізнесів в Україні.',
+      inLanguage: 'uk-UA',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'UAH',
+        availability: 'https://schema.org/InStock',
+      },
+      provider: { '@id': 'https://zapys24.com/#organization' },
+      featureList:
+        'Онлайн-запис 24/7, CRM клієнтська база, авто-нагадування, мобільний застосунок, облік фінансів, аналітика та звіти, керування персоналом',
+    },
+  ],
+};
 ---
 
 <!DOCTYPE html>
 <html lang="uk">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap"
-    rel="stylesheet"
-  />
-  <script is:inline defer src="/main.js?v=3"></script>
-</head>
-<body>
-  <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
-  <div class="grain"></div>
-  <slot />
-  <SignupModal />
-</body>
+  <head>
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-WH7P6TT5");
+    </script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- LCP image preload (per-page) -->
+    {preload && (
+      <link rel="preload" as="image" href={preload} fetchpriority="high" />
+    )}
+
+    <!-- SEO -->
+    <link rel="canonical" href={canonicalURL} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+      )
+    }
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#7C3AED" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Icons & manifest -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="apple-mobile-web-app-title" content="Zapys24" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:site_name" content="Zapys24" />
+    <meta property="og:locale" content="uk_UA" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={title} />
+
+    <!-- Hreflang (single-language site) -->
+    <link rel="alternate" hreflang="uk" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+
+    <!-- Fonts — non-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href={FONTS} onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href={FONTS} /></noscript>
+
+    <!-- Consent management (Usercentrics CMP) -->
+    <script
+      id="usercentrics-cmp"
+      src="https://app.usercentrics.eu/browser-ui/latest/loader.js"
+      data-settings-id="DVrGVN1PlCdp7S"
+      async></script>
+
+    <!-- Google Analytics (gtag.js) -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P09ZFMQ77Z"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-P09ZFMQ77Z", { cookie_domain: "zapys24.com" });
+    </script>
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <script is:inline defer src="/main.js?v=3"></script>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-WH7P6TT5"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <div class="mesh">
+      <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    </div>
+    <div class="grain"></div>
+    <slot />
+    <SignupModal />
+
+    <!-- Zapys24 analytics: visit + first-touch UTM (site=main) -->
+    <script>
+      (() => {
+        try {
+          const API = "https://api.zapys24.com/api/v1";
+          const VID_KEY = "z_visitor_id";
+          const ATTR_KEY = "z_first_attr";
+
+          const uuid = () =>
+            crypto && crypto.randomUUID
+              ? crypto.randomUUID()
+              : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+          let visitorId = localStorage.getItem(VID_KEY);
+          if (!visitorId) {
+            visitorId = uuid();
+            localStorage.setItem(VID_KEY, visitorId);
+          }
+
+          const p = new URLSearchParams(location.search);
+          const val = (k) => p.get(k) || undefined;
+          const utm = {
+            utmSource: val("utm_source"),
+            utmMedium: val("utm_medium"),
+            utmCampaign: val("utm_campaign"),
+            utmTerm: val("utm_term"),
+            utmContent: val("utm_content"),
+          };
+          const hasUtm = !!(utm.utmSource || utm.utmMedium || utm.utmCampaign);
+
+          if (hasUtm && !localStorage.getItem(ATTR_KEY)) {
+            localStorage.setItem(
+              ATTR_KEY,
+              JSON.stringify({
+                visitorId,
+                site: "main",
+                referrer: document.referrer || undefined,
+                landingPath: location.pathname + location.search,
+                ...utm,
+              }),
+            );
+          }
+
+          // text/plain → CORS "simple request" (no preflight)
+          fetch(`${API}/analytics/visit`, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify({
+              visitorId,
+              site: "main",
+              path: location.pathname + location.search,
+              referrer: document.referrer || undefined,
+              ...utm,
+            }),
+            keepalive: true,
+            credentials: "omit",
+            mode: "no-cors",
+          }).catch(() => {});
+        } catch {
+          /* analytics must never break the page */
+        }
+      })();
+    </script>
+  </body>
 </html>

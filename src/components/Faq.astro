@@ -43,9 +43,20 @@ const step = 360 / faqs.length;
 const pos = faqs.map((_, i) => point(42, -90 + step * i));
 // dots sit on the inner ring, offset half a step so they read as gaps between pills
 const dots = faqs.map((_, i) => point(27, -90 + step * (i + 0.5)));
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 ---
 
 <section class="sec wrap reveal faqsec" id="faq">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <div class="faq-head">
     <div class="kicker">FAQ</div>
     <h2 class="sh">
@@ -106,7 +117,7 @@ const dots = faqs.map((_, i) => point(27, -90 + step * (i + 0.5)));
   <div class="faq-foot">
     <div class="faq-ask">
       <p class="hand faq-ask-q">Не знайшли відповідь?</p>
-      <a class="hand faq-ask-link" href="/napysaty#form">Напишіть нам</a>
+      <a class="hand faq-ask-link" href="/write#form">Напишіть нам</a>
       <svg class="faq-ask-ar" viewBox="0 0 70 40" fill="none" aria-hidden="true"
         ><path
           d="M4,10 C20,30 44,32 64,24"
@@ -119,7 +130,7 @@ const dots = faqs.map((_, i) => point(27, -90 + step * (i + 0.5)));
           stroke-linecap="round"></path></svg
       >
     </div>
-    <a class="faq-chat" href="/napysaty#form"
+    <a class="faq-chat" href="/write#form"
       ><span class="faq-chat-ic"
         ><svg
           viewBox="0 0 24 24"
