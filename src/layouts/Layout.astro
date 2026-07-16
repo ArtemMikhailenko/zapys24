@@ -77,20 +77,6 @@ const jsonLd = {
 <!DOCTYPE html>
 <html lang="uk">
   <head>
-    <!-- Google Tag Manager -->
-    <script is:inline>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-WH7P6TT5");
-    </script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
@@ -154,25 +140,46 @@ const jsonLd = {
     <link rel="preload" as="style" href={FONTS} onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link rel="stylesheet" href={FONTS} /></noscript>
 
-    <!-- Consent management (Usercentrics CMP) -->
-    <script
-      id="usercentrics-cmp"
-      src="https://app.usercentrics.eu/browser-ui/latest/loader.js"
-      data-settings-id="DVrGVN1PlCdp7S"
-      async></script>
-
-    <!-- Google Analytics (gtag.js) -->
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P09ZFMQ77Z"
-    ></script>
+    <!-- Analytics: queue now (no network), load the heavy parts after `load` -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
+      window.gtag = gtag;
       gtag("js", new Date());
       gtag("config", "G-P09ZFMQ77Z", { cookie_domain: "zapys24.com" });
+
+      // GTM + GA + the Usercentrics CMP are ~400KB of third-party that used to
+      // compete with the hero image for bandwidth (mobile LCP was 10s). They are
+      // injected only after `load`, once the page has painted. The gtag calls
+      // queued above replay as soon as gtag.js arrives, so the pageview survives.
+      (function () {
+        var booted = false;
+        function inject(src, attrs) {
+          var s = document.createElement("script");
+          s.async = true;
+          s.src = src;
+          if (attrs)
+            Object.keys(attrs).forEach(function (k) {
+              s.setAttribute(k, attrs[k]);
+            });
+          document.head.appendChild(s);
+        }
+        function boot() {
+          if (booted) return;
+          booted = true;
+          dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+          inject("https://www.googletagmanager.com/gtm.js?id=GTM-WH7P6TT5");
+          inject("https://www.googletagmanager.com/gtag/js?id=G-P09ZFMQ77Z");
+          inject("https://app.usercentrics.eu/browser-ui/latest/loader.js", {
+            id: "usercentrics-cmp",
+            "data-settings-id": "DVrGVN1PlCdp7S",
+          });
+        }
+        if (document.readyState === "complete") boot();
+        else window.addEventListener("load", boot, { once: true });
+      })();
     </script>
 
     <!-- Structured data -->

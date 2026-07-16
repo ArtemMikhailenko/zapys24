@@ -1,12 +1,30 @@
 <header class="hero shsec">
   <div class="sh-photo">
+    <!-- Slide 1 is the LCP element (also preloaded in Layout) — it gets the
+         bandwidth first. Slides 2-3 sit in the viewport at opacity:0, so
+         loading="lazy" would NOT defer them; fetchpriority="low" is what stops
+         them racing the LCP image on mobile. -->
     <img
       class="sh-slide on"
       src="/img/hero-main.webp"
       alt="власник бізнесу у Zapys24"
+      fetchpriority="high"
+      decoding="async"
     />
-    <img class="sh-slide" src="/img/hero-2.webp" alt="" />
-    <img class="sh-slide" src="/img/hero-3.webp" alt="" />
+    <img
+      class="sh-slide"
+      src="/img/hero-2.webp"
+      alt=""
+      fetchpriority="low"
+      decoding="async"
+    />
+    <img
+      class="sh-slide"
+      src="/img/hero-3.webp"
+      alt=""
+      fetchpriority="low"
+      decoding="async"
+    />
   </div>
   <div class="sh-veil"></div>
   <div class="sh-dots"><span class="on"></span><span></span><span></span></div>
