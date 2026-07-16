@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep -o 'tp-plans tp-plans-soon\" data-ind=\"auto_service\".\\\\{0,120\\\\}' dist/pricing/index.html)"
+      "Bash(grep -o 'tp-plans tp-plans-soon\" data-ind=\"auto_service\".\\\\{0,120\\\\}' dist/pricing/index.html)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --window-size=1200,630 --virtual-time-budget=8000 --screenshot=/private/tmp/claude-501/-Users-apple-Documents-GitHub-Landing/8fa689e0-9054-4a95-aeea-e148b0034eda/scratchpad/og.png file:///private/tmp/claude-501/-Users-apple-Documents-GitHub-Landing/8fa689e0-9054-4a95-aeea-e148b0034eda/scratchpad/og.html)",
+      "Bash(node -e ' *)"
     ]
   }
 }
