@@ -8,10 +8,12 @@ const arrow =
 const S = (p) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const miles = [
-  { y: "Січень", t: "Народилась ідея" },
-  { y: "Квітень", t: "Запуск Zapys24 beauty" },
-  { y: "Червень", t: "Нова галузь - Кінний клуб" },
-  { y: "Липень", t: "Застосунок Zapys24 для клієнтів" },
+  { y:'Березень 2026', t:'Запуск WEB-версії', d:'Веб-платформа для салонів краси з базовим онлайн-записом.' },
+  { y:'Квітень 2026', t:'CRM та аналітика', d:'Клієнтська база, розклад команди та аналітика доходів в одному кабінеті.' },
+  { y:'Липень 2026', t:'Мобільний застосунок', d:'Zapys24 Pro для iOS та Android із повним керуванням записами.' },
+  { y:'Серпень 2026', t:'Нові категорії бізнесів', d:'Медичні центри, фітнес-зали, автосервіси та інші сфери.' },
+  { y:'Січень 2027', t:'500+ бізнесів', d:'Досягти 500 активних бізнесів на платформі.' },
+  { y:'Червень 2027', t:'1M+ записів на місяць', d:'Понад мільйон записів, що обробляються щомісяця.' },
 ];
 const caps = [
   {
@@ -91,35 +93,78 @@ const inds = [
   },
 ];
 const values = [
+  { ic:S('<path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"/>'), t:'Перший запис за 3 кроки', d:'Складне має бути простим. Налаштування за хвилини, а не тижні — без інструкцій на 50 сторінок.', c:'v' },
+  { ic:S('<path d="M12 3a12 12 0 0 0 8 3a12 12 0 0 1 -8 15a12 12 0 0 1 -8 -15a12 12 0 0 0 8 -3"/><path d="M9 12l2 2l4 -4"/>'), t:'Чесність', d:'Без прихованих умов і роздутих обіцянок. Кажемо як є — навіть про те, чого поки не вміємо.', c:'g' },
+  { ic:S('<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.566"/>'), t:'Поруч', d:'У підтримці — живі люди, а не боти. Допоможемо перенести дані й запуститися без стресу.', c:'a' },
+  { ic:S('<path d="M5 5a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-7 -3l-7 3l0 -16"/>'), t:'Українською', d:'Зроблено в Україні, для українського бізнесу. Інтерфейс і підтримка рідною мовою.', c:'b' },
+];
+
+const pinIc = S('<path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"/>');
+const SOC = (p) =>
+  `<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">${p}</svg>`;
+const socialIC = {
+  github: SOC(
+    '<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>',
+  ),
+  linkedin: SOC(
+    '<path d="M13.63 0H2.37C1.06 0 0 1.06 0 2.37v11.26C0 14.94 1.06 16 2.37 16h11.26c1.31 0 2.37-1.06 2.37-2.37V2.37C16 1.06 14.94 0 13.63 0zM4.75 13.63H2.37V6h2.38v7.63zM3.56 5.02c-.77 0-1.39-.62-1.39-1.39s.62-1.39 1.39-1.39 1.39.62 1.39 1.39-.62 1.39-1.39 1.39zm10.07 8.61h-2.38V9.92c0-.89-.02-2.03-1.24-2.03-1.24 0-1.43.97-1.43 1.97v3.77H6.2V6h2.28v1.04h.03c.32-.6 1.1-1.24 2.26-1.24 2.42 0 2.86 1.59 2.86 3.66v4.17z"/>',
+  ),
+  telegram: SOC(
+    '<path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm3.93 5.48l-1.31 6.18c-.1.44-.36.55-.73.34l-2.02-1.49-1.09 1.07c-.1.1-.22.22-.44.22l.16-2.28 4.15-3.75c.18-.16-.04-.25-.28-.09L5.27 8.77l-2-.62c-.43-.14-.44-.43.09-.64l7.82-3.02c.36-.13.68.09.56.64l-.81.35z"/>',
+  ),
+  instagram: SOC(
+    '<path d="M8 0C5.83 0 5.56.01 4.7.05 3.85.09 3.27.22 2.76.42c-.52.2-.97.48-1.41.92C.91 1.78.63 2.23.43 2.76.23 3.27.1 3.85.05 4.7.01 5.56 0 5.83 0 8s.01 2.44.05 3.3c.04.85.18 1.43.38 1.94.2.52.48.97.92 1.41.44.44.89.72 1.41.92.51.2 1.09.33 1.94.38.86.04 1.13.05 3.3.05s2.44-.01 3.3-.05c.85-.04 1.43-.18 1.94-.38.52-.2.97-.48 1.41-.92.44-.44.72-.89.92-1.41.2-.51.33-1.09.38-1.94.04-.86.05-1.13.05-3.3s-.01-2.44-.05-3.3c-.04-.85-.18-1.43-.38-1.94-.2-.52-.48-.97-.92-1.41C13.77.9 13.32.62 12.8.42 12.29.22 11.71.09 10.86.05 10 .01 9.73 0 7.56 0H8zm-.74 1.44h.74c2.13 0 2.39.01 3.23.05.78.04 1.2.17 1.48.28.37.14.64.32.92.6.28.28.46.55.6.92.11.28.24.7.28 1.48.04.84.05 1.1.05 3.23s-.01 2.39-.05 3.23c-.04.78-.17 1.2-.28 1.48-.14.37-.32.64-.6.92-.28.28-.55.46-.92.6-.28.11-.7.24-1.48.28-.84.04-1.1.05-3.23.05s-2.39-.01-3.23-.05c-.78-.04-1.2-.17-1.48-.28a2.47 2.47 0 01-.92-.6 2.47 2.47 0 01-.6-.92c-.11-.28-.24-.7-.28-1.48C1.45 10.39 1.44 10.13 1.44 8s.01-2.39.05-3.23c.04-.78.17-1.2.28-1.48.14-.37.32-.64.6-.92.28-.28.55-.46.92-.6.28-.11.7-.24 1.48-.28.73-.03 1.02-.04 2.49-.05v.01zm4.94 1.33a.96.96 0 100 1.92.96.96 0 000-1.92zM8 3.89a4.11 4.11 0 100 8.22A4.11 4.11 0 008 3.89zm0 1.44a2.67 2.67 0 110 5.34 2.67 2.67 0 010-5.34z"/>',
+  ),
+};
+const team = [
+  /* {
+    name: "Артем Михайленко",
+    role: "CEO & Co-founder",
+    bio: "Веде продукт і команду — від архітектури до продакшену.",
+    initials: "АМ",
+    location: "Київ, Україна",
+    focus: "Архітектура та продукт",
+    exp: "5+",
+    stack: ["Next.js", "NestJS", "PostgreSQL", "Management"],
+    accent: "linear-gradient(135deg,#7C3AED,#22D3EE)",
+    socials: {
+      github: "https://github.com/artemmykhailenko",
+      linkedin: "https://linkedin.com/in/artemmykhailenko",
+      telegram: "https://t.me/artem_mykhailenko99",
+    },
+  }, */
   {
-    ic: S('<path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"/>'),
-    t: "Перший запис за 3 кроки",
-    d: "Складне має бути простим. Налаштування за хвилини, а не тижні — без інструкцій на 50 сторінок.",
-    c: "v",
+    name: "Павло Смирний",
+    role: "Head of Product & Co-founder",
+    bio: "Створює продукти, які люблять користувачі.",
+    initials: "ПС",
+    location: "Київ, Україна",
+    focus: "Продукт та DevOps",
+    exp: "4+",
+    stack: ["NestJS", "Next.js", "Kubernetes", "DigitalOcean"],
+    accent: "linear-gradient(135deg,#22D3EE,#16A34A)",
+    socials: {
+      github: "https://github.com/smirnypavel",
+      linkedin: "https://www.linkedin.com/in/pavel-smirny-b36578347/",
+      telegram: "https://t.me/makakosik",
+    },
   },
   {
-    ic: S(
-      '<path d="M12 3a12 12 0 0 0 8 3a12 12 0 0 1 -8 15a12 12 0 0 1 -8 -15a12 12 0 0 0 8 -3"/><path d="M9 12l2 2l4 -4"/>',
-    ),
-    t: "Чесність",
-    d: "Без прихованих умов і роздутих обіцянок. Кажемо як є — навіть про те, чого поки не вміємо.",
-    c: "g",
-  },
-  {
-    ic: S(
-      '<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.566"/>',
-    ),
-    t: "Поруч",
-    d: "У підтримці — живі люди, а не боти. Наша підтримка завжди поруч для наших клієнтів.",
-    c: "a",
-  },
-  {
-    ic: S(
-      '<path d="M5 5a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-7 -3l-7 3l0 -16"/>',
-    ),
-    t: "Українською",
-    d: "Зроблено в Україні, для українського бізнесу. Інтерфейс і підтримка рідною мовою.",
-    c: "b",
+    name: "Володимир Лисенко",
+    role: "CTO & Co-founder",
+    bio: "Експерт з розробки масштабованих платформ.",
+    initials: "ВЛ",
+    location: "Кривий Ріг, Україна",
+    focus: "Архітектура систем",
+    exp: "4+",
+    stack: ["Microservices", "React", "Databases", "NestJS"],
+    accent: "linear-gradient(135deg,#EC4899,#7C3AED)",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/volodymyr-lysenko/",
+      github: "https://github.com/lusiy321",
+      telegram: "https://t.me/Lusiy321",
+      instagram: "https://www.instagram.com/lusiy",
+    },
   },
 ];
 ---
@@ -131,23 +176,11 @@ const values = [
   <section class="ab2-hero reveal">
     <div class="ab2-mesh" aria-hidden="true"></div>
     <div class="wrap ab2-hero-in">
-      <h1 class="dis ab2-h1">
-        Робимо запис <span class="ac">простим</span><br />для сервісного бізнесу
-      </h1>
-      <div class="ab2-mile">
-        <span class="ab2-mile-chip">2026</span>
-        <div class="ab2-mile-line">
-          {
-            miles.map((m) => (
-              <div class="ab2-mile-pt">
-                <span class="ab2-mile-dot" />
-                <b>{m.y}</b>
-                <span>{m.t}</span>
-              </div>
-            ))
-          }
-        </div>
-      </div>
+      <h1 class="dis ab2-h1">Робимо запис <span class="ac">простим</span><br>для сервісного бізнесу</h1>
+      <p class="ab2-lead">
+        Онлайн-запис, CRM, нагадування та аналітика — усе, що потрібно
+        сервісному бізнесу, в одній платформі.
+      </p>
     </div>
   </section>
 
@@ -245,17 +278,119 @@ const values = [
       <p class="hand ab2-note2">починали з б'юті —<br />тепер значно ширше</p>
     </div>
     <div class="ab2-inds">
+      {inds.map(it => (
+        <div class="ab2-ind">
+          <span class="ab2-ind-ic" set:html={it.ic}></span>
+          <b>{it.t}{it.soon && <span class="ab2-ind-soon">скоро</span>}</b>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="kr-sec wrap reveal">
+    <div class="ab2-who-head">
+      <div>
+        <div class="kicker kx-kick">Команда</div>
+        <h2 class="sh">Люди за <span class="ac">Zapys24</span></h2>
+      </div>
+      <p class="hand ab2-note2">невелика команда —<br>кожен за свій напрям</p>
+    </div>
+    <div class="kx-team" style="margin-top:34px">
       {
-        inds.map((it) => (
-          <div class="ab2-ind">
-            <span class="ab2-ind-ic" set:html={it.ic} />
-            <b>
-              {it.t}
-              {it.soon && <span class="ab2-ind-soon">скоро</span>}
-            </b>
-          </div>
+        team.map((m) => (
+          <article class="kx-tm">
+            <div class="kx-tm-top">
+              <span class="kx-tm-av" style={`background:${m.accent}`}>
+                <span>{m.initials}</span>
+              </span>
+              <div class="kx-tm-id">
+                <b>{m.name}</b>
+                <i>{m.role}</i>
+              </div>
+            </div>
+            <p class="kx-tm-bio">{m.bio}</p>
+            <div class="kx-tm-meta">
+              <span>
+                <em>Досвід</em>
+                {m.exp} років
+              </span>
+            </div>
+            {(m.socials.github ||
+              m.socials.linkedin ||
+              m.socials.telegram ||
+              m.socials.instagram) && (
+              <div class="kx-tm-soc">
+                {m.socials.github && (
+                  <a
+                    class="kx-tm-s"
+                    href={m.socials.github}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`${m.name} — GitHub`}
+                    set:html={socialIC.github}
+                  />
+                )}
+              {m.socials.linkedin && (
+                <a
+                  class="kx-tm-s"
+                  href={m.socials.linkedin}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`${m.name} — LinkedIn`}
+                  set:html={socialIC.linkedin}
+                />
+              )}
+              {m.socials.telegram && (
+                <a
+                  class="kx-tm-s"
+                  href={m.socials.telegram}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`${m.name} — Telegram`}
+                  set:html={socialIC.telegram}
+                />
+              )}
+                {m.socials.instagram && (
+                  <a
+                    class="kx-tm-s"
+                    href={m.socials.instagram}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`${m.name} — Instagram`}
+                    set:html={socialIC.instagram}
+                  />
+                )}
+              </div>
+            )}
+          </article>
         ))
       }
+    </div>
+  </section>
+
+  <!-- MILESTONES -->
+  <section class="kr-sec wrap reveal">
+    <div class="ab2-who-head">
+      <div>
+        <div class="kicker kx-kick">Наш шлях</div>
+        <h2 class="sh">Від ідеї до <span class="ac">платформи</span></h2>
+      </div>
+      <p class="hand ab2-note2">і це лише<br>початок ✨</p>
+    </div>
+    <div class="ab2-mile ab2-mile-sec">
+      <div class="ab2-mile-line">
+        {
+          miles.map((m) => (
+            <div class="ab2-mile-pt">
+              <span class="ab2-mile-dot" />
+              <b>{m.y}</b>
+              <span>{m.t}</span>
+              <p class="ab2-mile-d">{m.d}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 

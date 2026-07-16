@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import DashMobile from "../components/DashMobile.astro";
 
 const arrow =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
@@ -353,13 +354,6 @@ const faqs = [
           <a class="fbtn" href="https://horse.zapys24.com/register"
             >Спробувати<span class="fbtn-ar" set:html={arrow} /></a
           >
-          <a
-            class="kr-demo"
-            href="https://demo-horse.zapys24.com"
-            target="_blank"
-            rel="noopener"
-            ><span class="kr-demo-ic" set:html={play} />Дивитись демо</a
-          >
         </div>
         <div class="pfh-rate">
           <b>14 днів безкоштовного користування</b>
@@ -395,6 +389,17 @@ const faqs = [
             </div>
           </div>
           <button class="pfh-book-btn">Підтвердити</button>
+        </div>
+        <div class="pfh-card pfh-rev">
+          <div class="pfh-rev-top">
+            <span>Виручка за місяць</span><em>+16%</em>
+          </div>
+          <b>₴78 400</b>
+          <div class="pfh-bars">
+            <i style="height:44%"></i><i style="height:60%"></i><i
+              style="height:52%"></i><i style="height:70%"></i><i
+              style="height:66%"></i><i style="height:90%"></i>
+          </div>
         </div>
         <div class="pfh-card krcal">
           <div class="krcal-top">
@@ -819,6 +824,40 @@ const faqs = [
               </div>
             </div>
           </div>
+          <DashMobile
+            biz="Аврора"
+            who="Олег"
+            date="Середа, 24 квітня"
+            stats={[
+              { l: "Записів сьогодні", v: "9", d: "За тиждень: 54" },
+              { l: "Послуг", v: "12", d: "Активних" },
+              { l: "Команда", v: "5", d: "Тренерів" },
+              { l: "Виручка", v: "11 600 ₴", d: "тижд: 78 400 ₴" },
+            ]}
+            bookings={[
+              {
+                t: "10:00",
+                nm: "Оля К.",
+                s: "Тренування · Грім",
+                st: "ok",
+                color: "#A78BFA",
+              },
+              {
+                t: "12:00",
+                nm: "Іван М.",
+                s: "Прокат · 1 год",
+                st: "ok",
+                color: "#86EFAC",
+              },
+              {
+                t: "15:30",
+                nm: "Софія",
+                s: "Секція · група",
+                st: "new",
+                color: "#7DD3FC",
+              },
+            ]}
+          />
           <div class="kr-dash-fig">
             <span>FIG. 01</span>Кабінет бізнесу — оновлення в реальному часі
           </div>
