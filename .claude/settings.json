@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -o 'tp-plans tp-plans-soon\" data-ind=\"auto_service\".\\\\{0,120\\\\}' dist/pricing/index.html)"
+    ]
+  }
+}

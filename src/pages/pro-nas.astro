@@ -8,12 +8,36 @@ const arrow =
 const S = (p) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const miles = [
-  { y:'Березень 2026', t:'Запуск WEB-версії', d:'Веб-платформа для салонів краси з базовим онлайн-записом.' },
-  { y:'Квітень 2026', t:'CRM та аналітика', d:'Клієнтська база, розклад команди та аналітика доходів в одному кабінеті.' },
-  { y:'Липень 2026', t:'Мобільний застосунок', d:'Zapys24 Pro для iOS та Android із повним керуванням записами.' },
-  { y:'Серпень 2026', t:'Нові категорії бізнесів', d:'Медичні центри, фітнес-зали, автосервіси та інші сфери.' },
-  { y:'Січень 2027', t:'500+ бізнесів', d:'Досягти 500 активних бізнесів на платформі.' },
-  { y:'Червень 2027', t:'1M+ записів на місяць', d:'Понад мільйон записів, що обробляються щомісяця.' },
+  {
+    y: "Березень 2026",
+    t: "Запуск WEB-версії",
+    d: "Веб-платформа для салонів краси з базовим онлайн-записом.",
+  },
+  {
+    y: "Квітень 2026",
+    t: "CRM та аналітика",
+    d: "Клієнтська база, розклад команди та аналітика доходів в одному кабінеті.",
+  },
+  {
+    y: "Липень 2026",
+    t: "Мобільний застосунок",
+    d: "Zapys24 Pro для iOS та Android із повним керуванням записами.",
+  },
+  {
+    y: "Серпень 2026",
+    t: "Нові категорії бізнесів",
+    d: "Медичні центри, фітнес-зали, автосервіси та інші сфери.",
+  },
+  {
+    y: "Січень 2027",
+    t: "500+ бізнесів",
+    d: "Досягти 500 активних бізнесів на платформі.",
+  },
+  {
+    y: "Червень 2027",
+    t: "1M+ записів на місяць",
+    d: "Понад мільйон записів, що обробляються щомісяця.",
+  },
 ];
 const caps = [
   {
@@ -93,13 +117,41 @@ const inds = [
   },
 ];
 const values = [
-  { ic:S('<path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"/>'), t:'Перший запис за 3 кроки', d:'Складне має бути простим. Налаштування за хвилини, а не тижні — без інструкцій на 50 сторінок.', c:'v' },
-  { ic:S('<path d="M12 3a12 12 0 0 0 8 3a12 12 0 0 1 -8 15a12 12 0 0 1 -8 -15a12 12 0 0 0 8 -3"/><path d="M9 12l2 2l4 -4"/>'), t:'Чесність', d:'Без прихованих умов і роздутих обіцянок. Кажемо як є — навіть про те, чого поки не вміємо.', c:'g' },
-  { ic:S('<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.566"/>'), t:'Поруч', d:'У підтримці — живі люди, а не боти. Допоможемо перенести дані й запуститися без стресу.', c:'a' },
-  { ic:S('<path d="M5 5a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-7 -3l-7 3l0 -16"/>'), t:'Українською', d:'Зроблено в Україні, для українського бізнесу. Інтерфейс і підтримка рідною мовою.', c:'b' },
+  {
+    ic: S('<path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"/>'),
+    t: "Перший запис за 3 кроки",
+    d: "Складне має бути простим. Налаштування за хвилини, а не тижні — без інструкцій на 50 сторінок.",
+    c: "v",
+  },
+  {
+    ic: S(
+      '<path d="M12 3a12 12 0 0 0 8 3a12 12 0 0 1 -8 15a12 12 0 0 1 -8 -15a12 12 0 0 0 8 -3"/><path d="M9 12l2 2l4 -4"/>',
+    ),
+    t: "Чесність",
+    d: "Без прихованих умов і роздутих обіцянок. Кажемо як є — навіть про те, чого поки не вміємо.",
+    c: "g",
+  },
+  {
+    ic: S(
+      '<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.566"/>',
+    ),
+    t: "Поруч",
+    d: "У підтримці — живі люди, а не боти. Допоможемо перенести дані й запуститися без стресу.",
+    c: "a",
+  },
+  {
+    ic: S(
+      '<path d="M5 5a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-7 -3l-7 3l0 -16"/>',
+    ),
+    t: "Українською",
+    d: "Зроблено в Україні, для українського бізнесу. Інтерфейс і підтримка рідною мовою.",
+    c: "b",
+  },
 ];
 
-const pinIc = S('<path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"/>');
+const pinIc = S(
+  '<path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"/>',
+);
 const SOC = (p) =>
   `<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">${p}</svg>`;
 const socialIC = {
@@ -176,7 +228,9 @@ const team = [
   <section class="ab2-hero reveal">
     <div class="ab2-mesh" aria-hidden="true"></div>
     <div class="wrap ab2-hero-in">
-      <h1 class="dis ab2-h1">Робимо запис <span class="ac">простим</span><br>для сервісного бізнесу</h1>
+      <h1 class="dis ab2-h1">
+        Робимо запис <span class="ac">простим</span><br />для сервісного бізнесу
+      </h1>
       <p class="ab2-lead">
         Онлайн-запис, CRM, нагадування та аналітика — усе, що потрібно
         сервісному бізнесу, в одній платформі.
@@ -278,12 +332,17 @@ const team = [
       <p class="hand ab2-note2">починали з б'юті —<br />тепер значно ширше</p>
     </div>
     <div class="ab2-inds">
-      {inds.map(it => (
-        <div class="ab2-ind">
-          <span class="ab2-ind-ic" set:html={it.ic}></span>
-          <b>{it.t}{it.soon && <span class="ab2-ind-soon">скоро</span>}</b>
-        </div>
-      ))}
+      {
+        inds.map((it) => (
+          <div class="ab2-ind">
+            <span class="ab2-ind-ic" set:html={it.ic} />
+            <b>
+              {it.t}
+              {it.soon && <span class="ab2-ind-soon">скоро</span>}
+            </b>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -294,7 +353,7 @@ const team = [
         <div class="kicker kx-kick">Команда</div>
         <h2 class="sh">Люди за <span class="ac">Zapys24</span></h2>
       </div>
-      <p class="hand ab2-note2">невелика команда —<br>кожен за свій напрям</p>
+      <p class="hand ab2-note2">невелика команда —<br />кожен за свій напрям</p>
     </div>
     <div class="kx-team" style="margin-top:34px">
       {
@@ -331,26 +390,26 @@ const team = [
                     set:html={socialIC.github}
                   />
                 )}
-              {m.socials.linkedin && (
-                <a
-                  class="kx-tm-s"
-                  href={m.socials.linkedin}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label={`${m.name} — LinkedIn`}
-                  set:html={socialIC.linkedin}
-                />
-              )}
-              {m.socials.telegram && (
-                <a
-                  class="kx-tm-s"
-                  href={m.socials.telegram}
-                  target="_blank"
-                  rel="noopener"
-                  aria-label={`${m.name} — Telegram`}
-                  set:html={socialIC.telegram}
-                />
-              )}
+                {m.socials.linkedin && (
+                  <a
+                    class="kx-tm-s"
+                    href={m.socials.linkedin}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`${m.name} — LinkedIn`}
+                    set:html={socialIC.linkedin}
+                  />
+                )}
+                {m.socials.telegram && (
+                  <a
+                    class="kx-tm-s"
+                    href={m.socials.telegram}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`${m.name} — Telegram`}
+                    set:html={socialIC.telegram}
+                  />
+                )}
                 {m.socials.instagram && (
                   <a
                     class="kx-tm-s"
@@ -376,7 +435,7 @@ const team = [
         <div class="kicker kx-kick">Наш шлях</div>
         <h2 class="sh">Від ідеї до <span class="ac">платформи</span></h2>
       </div>
-      <p class="hand ab2-note2">і це лише<br>початок ✨</p>
+      <p class="hand ab2-note2">і це лише<br />початок ✨</p>
     </div>
     <div class="ab2-mile ab2-mile-sec">
       <div class="ab2-mile-line">
@@ -422,7 +481,6 @@ const team = [
             >Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow} /></a
           >
         </div>
-        <div class="fnote">14 днів безкоштовно</div>
       </div>
     </div>
   </section>

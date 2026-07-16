@@ -237,7 +237,13 @@ const faqs = [
             placeholder="Детально опишіть ваш запит або питання"
           ></textarea><small class="np-err"></small></label
         >
-        <div class="np-status" id="npStatus" role="status" aria-live="polite" hidden>
+        <div
+          class="np-status"
+          id="npStatus"
+          role="status"
+          aria-live="polite"
+          hidden
+        >
         </div>
         <div class="np-form-foot">
           <button class="np-form-btn" type="submit"
@@ -356,7 +362,6 @@ const faqs = [
             >Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow} /></a
           >
         </div>
-        <div class="fnote">14 днів безкоштовно</div>
       </div>
     </div>
   </section>
@@ -376,27 +381,37 @@ const faqs = [
     var rules = [
       {
         name: "name",
-        ok: function (v) { return v.trim().length >= 2; },
+        ok: function (v) {
+          return v.trim().length >= 2;
+        },
         msg: "Вкажіть ім'я (мінімум 2 символи)",
       },
       {
         name: "email",
-        ok: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); },
+        ok: function (v) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+        },
         msg: "Вкажіть коректний email",
       },
       {
         name: "phone",
-        ok: function (v) { return v.replace(/\D/g, "").length >= 9; },
+        ok: function (v) {
+          return v.replace(/\D/g, "").length >= 9;
+        },
         msg: "Вкажіть коректний номер телефону",
       },
       {
         name: "subject",
-        ok: function (v) { return v.trim().length >= 2; },
+        ok: function (v) {
+          return v.trim().length >= 2;
+        },
         msg: "Вкажіть тему повідомлення",
       },
       {
         name: "message",
-        ok: function (v) { return v.trim().length >= 10; },
+        ok: function (v) {
+          return v.trim().length >= 10;
+        },
         msg: "Опишіть запит (мінімум 10 символів)",
       },
     ];
@@ -427,8 +442,12 @@ const faqs = [
     rules.forEach(function (r) {
       var el = fieldEl(r.name);
       if (!el) return;
-      el.addEventListener("input", function () { clearErr(el); });
-      el.addEventListener("change", function () { clearErr(el); });
+      el.addEventListener("input", function () {
+        clearErr(el);
+      });
+      el.addEventListener("change", function () {
+        clearErr(el);
+      });
     });
 
     form.addEventListener("submit", function (e) {
@@ -468,8 +487,12 @@ const faqs = [
         .then(function (res) {
           return res
             .json()
-            .catch(function () { return {}; })
-            .then(function (data) { return { ok: res.ok, data: data }; });
+            .catch(function () {
+              return {};
+            })
+            .then(function (data) {
+              return { ok: res.ok, data: data };
+            });
         })
         .then(function (r) {
           if (r.ok && r.data.success !== false) {

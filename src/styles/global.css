@@ -25622,3 +25622,77 @@ body.sgm-open {
     font-size: 15.5px
   }
 }
+
+/* ===== pricing — річна ціна, тріал та картка «Скоро» ===== */
+.tp-card-year {
+  margin: -16px 0 14px;
+  font-size: 13px;
+  color: var(--muted)
+}
+
+.tp-card-trial {
+  display: inline-flex;
+  align-self: flex-start;
+  margin: -8px 0 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #10B981;
+  background: rgba(16, 185, 129, .1);
+  padding: 5px 11px;
+  border-radius: 100px
+}
+
+/* одна картка: без цього успадкує 3-колонкову сітку .tp-plans і з'їде вліво */
+.tp-plans-soon.on {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center
+}
+
+.tp-soon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 460px;
+  background: #fff;
+  border: 1px dashed #D9CEF3;
+  border-radius: 24px;
+  padding: 44px 34px;
+  box-shadow: 0 30px 64px -46px rgba(70, 35, 140, .28)
+}
+
+.tp-soon-ic {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  margin-bottom: 16px
+}
+
+.tp-soon-ic svg {
+  width: 28px;
+  height: 28px
+}
+
+.tp-soon-card b {
+  font-family: 'Unbounded';
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.35;
+  color: var(--ink)
+}
+
+.tp-soon-card p {
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin: 10px 0 22px
+}
+
+.tp-soon-card .tp-card-btn {
+  margin-top: 0;
+  align-self: center;
+  padding: 13px 26px
+}
