@@ -1,5 +1,10 @@
+> IMPORTANT: when several rules match one path, Cloudflare COMBINES the values
+> of the same header into one comma-separated list. So Cache-Control must be set
+> by exactly ONE rule per path — that is why /* below carries security headers
+> only, and why there are no overlapping /*.webp, /*.png … rules any more.
+
 /*
-  # Security
+  # Security only — deliberately no Cache-Control here (see note above).
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -7,35 +12,48 @@
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   # CSP — Google Fonts + GTM/GA + Usercentrics CMP + inline scripts/styles + same-origin form + api.zapys24.com.
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://app.usercentrics.eu; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://api.zapys24.com https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://app.usercentrics.eu; frame-src https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'
-  # Default: revalidate HTML
-  Cache-Control: public, max-age=3600, must-revalidate
 
-# Astro fingerprinted assets — safe to cache forever
+# HTML intentionally has no rule: Cloudflare Pages already serves pages with
+# max-age=0, must-revalidate, which is what we want. Directory-style URLs
+# (/beauty/) can't be matched by an extension pattern anyway.
+
+# Astro fingerprints these — the filename changes whenever the content does,
+# so pinning them forever is safe and correct.
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Static media — long cache
+# Content images keep STABLE filenames (/img/quote.webp stays /img/quote.webp
+# even when re-exported), so `immutable` must NEVER be used here — it would pin
+# an outdated image in every cache for a year. Fresh for a day, then served
+# instantly from cache while it revalidates in the background.
 /img/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
 /main.js
   Cache-Control: public, max-age=86400, must-revalidate
-/*.webp
-  Cache-Control: public, max-age=31536000, immutable
-/*.png
-  Cache-Control: public, max-age=31536000, immutable
-/*.jpg
-  Cache-Control: public, max-age=31536000, immutable
-/*.svg
-  Cache-Control: public, max-age=31536000, immutable
-/*.woff2
-  Cache-Control: public, max-age=31536000, immutable
 
-# Favicons / manifest — short cache so updates propagate
+# Crawler-facing files — short cache so edits reach bots quickly.
+/robots.txt
+  Cache-Control: public, max-age=3600, must-revalidate
+/llms.txt
+  Cache-Control: public, max-age=3600, must-revalidate
+/sitemap-index.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+/sitemap-0.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Icons / manifest / OG image
 /favicon.svg
   Cache-Control: public, max-age=3600, must-revalidate
 /favicon-32x32.png
   Cache-Control: public, max-age=3600, must-revalidate
 /apple-touch-icon.png
-  Cache-Control: public, max-age=3600, must-revalidate
+  Cache-Control: public, max-age=86400, must-revalidate
+/icon-192.png
+  Cache-Control: public, max-age=86400, must-revalidate
+/icon-512.png
+  Cache-Control: public, max-age=86400, must-revalidate
 /site.webmanifest
   Cache-Control: public, max-age=3600, must-revalidate
+/og-image.jpg
+  Cache-Control: public, max-age=86400, must-revalidate
