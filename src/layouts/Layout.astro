@@ -10,8 +10,20 @@ const {
   preload = null,
 } = Astro.props;
 
+// Unbounded (headings) and Manrope (body) render arbitrary copy, so they need
+// the full character set.
 const FONTS =
-  'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap';
+  'https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap';
+
+// Caveat is decorative: it only ever renders the short handwritten captions in
+// `.hand` (~13 phrases, 34 distinct glyphs) — yet the full Cyrillic face cost
+// 149KB, i.e. 53% of all font weight on the page. `text=` makes Google return a
+// subset containing just these glyphs: 149KB → 67KB. Only weight 600 is used.
+// NOTE: a `.hand` caption using a character outside this set falls back to
+// generic cursive silently — add the character here if that ever happens.
+const CAVEAT_GLYPHS =
+  "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюяABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 '\"?!.,:;()—–-+%₴";
+const CAVEAT = `https://fonts.googleapis.com/css2?family=Caveat:wght@600&text=${encodeURIComponent(CAVEAT_GLYPHS)}&display=swap`;
 
 // Self-referencing canonical + absolute OG/Twitter image, built from `site`.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -138,9 +150,20 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href={FONTS} onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href={FONTS} /></noscript>
+    <link rel="preload" as="style" href={CAVEAT} onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet" href={FONTS} />
+      <link rel="stylesheet" href={CAVEAT} />
+    </noscript>
 
-    <!-- Analytics: queue now (no network), load the heavy parts after `load` -->
+    <!-- Analytics: queue now (no network), load the heavy parts after `load`.
+         NOTE: gtag.js below is what actually fires GA4 — the GTM container has
+         NO GA4 tag (verified: with this include removed, GTM loads and consent
+         is granted, yet gtag.js never loads and GA records nothing). Because
+         gtag.js and GTM are both present they cross-load each other's config,
+         so gtag.js is fetched twice (~163KB each). Fixing that properly is a
+         GTM-side decision — see the note in the SEO memory. Do not just delete
+         this include: it silently kills analytics. -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
