@@ -3,9 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import Showcase from "../components/Showcase.astro";
+import DashMobile from "../components/DashMobile.astro";
 
 const arrow =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+const play =
+  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>';
 const check =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>';
 const xmark =
@@ -348,17 +351,9 @@ const faqs = [
           допомагає керувати салоном легко та заробляти більше.
         </p>
         <div class="pfh-cta">
-          <a class="fbtn" href="#" data-signup
+          <a class="fbtn" href="https://beauty.zapys24.com/register"
             >Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow} /></a
           >
-        </div>
-        <div class="pfh-rate">
-          <span class="pfh-stars"
-            ><span set:html={star} /><span set:html={star} /><span
-              set:html={star}
-            /><span set:html={star} /><span set:html={star} /></span
-          >
-          <b>4.9 з 5</b><span>· оцінки клієнтів у застосунках</span>
         </div>
         <div class="pfh-badges">
           <span
@@ -391,6 +386,17 @@ const faqs = [
             </div>
           </div>
           <button class="pfh-book-btn">Підтвердити</button>
+        </div>
+        <div class="pfh-card pfh-rev">
+          <div class="pfh-rev-top">
+            <span>Виручка за місяць</span><em>+18%</em>
+          </div>
+          <b>₴96 200</b>
+          <div class="pfh-bars">
+            <i style="height:40%"></i><i style="height:58%"></i><i
+              style="height:46%"></i><i style="height:74%"></i><i
+              style="height:62%"></i><i style="height:92%"></i>
+          </div>
         </div>
         <div class="pfh-card krcal">
           <div class="krcal-top">
@@ -708,7 +714,7 @@ const faqs = [
             Відстежуйте ключові показники, аналізуйте прибуток, навантаження та
             ефективність майстрів.
           </p>
-          <a class="fbtn kr-dash-btn" href="#" data-signup
+          <a class="fbtn kr-dash-btn" href="https://beauty.zapys24.com/register"
             >Спробувати безкоштовно<span class="fbtn-ar" set:html={arrow} /></a
           >
         </div>
@@ -805,6 +811,40 @@ const faqs = [
               </div>
             </div>
           </div>
+          <DashMobile
+            biz="Люкс"
+            who="Аня"
+            date="Середа, 24 квітня"
+            stats={[
+              { l: "Записів сьогодні", v: "12", d: "За тиждень: 68" },
+              { l: "Нові клієнти", v: "8", d: "За тиждень" },
+              { l: "Середній чек", v: "1 230 ₴", d: "Сьогодні" },
+              { l: "Виручка", v: "14 400 ₴", d: "тижд: 96 200 ₴" },
+            ]}
+            bookings={[
+              {
+                t: "10:00",
+                nm: "Олена К.",
+                s: "Стрижка + укладка",
+                st: "ok",
+                color: "#A78BFA",
+              },
+              {
+                t: "11:30",
+                nm: "Ірина П.",
+                s: "Манікюр гель",
+                st: "ok",
+                color: "#F9A8D4",
+              },
+              {
+                t: "14:00",
+                nm: "Софія",
+                s: "Фарбування",
+                st: "new",
+                color: "#7DD3FC",
+              },
+            ]}
+          />
           <div class="kr-dash-fig">
             <span>FIG. 01</span>Кабінет бізнесу — оновлення в реальному часі
           </div>
@@ -888,11 +928,18 @@ const faqs = [
             Приєднуйтесь до б'юті-майстрів, які автоматизують рутину із Zapys24.
           </p>
           <div class="kr-cta-row">
-            <a class="kr-cta-btn" href="#" data-signup
+            <a class="kr-cta-btn" href="https://beauty.zapys24.com/register"
               >Спробувати безкоштовно<span
                 class="fbtn-ar"
                 set:html={arrow}
               /></a
+            >
+            <a
+              class="kr-cta-demo"
+              href="https://demo.zapys24.com"
+              target="_blank"
+              rel="noopener"
+              ><span class="kr-demo-ic" set:html={play} />Дивитись демо</a
             >
           </div>
         </div>

@@ -1,0 +1,463 @@
+---
+// Mobile CRM mockup — hand-built from the real Zapys24 Pro app (Frontend-business /
+// Frontend-business-equestrian): app header, greeting, 2-col stats, quick actions,
+// today's bookings, bottom tab bar. Shown on phones instead of the desktop mockup.
+interface Stat {
+  l: string;
+  v: string;
+  d: string;
+}
+interface Booking {
+  t: string;
+  nm: string;
+  s: string;
+  st: "ok" | "new";
+  color: string;
+}
+interface Props {
+  biz: string;
+  who: string;
+  date: string;
+  stats: Stat[];
+  bookings: Booking[];
+}
+const { biz, who, date, stats, bookings } = Astro.props as Props;
+
+const S = (p: string) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const I = {
+  bell: S('<path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/>'),
+  plus: S('<path d="M12 5v14M5 12h14"/>'),
+  user: S('<circle cx="12" cy="8" r="3.4"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/>'),
+  cal: S('<rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/>'),
+  home: S('<path d="M5 12l-2 0l9 -9l9 9l-2 0"/><path d="M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1 -1v-7"/><path d="M9 21v-6a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6"/>'),
+  list: S('<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/>'),
+  users: S('<path d="M9 11a3 3 0 1 0 0 -6a3 3 0 0 0 0 6"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.5a3 3 0 0 1 0 5.5"/><path d="M21 20a6 6 0 0 0 -4 -5.6"/>'),
+  dots: S('<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>'),
+  chev: S('<path d="M9 6l6 6l-6 6"/>'),
+};
+---
+
+<div class="dm" aria-hidden="true">
+  <div class="dm-phone">
+    <div class="dm-sb">
+      <span class="dm-sb-time">9:41</span>
+      <span class="dm-sb-r">
+        <svg viewBox="0 0 20 14" aria-hidden="true"
+          ><rect x="0" y="8" width="3" height="5" rx="1" fill="currentColor"></rect
+          ><rect x="5" y="5" width="3" height="8" rx="1" fill="currentColor"></rect
+          ><rect x="10" y="2.5" width="3" height="10.5" rx="1" fill="currentColor"
+          ></rect><rect
+            x="15"
+            y="0"
+            width="3"
+            height="13"
+            rx="1"
+            fill="currentColor"></rect></svg
+        >
+        <svg viewBox="0 0 18 14" aria-hidden="true"
+          ><path
+            d="M9 12.5a1.4 1.4 0 1 0 0 .01M2.5 8a9 9 0 0 1 13 0M5 10.5a5.5 5.5 0 0 1 8 0"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"></path></svg
+        >
+        <span class="dm-sb-batt"><i></i></span>
+      </span>
+    </div>
+
+    <header class="dm-hd">
+      <span class="dm-hd-av"><b>{biz.slice(0, 1)}</b></span>
+      <div class="dm-hd-tx">
+        <b>{biz}</b><i>Власник</i>
+      </div>
+      <span class="dm-hd-bell" set:html={I.bell} /><span class="dm-hd-dot"></span>
+    </header>
+
+    <div class="dm-ct">
+      <div class="dm-hi">
+        <b>Вітаємо, {who} <span class="dm-wave">👋</span></b>
+        <span>{date}</span>
+      </div>
+
+      <div class="dm-stats">
+        {
+          stats.map((s, i) => (
+            <div class={`dm-st${i === 0 ? " on" : ""}`}>
+              <span class="dm-st-l">{s.l}</span>
+              <b class="dm-st-v">{s.v}</b>
+              <span class="dm-st-d">{s.d}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="dm-quick">
+        <span class="dm-q dm-q-on"><span set:html={I.plus} />Запис</span>
+        <span class="dm-q"><span set:html={I.user} />Клієнт</span>
+        <span class="dm-q"><span set:html={I.cal} />Графік</span>
+      </div>
+
+      <div class="dm-today">
+        <div class="dm-today-h">
+          <b>Записи на сьогодні</b><span
+            >{bookings.length} записи<span set:html={I.chev} /></span
+          >
+        </div>
+        {
+          bookings.map((b) => (
+            <div class="dm-bk">
+              <span class="dm-bk-bar" style={`background:${b.color}`} />
+              <span class="dm-bk-t">{b.t}</span>
+              <div class="dm-bk-tx">
+                <b>{b.nm}</b>
+                <i>{b.s}</i>
+              </div>
+              <span class={`dm-bk-st ${b.st}`}>
+                {b.st === "ok" ? "готово" : "новий"}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <nav class="dm-tabs">
+      <span class="dm-tab dm-tab-on"><span set:html={I.home} />Головна</span>
+      <span class="dm-tab"><span set:html={I.list} />Записи</span>
+      <span class="dm-tab"><span set:html={I.users} />Клієнти</span>
+      <span class="dm-tab"><span set:html={I.dots} />Ще</span>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .dm {
+    display: none;
+  }
+  .dm-phone {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    background: #f4f5fa;
+    border-radius: 30px;
+    border: 6px solid #14101f;
+    box-shadow:
+      0 40px 80px -40px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    font-family:
+      ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: #17141f;
+  }
+
+  /* status bar */
+  .dm-sb {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 20px 3px;
+    background: #fff;
+  }
+  .dm-sb-time {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .dm-sb-r {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #17141f;
+  }
+  .dm-sb-r svg {
+    height: 11px;
+    width: auto;
+  }
+  .dm-sb-batt {
+    width: 22px;
+    height: 11px;
+    border: 1.4px solid currentColor;
+    border-radius: 3px;
+    padding: 1.4px;
+    display: inline-flex;
+  }
+  .dm-sb-batt i {
+    flex: 0 0 72%;
+    background: currentColor;
+    border-radius: 1px;
+  }
+
+  /* app header */
+  .dm-hd {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 16px 12px;
+    background: #fff;
+    border-bottom: 1px solid #eceaf3;
+  }
+  .dm-hd-av {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9f6bf5, #7c3aed);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .dm-hd-tx {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.1;
+  }
+  .dm-hd-tx b {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .dm-hd-tx i {
+    font-style: normal;
+    font-size: 11px;
+    color: #8b8794;
+  }
+  .dm-hd-bell {
+    width: 20px;
+    height: 20px;
+    color: #4a4655;
+    flex-shrink: 0;
+  }
+  .dm-hd-bell :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+  .dm-hd-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ef4444;
+    margin: -18px 0 0 -8px;
+    border: 1.5px solid #fff;
+  }
+
+  /* scrollable content */
+  .dm-ct {
+    padding: 13px 14px 12px;
+  }
+  .dm-hi b {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .dm-wave {
+    font-weight: 400;
+  }
+  .dm-hi span {
+    font-size: 11.5px;
+    color: #8b8794;
+  }
+
+  /* stat cards 2x2 */
+  .dm-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .dm-st {
+    background: #fff;
+    border: 1px solid #ececf3;
+    border-radius: 14px;
+    padding: 10px 11px;
+    box-shadow: 0 4px 14px -8px rgba(80, 70, 120, 0.18);
+  }
+  .dm-st.on {
+    background: linear-gradient(160deg, #7c3aed, #6d30d6);
+    border-color: transparent;
+  }
+  .dm-st-l {
+    display: block;
+    font-size: 10.5px;
+    color: #8b8794;
+    font-weight: 500;
+  }
+  .dm-st.on .dm-st-l {
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .dm-st-v {
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+  .dm-st.on .dm-st-v {
+    color: #fff;
+  }
+  .dm-st-d {
+    display: block;
+    font-size: 9.5px;
+    color: #a29daf;
+    margin-top: 3px;
+  }
+  .dm-st.on .dm-st-d {
+    color: rgba(255, 255, 255, 0.66);
+  }
+
+  /* quick actions */
+  .dm-quick {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .dm-q {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 9px 4px;
+    border-radius: 13px;
+    background: #fff;
+    border: 1px solid #ececf3;
+    font-size: 11px;
+    font-weight: 600;
+    color: #7c3aed;
+  }
+  .dm-q-on {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    border-color: transparent;
+    color: #fff;
+  }
+  .dm-q :global(svg) {
+    width: 17px;
+    height: 17px;
+  }
+
+  /* today's bookings */
+  .dm-today {
+    margin-top: 12px;
+    background: #fff;
+    border: 1px solid #ececf3;
+    border-radius: 16px;
+    padding: 12px;
+  }
+  .dm-today-h {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .dm-today-h b {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .dm-today-h span {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    font-size: 11px;
+    color: #a29daf;
+  }
+  .dm-today-h :global(svg) {
+    width: 13px;
+    height: 13px;
+  }
+  .dm-bk {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 0;
+    border-top: 1px solid #f1eff6;
+  }
+  .dm-bk:first-of-type {
+    border-top: 0;
+  }
+  .dm-bk-bar {
+    width: 3px;
+    align-self: stretch;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .dm-bk-t {
+    font-size: 12px;
+    font-weight: 800;
+    color: #17141f;
+    flex-shrink: 0;
+    width: 40px;
+  }
+  .dm-bk-tx {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.2;
+  }
+  .dm-bk-tx b {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .dm-bk-tx i {
+    font-style: normal;
+    font-size: 11px;
+    color: #8b8794;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+  .dm-bk-st {
+    flex-shrink: 0;
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 100px;
+  }
+  .dm-bk-st.ok {
+    color: #2c7a3f;
+    background: #e6f5ec;
+  }
+  .dm-bk-st.new {
+    color: #7c3aed;
+    background: #f1eafe;
+  }
+
+  /* bottom tab bar */
+  .dm-tabs {
+    display: flex;
+    background: #fff;
+    border-top: 1px solid #eceaf3;
+    padding: 8px 6px 12px;
+  }
+  .dm-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #a29daf;
+  }
+  .dm-tab-on {
+    color: #7c3aed;
+  }
+  .dm-tab :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (max-width: 920px) {
+    .dm {
+      display: block;
+    }
+  }
+</style>
