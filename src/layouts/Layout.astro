@@ -185,6 +185,67 @@ const jsonLd = {
     <!-- Structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
+    <!-- Deferred media. Two cases attributes can't solve on their own:
+         • CSS background-image has no loading="lazy" at all, so a below-fold
+           photo downloads the moment its rule applies;
+         • Chrome's lazy threshold still pulls <img> that are ~1-3 screens down.
+         Both starve the LCP image of bandwidth on mobile, so we hand the URL
+         over only ~300px before the element scrolls into view. Hero art is
+         deliberately NOT marked up this way — it must stay eager. -->
+    <script is:inline>
+      (function () {
+        function reveal(el) {
+          if (el.dataset.bg) {
+            el.style.backgroundImage = "url(" + el.dataset.bg + ")";
+            el.removeAttribute("data-bg");
+          }
+          if (el.dataset.src) {
+            el.src = el.dataset.src;
+            el.removeAttribute("data-src");
+          }
+        }
+        function init() {
+          var els = document.querySelectorAll("[data-bg],[data-src]");
+          if (!("IntersectionObserver" in window)) {
+            Array.prototype.forEach.call(els, reveal);
+            return;
+          }
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                reveal(e.target);
+                io.unobserve(e.target);
+              });
+            },
+            { rootMargin: "300px 0px" },
+          );
+          Array.prototype.forEach.call(els, function (el) {
+            io.observe(el);
+          });
+        }
+        if (document.readyState === "loading")
+          document.addEventListener("DOMContentLoaded", init);
+        else init();
+
+        // Hero carousel slides 2-3 sit *inside* the viewport at opacity:0, so an
+        // observer would fire on them instantly. They're only seen seconds later,
+        // so they wait for `load` instead — that keeps slide 1 (the LCP) alone on
+        // the wire.
+        window.addEventListener(
+          "load",
+          function () {
+            var late = document.querySelectorAll("img[data-src-late]");
+            Array.prototype.forEach.call(late, function (el) {
+              el.src = el.getAttribute("data-src-late");
+              el.removeAttribute("data-src-late");
+            });
+          },
+          { once: true },
+        );
+      })();
+    </script>
+
     <script is:inline defer src="/main.js?v=3"></script>
   </head>
   <body>
