@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const arrow =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
+
+// Без 404.html Cloudflare Pages віддає index.html зі статусом 200 на будь-який
+// неіснуючий шлях (soft 404) — цей файл змушує віддавати справжній 404.
+const links = [
+  { href: "/platform", t: "Можливості" },
+  { href: "/beauty", t: "Для салону краси" },
+  { href: "/horse", t: "Для кінного клубу" },
+  { href: "/pricing", t: "Тарифи" },
+  { href: "/contact", t: "Контакти" },
+];
+---
+
+<Layout
+  title="Сторінку не знайдено — Zapys24"
+  description="Такої сторінки не існує. Можливо, її перенесли або ви помилилися в адресі."
+  noindex={true}
+>
+  <Nav />
+
+  <section class="nf">
+    <div class="wrap nf-in">
+      <div class="nf-code">404</div>
+      <h1 class="dis nf-h1">Сторінку не <span class="ac">знайдено</span></h1>
+      <p class="nf-lead">
+        Можливо, її перенесли або в адресі є помилка. Ось куди можна перейти:
+      </p>
+
+      <div class="nf-cta">
+        <a class="fbtn" href="/"
+          >На головну<span class="fbtn-ar" set:html={arrow} /></a
+        >
+      </div>
+
+      <div class="nf-links">
+        {links.map((l) => <a href={l.href}>{l.t}</a>)}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .nf {
+    display: flex;
+    align-items: center;
+    min-height: 62vh;
+    padding: 120px 0 80px;
+  }
+  .nf-in {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+  }
+  .nf-code {
+    font-family: var(--dis, inherit);
+    font-size: clamp(72px, 16vw, 148px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--violet);
+    opacity: 0.16;
+    margin-bottom: -18px;
+  }
+  .nf-h1 {
+    font-size: clamp(30px, 5vw, 46px);
+    margin: 0;
+  }
+  .nf-lead {
+    color: var(--muted);
+    max-width: 46ch;
+    margin: 0;
+  }
+  .nf-cta {
+    margin-top: 8px;
+  }
+  .nf-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 22px;
+    margin-top: 18px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line, rgba(120, 110, 140, 0.18));
+    width: min(560px, 100%);
+  }
+  .nf-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .nf-links a:hover {
+    color: var(--violet);
+  }
+  @media (max-width: 600px) {
+    .nf {
+      padding: 100px 0 60px;
+      min-height: 56vh;
+    }
+  }
+</style>
