@@ -175,14 +175,18 @@ const jsonLd = {
       <link rel="stylesheet" href={CAVEAT} />
     </noscript>
 
-    <!-- Analytics: queue now (no network), load the heavy parts after `load`.
-         NOTE: gtag.js below is what actually fires GA4 — the GTM container has
-         NO GA4 tag (verified: with this include removed, GTM loads and consent
-         is granted, yet gtag.js never loads and GA records nothing). Because
-         gtag.js and GTM are both present they cross-load each other's config,
-         so gtag.js is fetched twice (~163KB each). Fixing that properly is a
-         GTM-side decision — see the note in the SEO memory. Do not just delete
-         this include: it silently kills analytics. -->
+    <!-- ⛔ THIRD-PARTY ANALYTICS TEMPORARILY DISABLED (2026-07-17) ⛔
+         Switched off to measure the perf ceiling without it: GTM + GA + the
+         Usercentrics CMP are ~559KB, i.e. 39% of the page. While this block is
+         commented out there is NO GA data and NO cookie-consent banner — the
+         banner must come back together with GA.
+         To restore: uncomment as-is. Do NOT drop the gtag.js include when you
+         do — the GTM container has no GA4 tag (verified: without this include
+         GTM loads and consent is granted, yet gtag.js never loads and GA records
+         nothing). gtag.js and GTM cross-load each other's config, which is why
+         gtag.js is fetched twice (~163KB each); fixing that is a GTM-side
+         decision, not a code one.
+
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -192,10 +196,6 @@ const jsonLd = {
       gtag("js", new Date());
       gtag("config", "G-P09ZFMQ77Z", { cookie_domain: "zapys24.com" });
 
-      // GTM + GA + the Usercentrics CMP are ~400KB of third-party that used to
-      // compete with the hero image for bandwidth (mobile LCP was 10s). They are
-      // injected only after `load`, once the page has painted. The gtag calls
-      // queued above replay as soon as gtag.js arrives, so the pageview survives.
       (function () {
         var booted = false;
         function inject(src, attrs) {
@@ -222,6 +222,13 @@ const jsonLd = {
         if (document.readyState === "complete") boot();
         else window.addEventListener("load", boot, { once: true });
       })();
+    </script>
+    -->
+
+    <!-- dataLayer stub kept so any stray dataLayer.push() doesn't throw while
+         the block above is disabled. -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
     </script>
 
     <!-- Structured data -->
@@ -298,7 +305,7 @@ const jsonLd = {
     <script is:inline defer src="/main.js?v=3"></script>
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
+    <!-- ⛔ Disabled together with the analytics block in <head> — restore both together.
     <noscript
       ><iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-WH7P6TT5"
@@ -306,6 +313,7 @@ const jsonLd = {
         width="0"
         style="display:none;visibility:hidden"></iframe></noscript
     >
+    -->
     <div class="mesh">
       <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
     </div>
@@ -313,9 +321,13 @@ const jsonLd = {
     <slot />
     <SignupModal />
 
-    <!-- Zapys24 analytics: visit + first-touch UTM (site=main) -->
+    <!-- Zapys24 analytics: visit + first-touch UTM (site=main).
+         First-party and ~1KB, so it stays on while the Google stack is off — it
+         is the only traffic data during that experiment. It does wait for `load`
+         though: PageSpeed caught this fetch sitting in the critical request
+         chain (513ms to api.zapys24.com) ahead of the hero image. -->
     <script>
-      (() => {
+      const runVisit = () => {
         try {
           const API = "https://api.zapys24.com/api/v1";
           const VID_KEY = "z_visitor_id";
@@ -374,7 +386,9 @@ const jsonLd = {
         } catch {
           /* analytics must never break the page */
         }
-      })();
+      };
+      if (document.readyState === "complete") runVisit();
+      else window.addEventListener("load", runVisit, { once: true });
     </script>
   </body>
 </html>
