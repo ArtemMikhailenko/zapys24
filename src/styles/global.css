@@ -25696,3 +25696,15 @@ body.sgm-open {
   align-self: center;
   padding: 13px 26px
 }
+
+/* ===== Art-directed portrait crop for phones =====
+   Appended at the very end on purpose: `.organize` is declared twice in this
+   file (~8662 and ~25012) plus a 920px override (~25028), so a later rule is
+   the only reliable way to win without editing the duplicates. Only phones get
+   the tall crop — at tablet aspect the landscape shot frames better.
+   The browser downloads just the matching one, never both. */
+@media (max-width: 600px) {
+  .organize {
+    background-image: url(/img/organize-mobile.webp);
+  }
+}

@@ -1,30 +1,47 @@
 <header class="hero shsec">
   <div class="sh-photo">
-    <!-- Slide 1 is the LCP element (also preloaded in Layout) — it gets the
-         bandwidth first. Slides 2-3 sit in the viewport at opacity:0, so
-         loading="lazy" would NOT defer them; fetchpriority="low" is what stops
-         them racing the LCP image on mobile. -->
-    <img
-      class="sh-slide on"
-      src="/img/hero-main.webp"
-      alt="власник бізнесу у Zapys24"
-      fetchpriority="high"
-      decoding="async"
-    />
-    <img
-      class="sh-slide"
-      data-src-late="/img/hero-2.webp"
-      alt=""
-      fetchpriority="low"
-      decoding="async"
-    />
-    <img
-      class="sh-slide"
-      data-src-late="/img/hero-3.webp"
-      alt=""
-      fetchpriority="low"
-      decoding="async"
-    />
+    <!-- Phones get a portrait crop (the landscape shot loses the subject at
+         phone aspect); <picture media> is art direction, not a srcset variant.
+         Slide 1 is the LCP element and is preloaded in Layout. Slides 2-3 sit in
+         the viewport at opacity:0, so loading="lazy" would NOT defer them — they
+         wait for `load` instead, and their <source> is deferred too (a plain
+         srcset would fetch immediately and defeat that). -->
+    <picture>
+      <source media="(max-width: 600px)" srcset="/img/hero-main-mobile.webp" />
+      <img
+        class="sh-slide on"
+        src="/img/hero-main.webp"
+        alt="власник бізнесу у Zapys24"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </picture>
+    <picture>
+      <source
+        media="(max-width: 600px)"
+        data-srcset-late="/img/hero-2-mobile.webp"
+      />
+      <img
+        class="sh-slide"
+        data-src-late="/img/hero-2.webp"
+        alt=""
+        fetchpriority="low"
+        decoding="async"
+      />
+    </picture>
+    <picture>
+      <source
+        media="(max-width: 600px)"
+        data-srcset-late="/img/hero-3-mobile.webp"
+      />
+      <img
+        class="sh-slide"
+        data-src-late="/img/hero-3.webp"
+        alt=""
+        fetchpriority="low"
+        decoding="async"
+      />
+    </picture>
   </div>
   <div class="sh-veil"></div>
   <div class="sh-dots"><span class="on"></span><span></span><span></span></div>

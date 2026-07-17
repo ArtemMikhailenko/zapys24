@@ -8,6 +8,9 @@ const {
   image = '/og-image.jpg',
   noindex = false,
   preload = null,
+  // Art-directed portrait crop for phones. When set, `preload` is scoped to
+  // wider screens so the browser only ever fetches the one it will paint.
+  preloadMobile = null,
 } = Astro.props;
 
 // Unbounded (headings) and Manrope (body) render arbitrary copy, so they need
@@ -95,9 +98,25 @@ const jsonLd = {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- LCP image preload (per-page) -->
+    <!-- LCP image preload (per-page). `media` keeps the two art-directed crops
+         mutually exclusive — without it the browser preloads both. -->
     {preload && (
-      <link rel="preload" as="image" href={preload} fetchpriority="high" />
+      <link
+        rel="preload"
+        as="image"
+        href={preload}
+        fetchpriority="high"
+        media={preloadMobile ? '(min-width: 601px)' : undefined}
+      />
+    )}
+    {preloadMobile && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadMobile}
+        fetchpriority="high"
+        media="(max-width: 600px)"
+      />
     )}
 
     <!-- SEO -->
@@ -258,6 +277,13 @@ const jsonLd = {
         window.addEventListener(
           "load",
           function () {
+            // <source> first: setting img.src on a <picture> whose sources are
+            // still empty would lock in the desktop file on phones.
+            var srcs = document.querySelectorAll("source[data-srcset-late]");
+            Array.prototype.forEach.call(srcs, function (el) {
+              el.srcset = el.getAttribute("data-srcset-late");
+              el.removeAttribute("data-srcset-late");
+            });
             var late = document.querySelectorAll("img[data-src-late]");
             Array.prototype.forEach.call(late, function (el) {
               el.src = el.getAttribute("data-src-late");
